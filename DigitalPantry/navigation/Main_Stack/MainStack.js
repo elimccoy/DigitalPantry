@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const mStack = createNativeStackNavigator();
 
-const AuthStack = () => {
+const MainStack = () => {
   return ( 
     <mStack.Navigator>
       <mStack.screen>
@@ -11,3 +11,5 @@ const AuthStack = () => {
     </mStack.Navigator>
   );
 }
+
+export default MainStack;

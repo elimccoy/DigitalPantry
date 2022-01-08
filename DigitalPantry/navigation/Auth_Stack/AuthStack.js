@@ -6,8 +6,10 @@ const AuthStack = () => {
   return ( 
     <aStack.Navigator>
       <aStack.screen>
-        
+
       </aStack.screen>
     </aStack.Navigator>
   );
 }
+
+export default AuthStack;
