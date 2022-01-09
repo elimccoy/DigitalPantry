@@ -1,18 +1,10 @@
-import * as React from 'react';
+import { useEffect } from 'react';
 import * as Google from 'expo-auth-session/providers/google';
-import * as firebase from '../../firebase'
-import { Button, StyleSheet, Text, View, Alert } from 'react-native';
+import { Button, Text, View } from 'react-native';
 import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import styles from '../../styles/SignInScreenStyles'
 
 const SignInScreen = () => {
-
-  const signOut = () => {
-    firebase.auth().signOut().then(function() {
-      // Sign-out successful.
-    }, function(error) {
-      // An error happened.
-    });
-  }
 
   //Get user Google account token.
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
@@ -21,7 +13,7 @@ const SignInScreen = () => {
       },
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
       
@@ -34,26 +26,14 @@ const SignInScreen = () => {
 
   return(
     <View style={styles.container}>
-      <Text>Sign In Screen!</Text>
+      <Text style={styles.text}>Sign In Screen!</Text>
       <Button
-      disabled={!request}
-      title="Login"
-      onPress={() => {
-        promptAsync();
-        }}
-    />
+        disabled={!request}
+        title="Login"
+        onPress={() => {promptAsync();}}
+      />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'red'
-  }
-});
 
 export default SignInScreen;

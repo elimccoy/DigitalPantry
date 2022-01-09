@@ -1,26 +1,18 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { getAuth } from 'firebase/auth'
+import { loggingOut } from '../../API/firebaseMethods';
+import { getAuth } from 'firebase/auth';
 
 const MainScreen = () => {
 
-  const auth = getAuth();
-
-  const signOut = () => {
-    auth.signOut().then(function() {
-      // Sign-out successful.
-    }, function(error) {
-      // An error happened.
-    });
-  }
+  let auth = getAuth();
+  let currentUserUID = auth.currentUser.uid;
 
   return(
     <View style={styles.container}>
-      <Text>MainScreen</Text>
+      <Text>MainScreen, UID: {currentUserUID}</Text>
       <Button
-      title="Log-Out"
-      onPress={() => {
-        signOut()
-        }}
+        title="Log-Out"
+        onPress={() => {loggingOut()}}
       />
     </View>
   );

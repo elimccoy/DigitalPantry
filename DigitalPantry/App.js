@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignInScreen from './navigation/Auth_Stack/SignInScreen';
-import MainScreen from './navigation/Main_Stack/MainScreen';
+import SignInScreen from './screens/Auth_Stack/SignInScreen';
+import MainScreen from './screens/Main_Stack/MainScreen';
 import firebaseConfig from './firebase'
 import { initializeApp } from 'firebase/app';
 import {
@@ -31,7 +31,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator 
+      screenOptions={{headerShown: false}}
+      >
         {isSignedIn ? (
           <Stack.Screen name="MainScreen" component={MainScreen}/>
         ):(
