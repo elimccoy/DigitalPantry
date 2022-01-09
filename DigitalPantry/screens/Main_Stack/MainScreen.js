@@ -6,10 +6,14 @@ const MainScreen = () => {
 
   let auth = getAuth();
   let currentUserUID = auth.currentUser.uid;
+  let currentUser = auth.currentUser;
 
   return(
     <View style={styles.container}>
-      <Text>MainScreen, UID: {currentUserUID}</Text>
+      <Text>MainScreen!</Text>
+      <Text>UID: {currentUserUID}</Text>
+      <Text>Display Name: {currentUser.displayName}</Text>
+      <Text>Email: {currentUser.email}</Text>
       <Button
         title="Log-Out"
         onPress={() => {loggingOut()}}
