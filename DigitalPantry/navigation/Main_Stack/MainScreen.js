@@ -1,9 +1,27 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { getAuth } from 'firebase/auth'
 
 const MainScreen = () => {
+
+  const auth = getAuth();
+
+  const signOut = () => {
+    auth.signOut().then(function() {
+      // Sign-out successful.
+    }, function(error) {
+      // An error happened.
+    });
+  }
+
   return(
     <View style={styles.container}>
-      <Text>Sign In Screen!</Text>
+      <Text>MainScreen</Text>
+      <Button
+      title="Log-Out"
+      onPress={() => {
+        signOut()
+        }}
+      />
     </View>
   );
 }
