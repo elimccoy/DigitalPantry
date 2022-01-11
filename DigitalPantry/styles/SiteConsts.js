@@ -1,0 +1,1 @@
+export const siteColor = '#551fbd';
