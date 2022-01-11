@@ -7,6 +7,7 @@ import PantryScreen from './PantryScreen';
 import RecipeScreen from './RecipeScreen';
 import ShopingListScreen from './ShoppingListScreen';
 
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
         },
         headerShown: false,
         tabBarActiveTintColor: siteColor,
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: 'gray'
       })}
     >
       <Tab.Screen name="Pantry" component={PantryScreen} />
