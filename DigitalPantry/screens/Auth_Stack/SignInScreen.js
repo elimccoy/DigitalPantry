@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import * as Google from 'expo-auth-session/providers/google';
-import { Button, Text, View } from 'react-native';
+import { Text, View, Button } from 'react-native';
 import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import styles from '../../styles/SignInScreenStyles'
 
@@ -28,8 +28,7 @@ const SignInScreen = () => {
     <View style={styles.container}>
       <Text style={styles.text}>Digital Pantry</Text>
       <Button
-        disabled={!request}
-        title="Login"
+        title='Sign-in with Google'
         onPress={() => {promptAsync();}}
       />
     </View>

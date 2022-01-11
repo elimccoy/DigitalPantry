@@ -1,17 +1,18 @@
 import { StyleSheet } from 'react-native';
+import { siteColor } from './SiteConsts';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: siteColor,
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'black',
   },
   text: {
     fontWeight: "700",
     fontSize: 35,
-    color: 'black'
+    color: 'white',
+    marginBottom: 40
   }
 });
 
