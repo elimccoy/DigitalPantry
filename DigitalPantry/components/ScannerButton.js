@@ -2,12 +2,10 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { siteColor } from '../styles/SiteConsts'
 import { FontAwesome } from '@expo/vector-icons'; 
 
-const ScannerButton = ({props}) => {
-
-  const {navigation} = props.navigation;
+const ScannerButton = ({navigation}) => {
 
   const handlePress = () => {
-    navigation.navigate("BarCodeScannerScreen");
+    navigation.navigate('BarCodeScannerScreen');
   }
 
   return(
