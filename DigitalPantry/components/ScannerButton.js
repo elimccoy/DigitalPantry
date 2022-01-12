@@ -2,10 +2,19 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { siteColor } from '../styles/SiteConsts'
 import { FontAwesome } from '@expo/vector-icons'; 
 
-const ScannerButton = () => {
+const ScannerButton = ({props}) => {
+
+  const {navigation} = props.navigation;
+
+  const handlePress = () => {
+    navigation.navigate("BarCodeScannerScreen");
+  }
 
   return(
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity 
+      style={styles.container}
+      onPress={() =>{handlePress()}}
+    >
       <FontAwesome name="barcode" size={24} color="black" />
     </TouchableOpacity>
   );

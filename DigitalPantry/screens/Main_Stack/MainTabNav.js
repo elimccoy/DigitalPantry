@@ -3,10 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons'; 
 import { siteColor } from '../../styles/SiteConsts'
 import ProfileScreen from './ProfileScreen';
-import PantryScreen from './PantryScreen';
+import PantryStackNav from './Pantry_Stack/PantryStackNav';
 import RecipeScreen from './RecipeScreen';
 import ShopingListScreen from './ShoppingListScreen';
-
 
 const Tab = createBottomTabNavigator();
 
@@ -34,7 +33,7 @@ export default function App() {
         tabBarInactiveTintColor: 'gray'
       })}
     >
-      <Tab.Screen name="Pantry" component={PantryScreen} />
+      <Tab.Screen name="Pantry" component={PantryStackNav} />
       <Tab.Screen name="Recipe" component={RecipeScreen} />
       <Tab.Screen name="Shopping" component={ShopingListScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />

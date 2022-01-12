@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text } from 'react-native';
-import ProductList from '../../components/ProductList';
-import ScannerButton from '../../components/ScannerButton';
+import ProductList from '../../../components/ProductList';
+import ScannerButton from '../../../components/ScannerButton';
 
-const PantryScreen = () => {
+const PantryScreen = ({navigation}) => {
 
   return(
     <View style={styles.container}>
@@ -11,7 +11,7 @@ const PantryScreen = () => {
       </View>
       <View style={styles.PantryListContainer}>
         <ProductList/>
-        <ScannerButton/>
+        <ScannerButton navigation={navigation}/>
       </View>
     </View>
   );
