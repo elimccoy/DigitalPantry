@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Provider as PaperProvider } from 'react-native-paper';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
 import MainTabNav from './screens/Main_Stack/MainTabNav';
 import firebaseConfig from './firebase'
@@ -30,16 +31,18 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator 
-      screenOptions={{headerShown: false}}
-      >
-        {isSignedIn ? (
-          <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-        ):(
-          <Stack.Screen name="SignIn" component={SignInScreen}/>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Stack.Navigator 
+        screenOptions={{headerShown: false}}
+        >
+          {isSignedIn ? (
+            <Stack.Screen name="MainTabNav" component={MainTabNav}/>
+          ):(
+            <Stack.Screen name="SignIn" component={SignInScreen}/>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }

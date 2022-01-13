@@ -26,7 +26,7 @@ const MainTabNav = () => {
 
           return <AntDesign name={iconName} size={size} color={color} />
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: '#6200EE',
         tabBarInactiveTintColor: 'gray',
         headerShown: false
       })}
