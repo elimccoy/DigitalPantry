@@ -2,12 +2,11 @@ import { StyleSheet, View, Text } from 'react-native';
 import ProductList from '../../../components/ProductList';
 import ScannerButton from '../../../components/ScannerButton';
 
-const PantryScreen = ({navigation}) => {
-
+const PantryScreen = ({ navigation }) => {
   return(
     <View style={styles.container}>
       <View style={styles.titleBox}>
-        <Text style={styles.title}>Pantry Items</Text>
+        <Text style={styles.title}>Pantry Screen</Text>
       </View>
       <View style={styles.PantryListContainer}>
         <ProductList/>
