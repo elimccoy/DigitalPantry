@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
-import MainScreen from './screens/Main_Stack/MainScreen';
+import MainTabNav from './screens/Main_Stack/MainTabNav';
 import firebaseConfig from './firebase'
 import { initializeApp } from 'firebase/app';
 import {
@@ -17,7 +17,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(true); //SET TO FALSE FOR AUTH.
 
   // Listen for authentication state to change.
   onAuthStateChanged(auth, user => {
@@ -35,7 +35,7 @@ export default function App() {
       screenOptions={{headerShown: false}}
       >
         {isSignedIn ? (
-          <Stack.Screen name="MainScreen" component={MainScreen}/>
+          <Stack.Screen name="MainTabNav" component={MainTabNav}/>
         ):(
           <Stack.Screen name="SignIn" component={SignInScreen}/>
         )}
