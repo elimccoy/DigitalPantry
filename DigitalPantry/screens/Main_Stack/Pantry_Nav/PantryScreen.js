@@ -1,18 +1,32 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, ScrollView } from 'react-native';
+import PantryItem from '../../../components/PantryItem';
+import { StatusBar } from 'expo-status-bar';
 
 const PantryScreen = () => {
   return(
-    <View style={styles.container}>
-      <Text>Pantry Screen!</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <PantryItem/>
+      <StatusBar style="light" translucent={false} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    
   }
 });
 
