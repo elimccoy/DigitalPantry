@@ -3,6 +3,7 @@ import HomeScreen from './Home_Nav/HomeScreen';
 import PantryScreen from './Pantry_Nav/PantryScreen';
 import RecipeScreen from './Recipe_Nav/RecipeScreen';
 import ShoppingScreen from './Shopping_Nav/ShoppingScreen';
+import { AntDesign } from '@expo/vector-icons'; 
 
 const MainTab = createBottomTabNavigator();
 
@@ -14,13 +15,16 @@ const MainTabNav = () => {
           let iconName;
 
           if (route.name === 'Home') {
-            iconName = focused
-              ? 'ios-information-circle'
-              : 'ios-information-circle-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'ios-list-box' : 'ios-list';
+            iconName = 'home';
+          } else if (route.name === 'Pantry') {
+            iconName = 'form'
+          }  else if (route.name === 'Recipe') {
+            iconName = 'book'
+          }  else if (route.name === 'Shopping') {
+            iconName = 'shoppingcart'
           } 
 
+          return <AntDesign name={iconName} size={size} color={color} />
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
