@@ -1,35 +1,50 @@
-import { StyleSheet, View, Text, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { AntDesign } from '@expo/vector-icons'; 
+import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
 
+
 //Data is going to be each pantry item.
-const data = [
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-  { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' }, { key: 'X' },
-];
+const data = [];
 
 const numColumns = 2;
 
-const PantryScreen = () => {
+const PantryScreen = ({ route, navigation }) => {
+
+  if(route.params !== undefined)
+  {
+    let { scannerData } = route.params; 
+    data.push({key: scannerData});
+  }
+
+  const handlePress = () => {
+    navigation.navigate('BarcodeScreen');
+  }
 
   const renderItem = ({ item, index }) => {
     return (
-      <View>
-       <PantryItem item={item} numColumns={numColumns}/>
+      <View style={styles.item}>
+        <PantryItem item={item}/>
       </View>
     );
   };
+
   return(
     <View style={styles.container}>
-      <FlatList
+      <Text>Pantry</Text>
+      {/* <FlatList
       data={data}
       style={styles.scollContainer}
       renderItem={renderItem}
       numColumns={numColumns}
       />
+      <TouchableOpacity 
+        style={styles.button}
+        onPress={() => {handlePress();}}
+      >
+        <AntDesign style={styles.icon} name="pluscircleo" size={50} color="black" />
+      </TouchableOpacity>
+      <StatusBar style="dark" translucent={false} backgroundColor='white'/> */}
     </View>
   );
 }
@@ -37,10 +52,31 @@ const PantryScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 23
+    marginTop: StatusBar.currentHeight
   },
   scollContainer:{
     flex: 1
+  },
+  item: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    height: Dimensions.get('window').width / numColumns, // approximate a square
+    width: Dimensions.get('window').width / numColumns - 10
+  },
+  button: {
+    height: 60,
+    width: 60,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#6200EE',
+    borderRadius: 90,
+    position: 'absolute',
+    right: 20,
+    bottom: 15,
+    height: 60,
+    width: 60
   }
 });
 

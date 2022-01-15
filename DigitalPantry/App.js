@@ -34,7 +34,7 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator 
-        screenOptions={{headerShown: false}}
+          screenOptions={{headerShown: false}}
         >
           {isSignedIn ? (
             <Stack.Screen name="MainTabNav" component={MainTabNav}/>

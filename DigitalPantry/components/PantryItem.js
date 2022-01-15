@@ -1,29 +1,24 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { Dimensions } from 'react-native';
 
-var numColumnsGlobal;
-
 const PantryItem = ({item, numColumns}) => {
-
-  numColumnsGlobal = numColumns;
 
   return(
     <View style={styles.container}>
-      <Text>Pantry Item: {item.key} </Text>
+      <Text>Pantry Item:  {item.key} </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
+    width: "100%",
+    display: 'flex',
     justifyContent: 'center',
-    backgroundColor: '#A9A9A9',
-    flex:1,
-    margin: 5,
+    alignItems: 'center',
     borderRadius: 10,
-    height: Dimensions.get('window').width / numColumnsGlobal, // approximate a square
-
+    backgroundColor: 'gray'
   }
 });
 
