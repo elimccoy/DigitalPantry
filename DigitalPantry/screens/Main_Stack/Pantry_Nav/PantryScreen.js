@@ -11,6 +11,8 @@ const numColumns = 2;
 
 const PantryScreen = ({ route, navigation }) => {
 
+  //#TODO: Work in progress. Used to add product barcode # to list to be shown on screen.
+  // Barcode # is passed into the screen under as route.params .
   if(route.params !== undefined)
   {
     let { scannerData } = route.params; 
