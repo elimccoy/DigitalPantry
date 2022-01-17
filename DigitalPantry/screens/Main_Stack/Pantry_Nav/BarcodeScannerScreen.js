@@ -16,7 +16,15 @@ const BarcodeScannerScreen = ({navigation}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-    navigation.navigate("PantryScreen", {scannerData: data});
+
+    //Create new item:
+    let newItem = {
+      key: data,
+      unit: 'na',
+      amout: 'na'
+    }
+
+    navigation.navigate("PantryScreen", {item: newItem});
   };
 
   if (hasPermission === null) {

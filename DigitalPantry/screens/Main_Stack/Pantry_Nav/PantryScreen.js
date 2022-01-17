@@ -5,17 +5,36 @@ import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [{key: 'Test_Data_1'}, {key: 'Test_Data_2'}, {key: 'Test_Data_3'}, {key: 'Test_Data_4'},
-              {key: 'Test_Data_5'}, {key: 'Test_Data_6'}, {key: 'Test_Data_7'}, {key: 'Test_Data_8'}];
+const data = [{key: 'Test_Data_1', unit: 'na', amount: 'na'}, {key: 'Test_Data_2', unit: 'na', amount: 'na'}, {key: 'Test_Data_3', unit: 'na', amount: 'na'}, {key: 'Test_Data_4', unit: 'na', amount: 'na'},
+              {key: 'Test_Data_5', unit: 'na', amount: 'na'}, {key: 'Test_Data_6', unit: 'na', amount: 'na'}, {key: 'Test_Data_7', unit: 'na', amount: 'na'}, {key: 'Test_Data_8', unit: 'na', amount: 'na'}];
 
 const numColumns = 2;
 
 const PantryScreen = ({ route, navigation }) => {
 
-  if(route.params !== undefined)
-  {
-    let { scannerData } = route.params; 
-    data.push({key: scannerData});
+  //Handle incoming data (either new data or edited data.)
+  if(route.params !== undefined) {
+    
+    let { item } = route.params; //Get data from route.
+    
+    //Check to see if data is new or not.
+    let isEdit = false;
+    for(let i = 0; i < data.length; i++) {
+      
+      //If we find an existing item, this is an edit.
+      if(data[i].key === item.key) {
+        //Replace values.
+        data[i].unit = item.unit;
+        data[i].amount = item.amount;
+        isEdit = true;
+        break;
+      }
+    }
+    
+    //If no edit is found to be true. Add new item.
+    if(!isEdit) {
+      data.push(item);
+    }
   }
 
   const handlePress = () => {
@@ -26,7 +45,9 @@ const PantryScreen = ({ route, navigation }) => {
     return (
       <TouchableOpacity 
         style={styles.item}
-        onLongPress={() => {navigation.navigate('EditScreen')}}>
+        onLongPress={() => {navigation.navigate('EditScreen', {passedItem:item})}}
+        onPress={() => {alert('Test on press (quick)')}}
+      >
         <PantryItem item={item}/>
       </TouchableOpacity>
     );

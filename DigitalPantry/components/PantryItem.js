@@ -6,6 +6,8 @@ const PantryItem = ({item, numColumns}) => {
   return(
     <View style={styles.container}>
       <Text>Pantry Item:  {item.key} </Text>
+      <Text>Unit: {item.unit}</Text>
+      <Text>Amount: {item.amount}</Text>
     </View>
   );
 }
