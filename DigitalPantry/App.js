@@ -11,6 +11,20 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 
+import { fetch_upc } from './API/barcodeSpider';
+
+fetch_upc('034000052004')
+  .then((data) => console.log(data))
+  .catch((err) => {
+    console.error(err.code, err.status, err.message);
+  });
+fetch_upc('034000052004')
+  .then((data) => console.log(data))
+  .catch((err) => {
+    console.error(err);
+  });
+
+
 initializeApp(firebaseConfig);
 
 const auth = getAuth();
@@ -18,7 +32,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(true); //SET TO FALSE FOR AUTH.
+  const [isSignedIn, setIsSignedIn] = useState(false); //SET TO FALSE FOR AUTH.
 
   // Listen for authentication state to change.
   onAuthStateChanged(auth, user => {
@@ -36,7 +50,7 @@ export default function App() {
         <Stack.Navigator 
           screenOptions={{headerShown: false}}
         >
-          {isSignedIn ? (
+          {true ? (
             <Stack.Screen name="MainTabNav" component={MainTabNav}/>
           ):(
             <Stack.Screen name="SignIn" component={SignInScreen}/>
