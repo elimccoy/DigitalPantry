@@ -27,7 +27,7 @@ const addItemName = () =>
     </View>
   );
 
-  console.debug('statusBarHeight: ', StatusBar.currentHeight);
+  
 
 }
 

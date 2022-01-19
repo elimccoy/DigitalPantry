@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PantryScreen from './PantryScreen';
 import BarcodeScannerScreen from './BarcodeScannerScreen';
+import PantryAddScreen from './PantryAddScreen';
+import PantryEditScreen from './PantryEditScreen';
 
 const PantryStack = createNativeStackNavigator();
 
