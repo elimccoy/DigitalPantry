@@ -23,6 +23,19 @@ const PantryScreen = ({ route, navigation }) => {
     navigation.navigate('BarcodeScreen');
   }
 
+ {/* Temp Edit/Add Screen button handler*/}
+ const editPressHandler = () => {
+  navigation.navigate('EditScreen');
+}
+
+const addPressHandler = () => {
+  navigation.navigate('AddScreen');
+}
+
+
+
+
+
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
@@ -34,6 +47,13 @@ const PantryScreen = ({ route, navigation }) => {
   return(
     <View style={styles.container}>
       <Text>Pantry</Text>
+
+ {/* Temp navigation to Edit*/}
+
+ <Button title='Edit Pantry Item' onPress = {editPressHandler}/>   
+      <Button title='Add Pantry Item' onPress = {addPressHandler}/> 
+
+
       {/* <FlatList
       data={data}
       style={styles.scollContainer}
