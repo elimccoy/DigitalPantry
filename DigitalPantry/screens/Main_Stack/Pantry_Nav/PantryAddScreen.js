@@ -4,30 +4,23 @@ import { StatusBar } from 'expo-status-bar';
 import { TextInput } from 'react-native-paper';
 
 const PantryAddScreen = ({ route, navigation }) => {
-
+  const[text, setText] =  React.useState("");
+  
   console.debug('statusBarHeight: ', StatusBar.currentHeight);
 
-const addItemName = () =>
-{
-  const[text, setText] =  React.useState("");
 
-  return( 
-  <TextInput
-  label="Email"
-  value={text}
-  onChangeText={text => setText(text)}
-  />
-  );
-};
-
-  return(
-    <View style={styles.container}>
+    return(
+      <View style={styles.container}>
       <Text>Pantry Add Screen</Text>
+      
+      <TextInput
+      label="Add Item Name"
+      value={text}
+      onChangeText={text => setText(text)}
+      />
       
     </View>
   );
-
-  
 
 }
 

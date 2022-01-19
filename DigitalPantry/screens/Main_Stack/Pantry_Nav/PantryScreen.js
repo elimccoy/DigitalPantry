@@ -53,6 +53,7 @@ const addPressHandler = () => {
  <Button title='Edit Pantry Item' onPress = {editPressHandler}/>   
       <Button title='Add Pantry Item' onPress = {addPressHandler}/> 
 
+      <StatusBar style="dark" translucent={false} backgroundColor='white'/>
 
       {/* <FlatList
       data={data}
@@ -74,7 +75,7 @@ const addPressHandler = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight
+    marginTop: StatusBar.currentHeight,
   },
   scollContainer:{
     flex: 1
