@@ -11,19 +11,6 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 
-import { fetch_upc } from './API/barcodeSpider';
-
-fetch_upc('034000052004')
-  .then((data) => console.log(data))
-  .catch((err) => {
-    console.error(err);
-  });
-fetch_upc('034000052004')
-  .then((data) => console.log(data))
-  .catch((err) => {
-    console.error(err);
-  });
-
 initializeApp(firebaseConfig);
 
 const auth = getAuth();
