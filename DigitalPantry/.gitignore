@@ -13,4 +13,4 @@ web-build/
 # macOS
 .DS_Store
 
-dev.json
+config/dev.js

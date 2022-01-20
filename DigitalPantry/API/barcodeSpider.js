@@ -1,4 +1,5 @@
-const API_TOKEN = ''; // #TODO move outside of git
+import CONFIG from '../config';
+const API_TOKEN = CONFIG.barcodeSpider.api_token;
 
 /**
  * 
