@@ -14,7 +14,6 @@ const PantryStackNav = () => {
     >
       <PantryStack.Screen name="PantryScreen" component={PantryScreen}/>
       <PantryStack.Screen name="BarcodeScreen" component={BarcodeScannerScreen}/>
-     
       <PantryStack.Screen name="AddScreen" component={PantryAddScreen}/> 
     </PantryStack.Navigator>
   );

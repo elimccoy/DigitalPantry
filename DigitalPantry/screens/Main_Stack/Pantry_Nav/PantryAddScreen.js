@@ -2,13 +2,10 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Button } from 're
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Avatar } from 'react-native-paper';
-import PantryScreen from './PantryScreen';
-import BarcodeScannerScreen from './BarcodeScannerScreen';
 
 const PantryAddScreen = ({ route, navigation }) => {
-  const[text, setText] =  React.useState("");
   
-  console.debug("Saved and functioning");
+  const[text, setText] =  React.useState("");
 
   {/*Handlers for navigating*/}
   const donePressHandler = () => {
@@ -19,52 +16,49 @@ const PantryAddScreen = ({ route, navigation }) => {
     navigation.navigate('BarcodeScreen');
   }
 
-    return(
-      <View style={styles.container}>
-       
-<Avatar.Image size = {128} style = {{alignSelf: 'center'}} source = {require('../../../assets/nutmaster.jpeg')}/>
+  return (
+    <View style={styles.container}>
 
-{/*Container for text inputs*/}
-<View style = {{justifyContent: 'space-evenly'}}>
-  
-      <TextInput
-      label="Add Item Name"
-      defaultValue={text}
-      onChangeText={text=> setText(text)}
-      />
+      <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={require('../../../assets/nutmaster.jpeg')} />
 
-<TextInput
-      label="Quantity"
-      defaultValue={text}
-      onChangeText={text => setText(text)}
-      />
+      {/*Container for text inputs*/}
+      <View style={{ justifyContent: 'space-evenly' }}>
 
-<TextInput
-      label="Unit(s)"
-      defaultValue={text}
-      onChangeText={text => setText(text)}
-      />
+        <TextInput
+          label="Add Item Name"
+          defaultValue={text}
+          onChangeText={text => setText(text)}
+        />
 
-  </View> 
+        <TextInput
+          label="Quantity"
+          defaultValue={text}
+          onChangeText={text => setText(text)}
+        />
 
-{/*Container for buttons*/}
-  <View style= {{flexDirection: 'row', padding: 10}}>
+        <TextInput
+          label="Unit(s)"
+          defaultValue={text}
+          onChangeText={text => setText(text)}
+        />
 
-    <View style = {{flex: 1, padding: 10}}>
-    <Button title='Done'onPress={donePressHandler}/>
+      </View>
 
-    </View>
+      {/*Container for buttons*/}
+      <View style={{ flexDirection: 'row', padding: 10 }}>
 
-    <View style = {{flex: 1, padding: 10}}>
+        <View style={{ flex: 1, padding: 10 }}>
+          <Button title='Done' onPress={donePressHandler} />
 
-    <Button title='Add More'onPress={morePressHandler}/>
+        </View>
 
-    </View>
+        <View style={{ flex: 1, padding: 10 }}>
 
-  </View>
-      
+          <Button title='Add More' onPress={morePressHandler} />
 
+        </View>
 
+      </View>
 
     </View>
   );
