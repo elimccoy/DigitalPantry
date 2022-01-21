@@ -1,0 +1,6 @@
+// rename to dev.js
+export default{
+  barcodeSpider: {
+    api_token: '',
+  },
+};
