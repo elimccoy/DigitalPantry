@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, Button } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
@@ -23,6 +23,8 @@ const PantryScreen = ({ route, navigation }) => {
     navigation.navigate('BarcodeScreen');
   }
 
+ {/* Temp Edit/Add Screen button handler*/}
+
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.item}>
@@ -34,6 +36,7 @@ const PantryScreen = ({ route, navigation }) => {
   return(
     <View style={styles.container}>
       <Text>Pantry</Text>
+
       {/* <FlatList
       data={data}
       style={styles.scollContainer}
@@ -54,7 +57,7 @@ const PantryScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight
+    marginTop: StatusBar.currentHeight,
   },
   scollContainer:{
     flex: 1
