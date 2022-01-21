@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PantryScreen from './PantryScreen';
 import BarcodeScannerScreen from './BarcodeScannerScreen';
 import PantryAddScreen from './PantryAddScreen';
-import PantryEditScreen from './PantryEditScreen';
+
 
 const PantryStack = createNativeStackNavigator();
 
@@ -14,7 +14,7 @@ const PantryStackNav = () => {
     >
       <PantryStack.Screen name="PantryScreen" component={PantryScreen}/>
       <PantryStack.Screen name="BarcodeScreen" component={BarcodeScannerScreen}/>
-      <PantryStack.Screen name="EditScreen" component={PantryEditScreen}/> 
+     
       <PantryStack.Screen name="AddScreen" component={PantryAddScreen}/> 
     </PantryStack.Navigator>
   );
