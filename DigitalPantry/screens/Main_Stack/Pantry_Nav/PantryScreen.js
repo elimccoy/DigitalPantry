@@ -41,8 +41,6 @@ const PantryScreen = ({ route, navigation }) => {
     navigation.navigate('BarcodeScreen');
   }
 
- {/* Temp Edit/Add Screen button handler*/}
-
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity 

@@ -21,10 +21,10 @@ const BarcodeScannerScreen = ({navigation}) => {
     let newItem = {
       key: data,
       unit: 'na',
-      amout: 'na'
+      amount: 'na'
     }
 
-    navigation.navigate("PantryScreen", {item: newItem});
+  navigation.navigate("AddScreen", {item: newItem});
   };
 
   if (hasPermission === null) {
