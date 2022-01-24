@@ -1,43 +1,61 @@
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons'; 
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [];
+const data = [{key: 'Test_Data_1', unit: 'na', amount: 'na'}, {key: 'Test_Data_2', unit: 'na', amount: 'na'}, {key: 'Test_Data_3', unit: 'na', amount: 'na'}, {key: 'Test_Data_4', unit: 'na', amount: 'na'},
+              {key: 'Test_Data_5', unit: 'na', amount: 'na'}, {key: 'Test_Data_6', unit: 'na', amount: 'na'}, {key: 'Test_Data_7', unit: 'na', amount: 'na'}, {key: 'Test_Data_8', unit: 'na', amount: 'na'}];
 
 const numColumns = 2;
 
 const PantryScreen = ({ route, navigation }) => {
 
-  //#TODO: Work in progress. Used to add product barcode # to list to be shown on screen.
-  // Barcode # is passed into the screen under as route.params .
-  if(route.params !== undefined)
-  {
-    let { scannerData } = route.params; 
-    data.push({key: scannerData});
+  //Handle incoming data (either new data or edited data.)
+  if(route.params !== undefined) {
+    
+    let { item } = route.params; //Get data from route.
+    
+    //Check to see if data is new or not.
+    let isEdit = false;
+    for(let i = 0; i < data.length; i++) {
+      
+      //If we find an existing item, this is an edit.
+      if(data[i].key === item.key) {
+        //Replace values.
+        data[i].unit = item.unit;
+        data[i].amount = item.amount;
+        isEdit = true;
+        break;
+      }
+    }
+    
+    //If no edit is found to be true. Add new item.
+    if(!isEdit) {
+      data.push(item);
+    }
   }
 
   const handlePress = () => {
     navigation.navigate('BarcodeScreen');
   }
 
- {/* Temp Edit/Add Screen button handler*/}
-
   const renderItem = ({ item, index }) => {
     return (
-      <View style={styles.item}>
+      <TouchableOpacity 
+        style={styles.item}
+        onLongPress={() => {navigation.navigate('EditScreen', {passedItem:item})}}
+        onPress={() => {alert('Test on press (quick)')}}
+      >
         <PantryItem item={item}/>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   return(
     <View style={styles.container}>
-      <Text>Pantry</Text>
-
-      {/* <FlatList
+      <FlatList
       data={data}
       style={styles.scollContainer}
       renderItem={renderItem}
@@ -49,7 +67,7 @@ const PantryScreen = ({ route, navigation }) => {
       >
         <AntDesign style={styles.icon} name="pluscircleo" size={50} color="black" />
       </TouchableOpacity>
-      <StatusBar style="dark" translucent={false} backgroundColor='white'/> */}
+      <StatusBar style="dark" translucent={false} backgroundColor='white'/>
     </View>
   );
 }
