@@ -23,6 +23,7 @@ export default function App() {
 
   const [isSignedIn, setIsSignedIn] = useState(false); //SET TO FALSE FOR AUTH.
 
+  /*
   // Listen for authentication state to change.
   onAuthStateChanged(auth, user => {
     if (user != null) {
@@ -32,7 +33,7 @@ export default function App() {
       setIsSignedIn(false);
     }
   });
-
+  */
   return (
     <ReduxProvider store={store}>
       <PaperProvider>
