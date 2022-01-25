@@ -20,6 +20,7 @@ export default function App() {
 
   const [isSignedIn, setIsSignedIn] = useState(true); //SET TO FALSE FOR AUTH.
 
+  /*
   // Listen for authentication state to change.
   onAuthStateChanged(auth, user => {
     if (user != null) {
@@ -29,7 +30,7 @@ export default function App() {
       setIsSignedIn(false);
     }
   });
-
+  */
   return (
     <PaperProvider>
       <NavigationContainer>
