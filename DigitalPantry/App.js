@@ -18,7 +18,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [isSignedIn, setIsSignedIn] = useState(true); //SET TO FALSE FOR AUTH.
+  const [isSignedIn, setIsSignedIn] = useState(false); //SET TO FALSE FOR AUTH.
 
   /*
   // Listen for authentication state to change.
@@ -37,7 +37,7 @@ export default function App() {
         <Stack.Navigator 
           screenOptions={{headerShown: false}}
         >
-          {isSignedIn ? (
+          {true ? (
             <Stack.Screen name="MainTabNav" component={MainTabNav}/>
           ):(
             <Stack.Screen name="SignIn" component={SignInScreen}/>
