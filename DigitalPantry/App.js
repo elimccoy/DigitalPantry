@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Provider as ReduxProvider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -10,11 +11,13 @@ import {
   getAuth,
   onAuthStateChanged
 } from 'firebase/auth';
+import store from './store';
 
 initializeApp(firebaseConfig);
 
 const auth = getAuth();
 const Stack = createNativeStackNavigator();
+
 
 export default function App() {
 
@@ -31,9 +34,10 @@ export default function App() {
   });
 
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator 
+    <ReduxProvider store={store}>
+      <PaperProvider>
+        <NavigationContainer>
+          <Stack.Navigator
           screenOptions={{headerShown: false}}
         >
           {true ? (
@@ -44,5 +48,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
+    </ReduxProvider>
   );
 }
