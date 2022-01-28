@@ -5,8 +5,8 @@ import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [{key: 'Test_Data_1', unit: 'na', amount: 'na'}, {key: 'Test_Data_2', unit: 'na', amount: 'na'}, {key: 'Test_Data_3', unit: 'na', amount: 'na'}, {key: 'Test_Data_4', unit: 'na', amount: 'na'},
-              {key: 'Test_Data_5', unit: 'na', amount: 'na'}, {key: 'Test_Data_6', unit: 'na', amount: 'na'}, {key: 'Test_Data_7', unit: 'na', amount: 'na'}, {key: 'Test_Data_8', unit: 'na', amount: 'na'}];
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na'}, {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na'}, {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na'}, {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na'},
+              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na'}, {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na'}, {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na'}, {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na'}];
 
 const numColumns = 2;
 
@@ -24,6 +24,7 @@ const PantryScreen = ({ route, navigation }) => {
       //If we find an existing item, this is an edit.
       if(data[i].key === item.key) {
         //Replace values.
+        data[i].name = item.name;
         data[i].unit = item.unit;
         data[i].amount = item.amount;
         isEdit = true;

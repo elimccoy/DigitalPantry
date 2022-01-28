@@ -7,6 +7,7 @@ import LoadingScreen from '../LoadingScreen';
 const PantryItemAddScreen = ({ route, navigation }) => {
   
   const[passedItem, setItem] = React.useState(null);
+  const[name, setName] = React.useState("Test Name");
   const[key, setKey] =  React.useState("Test");
   const[unit, setUnit] =  React.useState("Test2");
   const[amount, setAmount] =  React.useState("Test3");
@@ -18,12 +19,10 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     if(route.params !== undefined) {
       let { item } = route.params; //Get data from route;
 
-      //Debugging.
-      //alert("Test:" + item.key + " " + item.unit + " " + item.amount);
-
       //Connect to API here!
 
       setItem(item);
+      setName(itme.name);
       setKey(item.key);
       setUnit(item.unit);
       setAmount(item.amount);
@@ -37,6 +36,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
 
     //Create new Item data.
     var data = {
+      name: name,
       key: key,
       unit: unit,
       amount: amount
@@ -58,8 +58,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         <View style={{ justifyContent: 'space-evenly' }}>
           <TextInput
             label="Add Item Name"
-            defaultValue={key}
-            onChangeText={key => setKey(key)}
+            defaultValue={name}
+            onChangeText={name => setName(name)}
           />
           <TextInput
             label="Quantity"

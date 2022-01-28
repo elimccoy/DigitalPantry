@@ -19,9 +19,10 @@ const BarcodeScannerScreen = ({navigation}) => {
 
     //Create new item:
     let newItem = {
+      name: 'na-name',
       key: data,
-      unit: 'na',
-      amount: 'na'
+      unit: 'na-unit',
+      amount: 'na-amount'
     }
 
   navigation.navigate("AddScreen", {item: newItem});
