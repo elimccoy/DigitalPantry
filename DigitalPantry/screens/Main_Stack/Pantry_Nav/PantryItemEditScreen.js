@@ -6,6 +6,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   
   const [curItem, setCurItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [name, onChangeName] = useState('');
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
  
@@ -22,9 +23,11 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 
     let itemToReturn = {
       key:'na',
+      name: 'na',
       unit: 'na',
       amount: 'na'
     };
+    itemToReturn.name = name;
     itemToReturn.key = curItem.key;
     itemToReturn.unit = unit;
     itemToReturn.amount = amount;
@@ -35,6 +38,12 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     return(
       <View style={styles.container}>
         <Text style={styles.title}>Product Name: {curItem.key}</Text>
+        <Text>Name:</Text>
+        <TextInput
+          style={styles.input}
+          onChangeText={onChangeName}
+          value={name}
+        />
         <Text>Unit:</Text>
         <TextInput
           style={styles.input}

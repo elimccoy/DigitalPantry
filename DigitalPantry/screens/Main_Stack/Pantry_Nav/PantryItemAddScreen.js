@@ -22,7 +22,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       //Connect to API here!
 
       setItem(item);
-      setName(itme.name);
+      setName(item.name);
       setKey(item.key);
       setUnit(item.unit);
       setAmount(item.amount);
