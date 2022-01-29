@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import { TextInput } from 'react-native-paper';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemEditScreen = ({ route, navigation }) => {
@@ -37,29 +38,28 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   if(isLoaded) {
     return(
       <View style={styles.container}>
-        <Text style={styles.title}>Product Name: {curItem.key}</Text>
-        <Text>Name:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeName}
-          value={name}
-        />
-        <Text>Unit:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeUnit}
-          value={unit}
-        />
-        <Text>Amount:</Text>
-        <TextInput
-          style={styles.input}
-          onChangeText={onChangeAmount}
-          value={amount}
-        />
-        <Button
-          title='Confirm'
-          onPress={() => handleConfirm()}
-        />
+        <View style={{ justifyContent: 'space-evenly' }}>
+          <Text style={styles.title}>Product Name: {curItem.key}</Text>
+          <TextInput
+            label="Name:"
+            onChangeText={onChangeName}
+            defaultValue={name}
+          />
+          <TextInput
+            label="Unit:"
+            onChangeText={onChangeUnit}
+            defaultValue={unit}
+          />
+          <TextInput
+            label="Amount:"
+            onChangeText={onChangeAmount}
+            defaultValue={amount}
+          />
+          <Button
+            title='Confirm'
+            onPress={() => handleConfirm()}
+          />
+        </View>
       </View>
     );
   } else {
@@ -70,18 +70,11 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center'
   },
   title: {
     fontSize: 30,
     fontWeight: '700'
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   },
 });
 
