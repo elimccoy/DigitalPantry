@@ -16,16 +16,8 @@ const BarcodeScannerScreen = ({navigation}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-
-    //Create new item:
-    let newItem = {
-      name: 'na-name',
-      key: data,
-      unit: 'na-unit',
-      amount: 'na-amount'
-    }
-
-  navigation.navigate("AddScreen", {item: newItem});
+  
+    navigation.navigate("AddScreen", {upc: data});
   };
 
   if (hasPermission === null) {

@@ -2,11 +2,11 @@ import { StyleSheet, View, Button } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Avatar } from 'react-native-paper';
+import { fetch_upc } from '../../../API/barcodeSpider';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemAddScreen = ({ route, navigation }) => {
-  
-  const[passedItem, setItem] = React.useState(null);
+
   const[name, setName] = React.useState("Test Name");
   const[key, setKey] =  React.useState("Test");
   const[unit, setUnit] =  React.useState("Test2");
@@ -17,18 +17,20 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   React.useEffect(() => {
     //Handle incoming data (either new data or edited data.)
     if(route.params !== undefined) {
-      let { item } = route.params; //Get data from route;
+      let { upc } = route.params; //Get data from route;
 
       //Connect to API here!
+      fetch_upc(upc).then((itemAPIData) => {
+        console.log(itemAPIData);
 
-      setItem(item);
-      setName(item.name);
-      setKey(item.key);
-      setUnit(item.unit);
-      setAmount(item.amount);
+        //Record data.
+        setName(itemAPIData["item_attributes"].title);
+        setKey(upc);
+        setUnit("NA");
+        setAmount("NA");
+        setIsLoaded(true);
+      });
     }
-
-    setIsLoaded(true);
   }, [])
 
   //Handlers for navigating:
