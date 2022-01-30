@@ -1,13 +1,11 @@
 import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { FAB } from 'react-native-paper';
-import { AntDesign } from '@expo/vector-icons'; 
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na'}, {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'na'}, {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'na'}, {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'na'},
-              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'na'}, {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'na'}, {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'na'}, {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'na'}];
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'}];
 
 const numColumns = 2;
 
@@ -28,7 +26,9 @@ const PantryScreen = ({ route, navigation }) => {
         data[i].name = item.name;
         data[i].unit = item.unit;
         data[i].amount = item.amount;
-        data[i].image = item.image
+        data[i].image = item.image;
+        data[i].brand = item.brand;
+        data[i].desctiption = item.desctiption;
         isEdit = true;
         break;
       }
@@ -49,7 +49,7 @@ const PantryScreen = ({ route, navigation }) => {
       <TouchableOpacity 
         style={styles.item}
         onLongPress={() => {navigation.navigate('EditScreen', {passedItem:item})}}
-        onPress={() => {alert('Test on press (quick)')}}
+        onPress={() => {navigation.navigate("InfoScreen",{passedItem:item})}}
       >
         <PantryItem item={item}/>
       </TouchableOpacity>
