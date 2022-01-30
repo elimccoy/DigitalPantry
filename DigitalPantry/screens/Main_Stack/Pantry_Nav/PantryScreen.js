@@ -1,5 +1,5 @@
 import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB, Searchbar } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
 
@@ -48,7 +48,7 @@ const PantryScreen = ({ route, navigation }) => {
     
     //If no edit is found to be true. Add new item.
     if(!isEdit) {
-      data.push(item);
+      data.unshift(item);
     }
   }
 
