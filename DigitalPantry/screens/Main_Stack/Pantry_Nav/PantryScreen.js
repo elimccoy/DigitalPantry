@@ -98,11 +98,11 @@ const PantryScreen = ({ route, navigation }) => {
     //Find items that match query.
     var toSetData = [];
     console.log(query)
-    for(var i = 0; i < curRenderData.length; i++)
+    for(var i = 0; i < data.length; i++)
     {
-      if(curRenderData[i].name.includes(query))
+      if(data[i].name.includes(query))
       {
-        toSetData.push(curRenderData[i]);
+        toSetData.push(data[i]);
       }
     }
     console.log(toSetData)

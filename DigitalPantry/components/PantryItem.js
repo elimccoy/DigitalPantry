@@ -10,7 +10,8 @@ const PantryItem = ({item}) => {
         resizeMode="cover" 
         style={styles.backgroundImgStyle}
         imageStyle={{ borderRadius: 10}}>
-        <Badge style={styles.statusContainer}>{item.amount}</Badge>
+        <Badge style={styles.nameBadge}>{item.name}</Badge>
+        <Badge style={styles.statusBadge}>{item.amount}</Badge>
       </ImageBackground>
     </View>
   );
@@ -34,14 +35,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
   },
-  statusContainer: {
+  statusBadge: {
     position: 'absolute',
     bottom: 7,
     left: 7
   },
-  statusText: {
-    fontWeight: '700',
-    fontSize: 15
+  nameBadge: {
+    position: 'absolute',
+    top: 7,
+    right: 7
   }
 });
 
