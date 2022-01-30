@@ -1,7 +1,7 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { TextInput, Avatar } from 'react-native-paper';
+import { TextInput, Avatar, Button } from 'react-native-paper';
 import { fetch_upc } from '../../../API/barcodeSpider';
 import LoadingScreen from '../LoadingScreen';
 
@@ -63,7 +63,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   if (isLoaded) {
     return (
       <View style={styles.container}>
-        <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={{uri:imgURI}} />
+        <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:imgURI}} />
         {/*Container for text inputs*/}
         <View style={{ justifyContent: 'space-evenly' }}>
           <TextInput
@@ -86,10 +86,14 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         {/*Container for buttons*/}
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, padding: 10 }}>
-            <Button title='Done' onPress={donePressHandler} />
+            <Button icon="check" mode="contained" onPress={() => donePressHandler()}>
+              Done
+            </Button>
           </View>
           <View style={{ flex: 1, padding: 10 }}>
-            <Button title='Re-Scan' onPress={morePressHandler} />
+            <Button icon="camera" mode="contained" onPress={() => morePressHandler()}>
+              Re-Scan
+            </Button>
           </View>
         </View>
       </View>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import { Avatar, TextInput } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Avatar, TextInput, Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
@@ -48,7 +48,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     return(
       <View style={styles.container}>
         <View style={{ justifyContent: 'space-evenly' }}>
-          <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={{uri:curItem.image}} />
+          <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:curItem.image}} />
           <TextInput
             label="Name:"
             onChangeText={onChangeName}
@@ -66,7 +66,14 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           />
           <View style={{ flexDirection: 'row', padding: 10 }}>
             <View style={{ flex: 1, padding: 10 }}>
-              <Button title='Done' onPress={() => {handleConfirm()}} />
+              <Button icon="check" mode="contained" onPress={() => handleConfirm()}>
+                Done
+              </Button>
+            </View>
+            <View style={{ flex: 1, padding: 10 }}>
+              <Button icon="delete" mode="contained" onPress={() => handleConfirm()}>
+                Delete
+              </Button>
             </View>
           </View>
         </View>
