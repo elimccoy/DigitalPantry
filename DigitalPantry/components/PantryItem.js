@@ -1,14 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 
-const PantryItem = ({item, numColumns}) => {
+const PantryItem = ({item}) => {
 
   return(
     <View style={styles.container}>
-      <Text>Item Name:  {item.name} </Text>
-      <Text>UPC: {item.key} </Text>
-      <Text>Unit: {item.unit}</Text>
-      <Text>Amount: {item.amount}</Text>
+      <ImageBackground source={{uri:item.image}} resizeMode="cover" style={styles.backgroundImgStyle}>
+        <Text>Item Name:  {item.name} </Text>
+        <Text>UPC: {item.key} </Text>
+        <Text>Unit: {item.unit}</Text>
+        <Text>Amount: {item.amount}</Text>
+      </ImageBackground>
     </View>
   );
 }
@@ -20,8 +21,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 10,
-    backgroundColor: 'gray'
+    backgroundColor: 'grey',
+    borderRadius: 10
+  },
+  backgroundImgStyle: {
+    flex: 1,
+    justifyContent: 'center'
   }
 });
 
