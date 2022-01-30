@@ -73,13 +73,13 @@ const PantryItemAddScreen = ({ route, navigation }) => {
           />
           <TextInput
             label="Quantity"
-            defaultValue={unit}
-            onChangeText={unit => setUnit(unit)}
+            defaultValue={amount}
+            onChangeText={amount => setAmount(amount)}
           />
           <TextInput
             label="Unit(s)"
-            defaultValue={amount}
-            onChangeText={amount => setAmount(amount)}
+            defaultValue={unit}
+            onChangeText={unit => setUnit(unit)}
           />
         </View>
   

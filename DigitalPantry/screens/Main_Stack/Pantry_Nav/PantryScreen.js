@@ -5,7 +5,19 @@ import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'}];
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_9', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_10', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_11', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
+              {name: 'name1', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'}];
 
 const numColumns = 2;
 
