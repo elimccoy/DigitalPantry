@@ -2,7 +2,7 @@ import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-
 import { FAB, Searchbar } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
-
+import { useState } from 'react';
 
 //Data is going to be each pantry item.
 const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
@@ -22,6 +22,8 @@ const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', imag
 const numColumns = 2;
 
 const PantryScreen = ({ route, navigation }) => {
+
+  const [query, onChangeQuery] = useState("");
 
   //Handle incoming data (either new data or edited data.)
   if(route.params !== undefined) {
@@ -70,6 +72,13 @@ const PantryScreen = ({ route, navigation }) => {
 
   return(
     <View style={styles.container}>
+      <View>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={onChangeQuery}
+        value={query}
+        style={styles.searchBar}/>
+      </View>
       <FlatList
       data={data}
       style={styles.scollContainer}
@@ -77,7 +86,6 @@ const PantryScreen = ({ route, navigation }) => {
       numColumns={numColumns}
       />
       <FAB
-      small
         icon="plus"
         style={styles.button}
         onPress={() => handlePress()}/>
@@ -114,6 +122,9 @@ const styles = StyleSheet.create({
     bottom: 15,
     height: 60,
     width: 60
+  },
+  searchBar: {
+    margin: 10
   }
 });
 

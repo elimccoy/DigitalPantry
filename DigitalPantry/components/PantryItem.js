@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import { Badge } from 'react-native-paper';
 
 const PantryItem = ({item}) => {
 
@@ -9,9 +10,7 @@ const PantryItem = ({item}) => {
         resizeMode="cover" 
         style={styles.backgroundImgStyle}
         imageStyle={{ borderRadius: 10}}>
-        <View style={styles.statusContainer}>
-          <Text style={styles.statusText}>{item.amount}</Text>
-        </View>
+        <Badge style={styles.statusContainer}>{item.amount}</Badge>
       </ImageBackground>
     </View>
   );
@@ -26,7 +25,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'grey',
     borderRadius: 10,
-    borderWidth: 3,
+    borderWidth: 1,
     borderColor: '#6200EE'
   },
   backgroundImgStyle: {
@@ -38,13 +37,7 @@ const styles = StyleSheet.create({
   statusContainer: {
     position: 'absolute',
     bottom: 7,
-    left: 7,
-    backgroundColor: '#6200EE',
-    width: 40,
-    height: 40,
-    borderRadius: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
+    left: 7
   },
   statusText: {
     fontWeight: '700',
