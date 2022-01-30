@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+import { FAB } from 'react-native-paper';
 import { AntDesign } from '@expo/vector-icons'; 
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
@@ -63,12 +64,11 @@ const PantryScreen = ({ route, navigation }) => {
       renderItem={renderItem}
       numColumns={numColumns}
       />
-      <TouchableOpacity 
+      <FAB
+      small
+        icon="plus"
         style={styles.button}
-        onPress={() => {handlePress();}}
-      >
-        <AntDesign style={styles.icon} name="pluscircleo" size={50} color="black" />
-      </TouchableOpacity>
+        onPress={() => handlePress()}/>
       <StatusBar style="dark" translucent={false} backgroundColor='white'/>
     </View>
   );
