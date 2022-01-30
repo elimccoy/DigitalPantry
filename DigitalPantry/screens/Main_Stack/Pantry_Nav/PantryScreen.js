@@ -2,28 +2,42 @@ import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-
 import { FAB, Searchbar } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
-import { useState } from 'react';
+import LoadingScreen from '../LoadingScreen';
+import { useState, useEffect } from 'react';
 
 //Data is going to be each pantry item.
-const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_9', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_10', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_11', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'},
-              {name: 'name1', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'na', brand:'na', description:'na'}];
-
 const numColumns = 2;
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name9', key: 'Test_Data_9', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name10', key: 'Test_Data_10', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name11', key: 'Test_Data_11', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name12', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'},
+              {name: 'name13', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na'}];
 
 const PantryScreen = ({ route, navigation }) => {
 
-  const [query, onChangeQuery] = useState("");
+  //States.
+  const [query, onChangeQuery] = useState(""); //Search Query state
+  const [curRenderData, setCurRenderData] = useState(null); //Data items being shown. Adjusted by query.
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  //Did mount.
+  useEffect(() => {
+    setCurRenderData(data);//Load init data.
+    setIsLoaded(true);
+  }, []);
+
+  //Effect for query
+  useEffect(() => {
+    handleQueryComplete();
+  }, [query]);
 
   //Handle incoming data (either new data or edited data.)
   if(route.params !== undefined) {
@@ -54,10 +68,12 @@ const PantryScreen = ({ route, navigation }) => {
     }
   }
 
+  //Handle short press of item.
   const handlePress = () => {
     navigation.navigate('BarcodeScreen');
   }
 
+  //Handle long press of item.
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity 
@@ -70,28 +86,58 @@ const PantryScreen = ({ route, navigation }) => {
     );
   };
 
-  return(
-    <View style={styles.container}>
-      <View>
-      <Searchbar
-        placeholder="Search"
-        onChangeText={onChangeQuery}
-        value={query}
-        style={styles.searchBar}/>
+  //Handle Query complete search.
+  const handleQueryComplete = () => {
+    
+    if(query === "")
+    {
+      setCurRenderData(data);
+      return;
+    }
+
+    //Find items that match query.
+    var toSetData = [];
+    console.log(query)
+    for(var i = 0; i < curRenderData.length; i++)
+    {
+      if(curRenderData[i].name.includes(query))
+      {
+        toSetData.push(curRenderData[i]);
+      }
+    }
+    console.log(toSetData)
+    setCurRenderData(toSetData);
+  }
+
+  if(isLoaded)
+  {
+    return(
+      <View style={styles.container}>
+        <View>
+        <Searchbar
+          placeholder="Search"
+          onChangeText={(res) => { onChangeQuery(res) }}
+          value={query}
+          style={styles.searchBar}/>
+        </View>
+        <FlatList
+          data={curRenderData}
+          style={styles.scollContainer}
+          renderItem={renderItem}
+          numColumns={numColumns}
+        />
+        <FAB
+          icon="plus"
+          style={styles.button}
+          onPress={() => handlePress()}/>
+        <StatusBar style="dark" translucent={false} backgroundColor='white'/>
       </View>
-      <FlatList
-      data={data}
-      style={styles.scollContainer}
-      renderItem={renderItem}
-      numColumns={numColumns}
-      />
-      <FAB
-        icon="plus"
-        style={styles.button}
-        onPress={() => handlePress()}/>
-      <StatusBar style="dark" translucent={false} backgroundColor='white'/>
-    </View>
-  );
+    );
+  }
+  else
+  {
+    return(<LoadingScreen/>);
+  }
 }
 
 const styles = StyleSheet.create({

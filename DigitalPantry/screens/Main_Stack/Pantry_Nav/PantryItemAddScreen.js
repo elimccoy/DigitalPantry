@@ -36,7 +36,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         setIsLoaded(true);
       });
     }
-  }, [])
+  }, []);
 
   //Handlers for navigating:
   const donePressHandler = () => {
