@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import { Avatar, TextInput } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
@@ -11,6 +11,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [name, onChangeName] = useState('');
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
+  const [imgURI, setImgURI] = useState('');
  
   //Did mount:
   useEffect(() => {
@@ -18,6 +19,10 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     {
       let { passedItem } = route.params; 
       setCurItem(passedItem);
+      onChangeName(passedItem.name);
+      onChangeUnit(passedItem.unit);
+      onChangeAmount(passedItem.amount);
+      setImgURI(passedItem.image)
       setIsLoaded(true);
     }
   }, []);
@@ -28,12 +33,14 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       key:'na',
       name: 'na',
       unit: 'na',
-      amount: 'na'
+      amount: 'na', 
+      image: 'na'
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
     itemToReturn.unit = unit;
     itemToReturn.amount = amount;
+    itemToReturn.image = imgURI;
     navigation.navigate('PantryScreen', {item:itemToReturn});
   }
 
@@ -41,7 +48,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     return(
       <View style={styles.container}>
         <View style={{ justifyContent: 'space-evenly' }}>
-          <Text style={styles.title}>Product Name: {curItem.name}</Text>
+          <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={{uri:curItem.image}} />
           <TextInput
             label="Name:"
             onChangeText={onChangeName}

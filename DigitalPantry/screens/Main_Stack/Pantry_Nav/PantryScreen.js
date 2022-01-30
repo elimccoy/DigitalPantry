@@ -5,8 +5,8 @@ import PantryItem from '../../../components/PantryItem';
 
 
 //Data is going to be each pantry item.
-const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na'}, {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na'}, {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na'}, {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na'},
-              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na'}, {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na'}, {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na'}, {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na'}];
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'na'}, {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'na'}, {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'na'}, {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'na'},
+              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'na'}, {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'na'}, {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'na'}, {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'na'}];
 
 const numColumns = 2;
 
@@ -27,6 +27,7 @@ const PantryScreen = ({ route, navigation }) => {
         data[i].name = item.name;
         data[i].unit = item.unit;
         data[i].amount = item.amount;
+        data[i].image = item.image
         isEdit = true;
         break;
       }

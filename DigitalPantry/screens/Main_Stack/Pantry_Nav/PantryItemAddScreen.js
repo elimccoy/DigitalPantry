@@ -7,10 +7,11 @@ import LoadingScreen from '../LoadingScreen';
 
 const PantryItemAddScreen = ({ route, navigation }) => {
 
-  const[name, setName] = React.useState("Test Name");
-  const[key, setKey] =  React.useState("Test");
-  const[unit, setUnit] =  React.useState("Test2");
-  const[amount, setAmount] =  React.useState("Test3");
+  const[name, setName] = React.useState("");
+  const[key, setKey] =  React.useState("");
+  const[unit, setUnit] =  React.useState("");
+  const[amount, setAmount] =  React.useState("");
+  const[imgURI, setImgURI] =  React.useState("");
   const[isLoaded, setIsLoaded] = React.useState(false);
 
   //Did mount:
@@ -21,13 +22,13 @@ const PantryItemAddScreen = ({ route, navigation }) => {
 
       //Connect to API here!
       fetch_upc(upc).then((itemAPIData) => {
-        console.log(itemAPIData);
-
+ 
         //Record data.
         setName(itemAPIData["item_attributes"].title);
         setKey(upc);
         setUnit("NA");
         setAmount("NA");
+        setImgURI(itemAPIData["item_attributes"].image);
         setIsLoaded(true);
       });
     }
@@ -41,7 +42,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       name: name,
       key: key,
       unit: unit,
-      amount: amount
+      amount: amount,
+      image: imgURI
     }
 
     //Pass data as item.
@@ -55,7 +57,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   if (isLoaded) {
     return (
       <View style={styles.container}>
-        <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={require('../../../assets/nutmaster.jpeg')} />
+        <Avatar.Image size={128} style={{ alignSelf: 'center' }} source={{uri:imgURI}} />
         {/*Container for text inputs*/}
         <View style={{ justifyContent: 'space-evenly' }}>
           <TextInput
