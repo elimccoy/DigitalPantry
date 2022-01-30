@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import { Avatar, TextInput } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
