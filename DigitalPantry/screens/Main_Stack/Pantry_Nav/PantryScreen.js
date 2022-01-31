@@ -161,7 +161,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#6200EE',
     borderRadius: 90,
     position: 'absolute',
     right: 20,

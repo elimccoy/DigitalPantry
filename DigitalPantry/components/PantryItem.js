@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Badge } from 'react-native-paper';
 
 const PantryItem = ({item}) => {
@@ -9,7 +9,7 @@ const PantryItem = ({item}) => {
         source={{uri:item.image}} 
         resizeMode="cover" 
         style={styles.backgroundImgStyle}
-        imageStyle={{ borderRadius: 10}}>
+        imageStyle={{ borderRadius: 3}}>
         <Badge style={styles.nameBadge}>{item.name}</Badge>
         <Badge style={styles.statusBadge}>{item.amount}</Badge>
       </ImageBackground>
@@ -24,26 +24,26 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'grey',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#6200EE'
+    borderRadius: 3,
+    elevation: 3,
+    shadowColor: '#52006A'
   },
   backgroundImgStyle: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
-    borderRadius: 10,
   },
   statusBadge: {
     position: 'absolute',
     bottom: 7,
-    left: 7
+    left: 7,
+    maxWidth: "70%"
   },
   nameBadge: {
     position: 'absolute',
     top: 7,
-    right: 7
+    right: 7,
+    maxWidth: "70%"
   }
 });
 
