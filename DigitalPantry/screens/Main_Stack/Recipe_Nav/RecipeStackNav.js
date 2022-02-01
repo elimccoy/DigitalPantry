@@ -1,4 +1,3 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MySuggested from './MySuggested';
 import MyRecipesNavigation from './MyRecipesNavigation';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -10,7 +9,7 @@ const TopNavigator = () => {
 
   return (
 
-    // Top tab navigators 
+    // Top tab navigators, Saved and Suggested screens 
     <TopTab.Navigator
       screenOptions={{
         swipeEnabled: false,
