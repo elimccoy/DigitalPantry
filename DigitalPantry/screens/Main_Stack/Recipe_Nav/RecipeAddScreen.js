@@ -14,7 +14,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
         <ScrollView>
 
-            {/* REQUIRES npm install expo-image-picker */}
+            {/* REQUIRES npm install --save expo-image-picker */}
             <UploadImage />
             <View >
                 <TextInput

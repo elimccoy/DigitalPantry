@@ -43,7 +43,7 @@ const cards = props.cards;
         })
 
         return (
-          <Animated.View
+          <Animated.View key={idx}
             style={{
               width: props.ITEM_WIDTH,
               height: props.ITEM_HEIGHT,
