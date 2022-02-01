@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Home_Nav/HomeScreen';
 import PantryStackNav from './Pantry_Nav/PantryStackNav'
 import RecipeScreen from './Recipe_Nav/RecipeScreen';
-import ShoppingScreen from './Shopping_Nav/ShoppingScreen';
+import ListStackNav from './Shopping_Nav/ListStackNav';
 import { AntDesign } from '@expo/vector-icons'; 
 
 const MainTab = createBottomTabNavigator();
@@ -34,7 +34,7 @@ const MainTabNav = () => {
       <MainTab.Screen name="Home" component={HomeScreen} />
       <MainTab.Screen name="Pantry" component={PantryStackNav} />
       <MainTab.Screen name="Recipe" component={RecipeScreen} />
-      <MainTab.Screen name="Shopping" component={ShoppingScreen} />
+      <MainTab.Screen name="Shopping" component={ListStackNav} />
     </MainTab.Navigator>
   );
 }
