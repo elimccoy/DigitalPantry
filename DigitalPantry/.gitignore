@@ -14,3 +14,8 @@ web-build/
 .DS_Store
 
 config/dev.js
+
+# adding because of windows vs. linux incompatibilities
+yarn.lock
+package-lock.json
+
