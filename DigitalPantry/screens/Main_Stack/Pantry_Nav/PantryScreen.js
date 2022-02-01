@@ -96,9 +96,9 @@ const PantryScreen = ({ route, navigation }) => {
     }
 
     //Find items that match query.
-    var toSetData = [];
+    let toSetData = [];
     console.log(query)
-    for(var i = 0; i < data.length; i++)
+    for(let i = 0; i < data.length; i++)
     {
       if(data[i].name.includes(query))
       {
