@@ -42,7 +42,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   const donePressHandler = () => {
 
     //Create new Item data.
-    var data = {
+    let data = {
       name: name,
       key: key,
       unit: unit,
