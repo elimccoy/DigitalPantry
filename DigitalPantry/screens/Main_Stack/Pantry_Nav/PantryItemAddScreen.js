@@ -14,6 +14,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   const[imgURI, setImgURI] =  React.useState("");
   const[brand, setBrand] = React.useState("");
   const[desc, setDesc] = React.useState("");
+  const[percentage, setPercentage] = React.useState("");
   const[isLoaded, setIsLoaded] = React.useState(false);
 
   //Did mount:
@@ -33,6 +34,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         setImgURI(itemAPIData["item_attributes"].image);
         setBrand(itemAPIData["item_attributes"].brand);
         setDesc(itemAPIData["item_attributes"].description);
+        setPercentage("100");
         setIsLoaded(true);
       });
     }
@@ -49,7 +51,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       amount: amount,
       image: imgURI,
       brand: brand,
-      description: desc
+      description: desc,
+      percentage: percentage
     }
 
     //Pass data as item.
