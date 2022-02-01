@@ -3,9 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import RecipeAddScreen from './RecipeAddScreen';
 import React, { Component } from "react"
 import { AntDesign } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import RenderScrollView from './RenderRecipes';
+
+import RenderScrollView from './RecipeRow';
 
 
 const MyRecipes = ({ route, navigation }) => {
@@ -56,12 +55,9 @@ const MyRecipes = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
 
-
-
             <ScrollView
                 vertical={true}
             >
-
                 <RenderScrollView cards={cards1} ITEM_HEIGHT={ITEM_HEIGHT} ITEM_WIDTH={ITEM_WIDTH} OFFSET={OFFSET} />
                 <RenderScrollView cards={cards2} ITEM_HEIGHT={ITEM_HEIGHT} ITEM_WIDTH={ITEM_WIDTH} OFFSET={OFFSET} />
                 <RenderScrollView cards={cards3} ITEM_HEIGHT={ITEM_HEIGHT} ITEM_WIDTH={ITEM_WIDTH} OFFSET={OFFSET} />

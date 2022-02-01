@@ -1,21 +1,33 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RecipeScreen from './RecipeScreen';
-import RecipeAddScreen from './RecipeAddScreen';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MySuggested from './MySuggested';
+import MyRecipesNavigation from './MyRecipesNavigation';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-const RecipeStack = createNativeStackNavigator();
+const TopTab = createMaterialTopTabNavigator();
 
-const RecipeStackNav = () => {
-    return (
-        <RecipeStack.Navigator
-            screenOptions={{ headerShown: false }}
-        >
-            <RecipeStack.Screen name="RecipeAddScreen" component={RecipeAddScreen} />
-            <RecipeStack.Screen name="RecipeScreen" component={RecipeScreen} />
+// Recipe Top tab navigation
+const TopNavigator = () => {
 
-        </RecipeStack.Navigator>
-    );
+  return (
+
+    // Top tab navigators 
+    <TopTab.Navigator
+      screenOptions={{
+        swipeEnabled: false,
+        tabBarIndicatorStyle: {
+          backgroundColor: '#6200EE'
+        },
+
+      }}
+    >
+      <TopTab.Screen name="Saved" component={MyRecipesNavigation} />
+      <TopTab.Screen name="Suggested" component={MySuggested} />
+
+    </TopTab.Navigator>
+
+  );
+
 }
 
-export default RecipeStackNav;
+
+export default TopNavigator;

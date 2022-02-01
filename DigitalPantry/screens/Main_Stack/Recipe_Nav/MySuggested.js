@@ -1,11 +1,8 @@
 import { StyleSheet, Text, View, Button, ScrollView, Animated, Dimensions, ImageBackground, TouchableOpacity, Touchable } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import RecipeAddScreen from './RecipeAddScreen';
 import React, { Component } from "react"
 import { AntDesign } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import RenderScrollView from './RenderRecipes';
+import RenderScrollView from './RecipeRow';
 
 
 
@@ -13,10 +10,7 @@ const MySuggested = ({ route, navigation }) => {
 
   console.debug("Saved and functioning");
 
-  // recipe add screen navigation
-  const addPressHandler = () => {
-    navigation.navigate('RecipeAddScreen');
-  }
+
 
 
   const OFFSET = 40
@@ -56,7 +50,6 @@ const MySuggested = ({ route, navigation }) => {
     <View style={styles.container}>
 
 
-
       <ScrollView
         vertical={true}
       >
@@ -70,12 +63,7 @@ const MySuggested = ({ route, navigation }) => {
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
-      {/* This has to stay as the last component to remain on top. */}
-      <TouchableOpacity onPress={addPressHandler} style={styles.button}
-      >
-        <AntDesign style={styles.icon} name="pluscircle" size={60} color="#6200EE" />
-        <View style={styles.floatingButton}></View>
-      </TouchableOpacity>
+    
 
     </View>
   );

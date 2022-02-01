@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
-import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
+import {Button, Card, Title} from 'react-native-paper';
 
 const RecipeAddScreen = ({ route, navigation }) => {
 
