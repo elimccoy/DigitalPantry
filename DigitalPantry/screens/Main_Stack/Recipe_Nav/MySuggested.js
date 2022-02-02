@@ -5,7 +5,6 @@ import RecipeGrid from './RecipeGrid';
 
 const MySuggested = () => {
 
-  // rows of recipes
   const row1 = [
     { title: "Recipe 1", posterUrl: require('../../../assets/nutmaster.jpeg') },
     { title: "Recipe 2", posterUrl: require('../../../assets/nutmaster.jpeg') },
@@ -34,7 +33,7 @@ const MySuggested = () => {
     { title: "Recipe 16", posterUrl: require('../../../assets/nutmaster.jpeg') }
   ];
 
-  // list of recipes rows
+
   const rows = [
     row1, row2, row3, row4
   ];

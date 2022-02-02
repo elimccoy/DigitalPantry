@@ -8,12 +8,10 @@ const MyRecipes = ({ navigation }) => {
 
   console.debug("Saved and functioning");
 
-  // recipe add screen navigation
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   }
 
-  // rows of recipes
   const row1 = [
     { title: "Recipe 1", posterUrl: require('../../../assets/nutmaster.jpeg') },
     { title: "Recipe 2", posterUrl: require('../../../assets/nutmaster.jpeg') },
@@ -42,7 +40,6 @@ const MyRecipes = ({ navigation }) => {
     { title: "Recipe 16", posterUrl: require('../../../assets/nutmaster.jpeg') }
   ];
 
-  // list of recipes rows
   const rows = [
     row1, row2, row3, row4
   ];
@@ -50,7 +47,6 @@ const MyRecipes = ({ navigation }) => {
   return (
     <View style={styles.container}>
 
-      {/**/}
       <RecipeGrid rowList={rows} />
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />

@@ -4,12 +4,10 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 
 const TopTab = createMaterialTopTabNavigator();
 
-// Recipe Top tab navigation
 const TopNavigator = () => {
 
   return (
 
-    // Top tab navigators, Saved and Suggested screens 
     <TopTab.Navigator
       screenOptions={{
         swipeEnabled: false,

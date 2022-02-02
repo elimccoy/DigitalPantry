@@ -6,8 +6,6 @@ function RecipeRow(props) {
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const cards = props.recipes;
-
-  // set card dimensions
   const OFFSET = 40
   const ITEM_WIDTH = Dimensions.get("window").width - (OFFSET * 2)
   const ITEM_HEIGHT = 200
