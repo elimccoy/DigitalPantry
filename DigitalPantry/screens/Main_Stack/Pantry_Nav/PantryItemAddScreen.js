@@ -7,14 +7,14 @@ import LoadingScreen from '../LoadingScreen';
 
 const PantryItemAddScreen = ({ route, navigation }) => {
 
-  const[name, setName] = React.useState("");
-  const[key, setKey] =  React.useState("");
-  const[unit, setUnit] =  React.useState("");
-  const[amount, setAmount] =  React.useState("");
-  const[imgURI, setImgURI] =  React.useState("");
-  const[brand, setBrand] = React.useState("");
-  const[desc, setDesc] = React.useState("");
-  const[percentage, setPercentage] = React.useState("");
+  const[name, setName] = React.useState("Unknown");
+  const[key, setKey] =  React.useState("Unknown");
+  const[unit, setUnit] =  React.useState("Unknown");
+  const[amount, setAmount] =  React.useState("Unknown");
+  const[imgURI, setImgURI] =  React.useState("Unknown");
+  const[brand, setBrand] = React.useState("Unknown");
+  const[desc, setDesc] = React.useState("Unknown");
+  const[percentage, setPercentage] = React.useState("100");
   const[isLoaded, setIsLoaded] = React.useState(false);
 
   //Did mount:
@@ -32,9 +32,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         setUnit("NA");
         setAmount("NA");
         setImgURI(itemAPIData["item_attributes"].image);
-        setBrand(itemAPIData["item_attributes"].brand);
-        setDesc(itemAPIData["item_attributes"].description);
-        setPercentage("100");
+        if(itemAPIData["item_attributes"].brand !== "") setBrand(itemAPIData["item_attributes"].brand);
+        if(itemAPIData["item_attributes"].description !== "") setDesc(itemAPIData["item_attributes"].description);
         setIsLoaded(true);
       });
     }

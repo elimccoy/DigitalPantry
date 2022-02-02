@@ -11,18 +11,33 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [name, onChangeName] = useState('');
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
+  const [percentage, setPercentage] = useState('');
+  const [buttonsActive, setButtonsActive] = useState([false, false, false])
   const [imgURI, setImgURI] = useState('');
  
   //Did mount:
   useEffect(() => {
     if(route.params !== undefined)
     {
+      //Load passed item data.
       let { passedItem } = route.params; 
       setCurItem(passedItem);
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
       onChangeAmount(passedItem.amount);
+      setPercentage(passedItem.percentage)
       setImgURI(passedItem.image)
+
+      //Determine current percentage.
+      if(passedItem.percentage === '100') {
+        setButtonsActive([false, false, true]);
+      }
+      else if(passedItem.percentage === '50') {
+        setButtonsActive([false, true, false]);
+      }
+      else if(passedItem.percentage === '0') {
+        setButtonsActive([true, false, false]);
+      }
       setIsLoaded(true);
     }
   }, []);
@@ -34,14 +49,31 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       name: 'na',
       unit: 'na',
       amount: 'na', 
-      image: 'na'
+      image: 'na',
+      brand:'na',
+      description:'na',
+      percentage:'na'
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
     itemToReturn.unit = unit;
     itemToReturn.amount = amount;
     itemToReturn.image = imgURI;
+    itemToReturn.brand = curItem.brand;
+    itemToReturn.description = curItem.description;
+    itemToReturn.percentage = percentage;
     navigation.navigate('PantryScreen', {item:itemToReturn});
+  }
+
+  const pressPercentageButton = (buttonNum, perc) => {
+    
+    //Mark button.
+    let buttonUpdate = [false, false, false];
+    buttonUpdate[buttonNum] = true;
+
+    //Update buttons and percent.
+    setButtonsActive(buttonUpdate);
+    setPercentage(perc);
   }
 
   if(isLoaded) {
@@ -64,7 +96,33 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChangeText={onChangeAmount}
             defaultValue={curItem.amount}
           />
-          <View style={{ flexDirection: 'row', padding: 10 }}>
+          <View style={{ flexDirection: 'row' }}>
+            <View style={{ flex: 1, padding: 10 }}>
+              <Button 
+                mode="contained" 
+                onPress={() => pressPercentageButton(0, "0")}
+                disabled={buttonsActive[0]}>
+                0%
+              </Button>
+            </View>
+            <View style={{ flex: 1, padding: 10 }}>
+              <Button 
+                mode="contained" 
+                onPress={() => pressPercentageButton(1, "50")}
+                disabled={buttonsActive[1]}>
+                50%
+              </Button>
+            </View>
+            <View style={{ flex: 1, padding: 10 }}>
+              <Button 
+                mode="contained" 
+                onPress={() => pressPercentageButton(2, "100")}
+                disabled={buttonsActive[2]}>
+                100%
+              </Button>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, padding: 10 }}>
               <Button icon="check" mode="contained" onPress={() => handleConfirm()}>
                 Done
