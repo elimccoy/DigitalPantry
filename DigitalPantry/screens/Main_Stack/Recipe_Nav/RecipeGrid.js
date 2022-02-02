@@ -1,21 +1,29 @@
-import { ScrollView } from "react-native-web"
+import { StyleSheet,ScrollView,} from 'react-native';
+import React from 'react';
 import RecipeRow from "./RecipeRow";
 
+// takes in list of rows
+const RecipeGrid = ({ rowList }) => {
 
-const RecipeGrid = ({ categories }) => {
+  return (
+    <ScrollView
+      vertical={true}
+    >
+      {rowList.map(row => (  // for every item in rowList, row
+        <RecipeRow recipes={row} /> // call RecipeRow on row
+      ))}
 
-    return (
-        <ScrollView
-            vertical={true}
-        >
-            {categories.map((category) => (
-                <RecipeRow recipes={category.recipes} />
-            ))}
+    </ScrollView>
 
-        </ScrollView>
-
-
-    )
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
 
 export default RecipeGrid

@@ -1,22 +1,22 @@
-import { StyleSheet, Text, ScrollView, Animated, ImageBackground } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import RecipeAddScreen from './RecipeAddScreen';
-import React, { Component } from "react"
-import { AntDesign } from '@expo/vector-icons';
+import {Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
+import React from "react"
 
-
-// Function for Displaying Recipes in scroll view
-
-function RenderScrollView(props) {
+// Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
+function RecipeRow(props) {
 
   const scrollX = React.useRef(new Animated.Value(0)).current;
-  const cards = props.cards;
+  const cards = props.recipes;
+
+  // set card dimensions
+  const OFFSET = 40
+  const ITEM_WIDTH = Dimensions.get("window").width - (OFFSET * 2)
+  const ITEM_HEIGHT = 200
 
   return (
     <ScrollView
       horizontal={true}
       decelerationRate={"normal"}
-      snapToInterval={props.ITEM_WIDTH}
+      snapToInterval={ITEM_WIDTH}
       style={{ marginTop: 40, paddingHorizontal: 0 }}
       showsHorizontalScrollIndicator={false}
       bounces={false}
@@ -27,11 +27,11 @@ function RenderScrollView(props) {
       )}
       scrollEventThrottle={12}
     >
-      {cards.map((item, idx) => {
+      {props.recipes.map((item, idx) => {
         const inputRange = [
-          (idx - 1) * props.ITEM_WIDTH,
-          idx * props.ITEM_WIDTH,
-          (idx + 1) * props.ITEM_WIDTH,
+          (idx - 1) * ITEM_WIDTH,
+          idx * ITEM_WIDTH,
+          (idx + 1) * ITEM_WIDTH,
         ]
 
         const translate = scrollX.interpolate({
@@ -48,10 +48,10 @@ function RenderScrollView(props) {
 
           <Animated.View
             style={{
-              width: props.ITEM_WIDTH,
-              height: props.ITEM_HEIGHT,
-              marginLeft: idx === 0 ? props.OFFSET : undefined,
-              marginRight: idx === cards.length - 1 ? props.OFFSET : undefined,
+              width: ITEM_WIDTH,
+              height: ITEM_HEIGHT,
+              marginLeft: idx === 0 ? OFFSET : undefined,
+              marginRight: idx === cards.length - 1 ? OFFSET : undefined,
               opacity: opacity,
               transform: [{ scale: translate }],
             }}
@@ -77,4 +77,4 @@ function RenderScrollView(props) {
 
 }
 
-export default RenderScrollView;
+export default RecipeRow;
