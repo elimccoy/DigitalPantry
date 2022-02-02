@@ -26,5 +26,4 @@ const TopNavigator = () => {
 
 }
 
-
 export default TopNavigator;

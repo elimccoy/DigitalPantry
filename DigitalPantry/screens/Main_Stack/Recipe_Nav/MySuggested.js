@@ -33,7 +33,6 @@ const MySuggested = () => {
     { title: "Recipe 16", posterUrl: require('../../../assets/nutmaster.jpeg') }
   ];
 
-
   const rows = [
     row1, row2, row3, row4
   ];
