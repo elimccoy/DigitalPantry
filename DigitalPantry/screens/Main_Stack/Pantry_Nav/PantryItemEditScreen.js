@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Avatar, TextInput, Button } from 'react-native-paper';
+import { Avatar, TextInput, Button, Subheading } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
@@ -96,6 +96,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChangeText={onChangeAmount}
             defaultValue={curItem.amount}
           />
+          <Subheading style={{padding: 10}}>Set Amount Left:</Subheading>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, padding: 10 }}>
               <Button 
