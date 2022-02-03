@@ -1,6 +1,5 @@
 import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { FAB, Searchbar } from 'react-native-paper';
-import { StatusBar } from 'expo-status-bar';
 import PantryItem from '../../../components/PantryItem';
 import LoadingScreen from '../LoadingScreen';
 import { useState, useEffect } from 'react';
@@ -41,13 +40,13 @@ const PantryScreen = ({ route, navigation }) => {
 
   //Handle incoming data (either new data or edited data.)
   if(route.params !== undefined) {
-    
+
     let { item } = route.params; //Get data from route.
-    
+
     //Check to see if data is new or not.
     let isEdit = false;
     for(let i = 0; i < data.length; i++) {
-      
+
       //If we find an existing item, this is an edit.
       if(data[i].key === item.key) {
         //Replace values.
@@ -61,7 +60,7 @@ const PantryScreen = ({ route, navigation }) => {
         break;
       }
     }
-    
+
     //If no edit is found to be true. Add new item.
     if(!isEdit) {
       data.unshift(item);
@@ -76,7 +75,7 @@ const PantryScreen = ({ route, navigation }) => {
   //Handle long press of item.
   const renderItem = ({ item, index }) => {
     return (
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.item}
         onLongPress={() => {navigation.navigate('EditScreen', {passedItem:item})}}
         onPress={() => {navigation.navigate("InfoScreen",{passedItem:item})}}
@@ -88,7 +87,7 @@ const PantryScreen = ({ route, navigation }) => {
 
   //Handle Query complete search.
   const handleQueryComplete = () => {
-    
+
     if(query === "")
     {
       setCurRenderData(data);
@@ -130,7 +129,6 @@ const PantryScreen = ({ route, navigation }) => {
           icon="plus"
           style={styles.button}
           onPress={() => handlePress()}/>
-        <StatusBar style="dark" translucent={false} backgroundColor='white'/>
       </View>
     );
   }
@@ -143,7 +141,6 @@ const PantryScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight,
   },
   scollContainer:{
     flex: 1

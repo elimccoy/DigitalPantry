@@ -24,7 +24,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
 
       //Connect to API here!
       fetch_upc(upc).then((itemAPIData) => {
- 
+
         //Record data.
         setName(itemAPIData["item_attributes"].title);
         setKey(upc);
@@ -82,7 +82,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             onChangeText={unit => setUnit(unit)}
           />
         </View>
-  
+
         {/*Container for buttons*/}
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, padding: 10 }}>

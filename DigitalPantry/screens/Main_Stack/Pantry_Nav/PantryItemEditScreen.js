@@ -5,19 +5,19 @@ import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemEditScreen = ({ route, navigation }) => {
-  
+
   const [curItem, setCurItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [name, onChangeName] = useState('');
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
   const [imgURI, setImgURI] = useState('');
- 
+
   //Did mount:
   useEffect(() => {
     if(route.params !== undefined)
     {
-      let { passedItem } = route.params; 
+      let { passedItem } = route.params;
       setCurItem(passedItem);
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
@@ -33,7 +33,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       key:'na',
       name: 'na',
       unit: 'na',
-      amount: 'na', 
+      amount: 'na',
       image: 'na'
     };
     itemToReturn.name = name;

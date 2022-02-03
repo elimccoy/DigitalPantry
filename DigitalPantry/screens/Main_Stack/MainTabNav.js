@@ -4,17 +4,8 @@ import PantryStackNav from './Pantry_Nav/PantryStackNav'
 import ShoppingScreen from './Shopping_Nav/ShoppingScreen';
 import { AntDesign } from '@expo/vector-icons';
 import RecipeStackNav from './Recipe_Nav/RecipeStackNav';
-import MySuggested from './Recipe_Nav/MySuggested';
-import RecipeAddScreen from './Recipe_Nav/RecipeAddScreen';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import RecipeScreen from './Recipe_Nav/RecipeScreen';
-
 
 const MainTab = createBottomTabNavigator();
-
-
-
 
 // App bottom tab navigation
 const MainTabNav = () => {
@@ -45,7 +36,6 @@ const MainTabNav = () => {
       <MainTab.Screen name="Pantry" component={PantryStackNav} />
       <MainTab.Screen name="Recipe" component={RecipeStackNav} />
       <MainTab.Screen name="Shopping" component={ShoppingScreen} />
-     
     </MainTab.Navigator>
 
   );
