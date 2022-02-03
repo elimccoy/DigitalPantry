@@ -1,4 +1,4 @@
-import { StyleSheet,ScrollView,} from 'react-native';
+import { StyleSheet, ScrollView, } from 'react-native';
 import React from 'react';
 import RecipeRow from "./RecipeRow";
 
@@ -8,12 +8,10 @@ const RecipeGrid = ({ rowList }) => {
     <ScrollView
       vertical={true}
     >
-      {rowList.map(row => (  
-        <RecipeRow recipes={row} /> 
+      {rowList.map(row => (
+        <RecipeRow key={row.title} recipes={row.recipes} />
       ))}
-
     </ScrollView>
-
   )
 }
 

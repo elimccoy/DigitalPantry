@@ -1,6 +1,7 @@
-import RecipeAddScreen from "./RecipeAddScreen";
-import RecipeScreen from "./RecipeScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import RecipeAddScreen from './RecipeAddScreen';
+import RecipeScreen from './RecipeScreen';
+
 
 const RecipeStack = createNativeStackNavigator();
 
@@ -11,6 +12,7 @@ const MyRecipesNavigation = () => {
         >
             <RecipeStack.Screen name="RecipeScreen" component={RecipeScreen} />
             <RecipeStack.Screen name="RecipeAddScreen" component={RecipeAddScreen} />
+           
 
         </RecipeStack.Navigator>
     );

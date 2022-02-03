@@ -5,44 +5,50 @@ import { AntDesign } from '@expo/vector-icons';
 import RecipeGrid from './RecipeGrid';
 
 const MyRecipes = ({ navigation }) => {
-
-  console.debug("Saved and functioning");
-
+  
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   }
 
-  const row1 = [
-    { title: "Recipe 1", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 2", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 3", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 4", posterUrl: require('../../../assets/nutmaster.jpeg') }
-  ];
+  const rows = [{
+    title: 'row1',
+    recipes: [
+      { title: "Recipe 1", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 2", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 3", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') }
+    ]
+  },
 
-  const row2 = [
-    { title: "Recipe 5", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 6", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 7", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 8", posterUrl: require('../../../assets/nutmaster.jpeg') }
-  ];
+  {
+    title: 'row2',
+    recipes: [
+      { title: "Recipe 5", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 6", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 7", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') }
+    ]
+  },
 
-  const row3 = [
-    { title: "Recipe 9", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 10", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 11", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 12", posterUrl: require('../../../assets/nutmaster.jpeg') }
-  ];
+  {
+    title: 'row3',
+    recipes: [
+      { title: "Recipe 9", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 10", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 11", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') }
+    ]
+  },
 
-  const row4 = [
-    { title: "Recipe 13", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 14", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 15", posterUrl: require('../../../assets/nutmaster.jpeg') },
-    { title: "Recipe 16", posterUrl: require('../../../assets/nutmaster.jpeg') }
-  ];
-
-  const rows = [
-    row1, row2, row3, row4
-  ];
+  {
+    title: 'row4',
+    recipes: [
+      { title: "Recipe 13", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 14", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 15", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') }
+    ]
+  }]
 
   return (
     <View style={styles.container}>

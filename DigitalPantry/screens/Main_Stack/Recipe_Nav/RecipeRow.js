@@ -1,4 +1,4 @@
-import {Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
+import { Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
 import React from "react"
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
@@ -43,7 +43,6 @@ function RecipeRow(props) {
         })
 
         return (
-
           <Animated.View
             style={{
               width: ITEM_WIDTH,
@@ -65,14 +64,13 @@ function RecipeRow(props) {
               imageStyle={{ borderRadius: 6 }}
             />
             <Text>
-              Recipe: {item.title}
+              {item.title}
             </Text>
           </Animated.View>
         )
       })}
     </ScrollView>
   );
-
 }
 
 export default RecipeRow;
