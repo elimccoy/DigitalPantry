@@ -20,7 +20,7 @@ function RecipeRow(props) {
       disableIntervalMomentum
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        { useNativeDriver: false }
+        { useNativeDriver: false },
       )}
       scrollEventThrottle={12}
     >
@@ -70,7 +70,7 @@ function RecipeRow(props) {
 
 const styles = StyleSheet.create({
   root: {
-    marginTop: 40, paddingHorizontal: 0
+    marginTop: 40, paddingHorizontal: 0,
   },
   backgroundImageContainer: {
     flex: 1,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     borderRadius: 6,
-  }
+  },
 });
 
 export default RecipeRow;

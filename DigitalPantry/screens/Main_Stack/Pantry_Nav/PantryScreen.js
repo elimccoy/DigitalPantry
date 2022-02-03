@@ -2,7 +2,7 @@ import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-
 import { FAB, Searchbar } from 'react-native-paper';
 import PantryItem from '../../../components/PantryItem';
 import LoadingScreen from '../LoadingScreen';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 //Data is going to be each pantry item.
 const numColumns = 2;
@@ -33,10 +33,32 @@ const PantryScreen = ({ route, navigation }) => {
     setIsLoaded(true);
   }, []);
 
+  //Handle Query complete search.
+  const handleQueryComplete = useCallback(() => {
+    if(query === "")
+    {
+      setCurRenderData(data);
+      return;
+    }
+
+    //Find items that match query.
+    let toSetData = [];
+    console.log(query)
+    for(let i = 0; i < data.length; i++)
+    {
+      if(data[i].name.includes(query))
+      {
+        toSetData.push(data[i]);
+      }
+    }
+    console.log(toSetData)
+    setCurRenderData(toSetData);
+  }, [query]);
+
   //Effect for query
   useEffect(() => {
     handleQueryComplete();
-  }, [query]);
+  }, [handleQueryComplete]);
 
   //Handle incoming data (either new data or edited data.)
   if(route.params !== undefined) {
@@ -85,29 +107,6 @@ const PantryScreen = ({ route, navigation }) => {
     );
   };
 
-  //Handle Query complete search.
-  const handleQueryComplete = () => {
-
-    if(query === "")
-    {
-      setCurRenderData(data);
-      return;
-    }
-
-    //Find items that match query.
-    let toSetData = [];
-    console.log(query)
-    for(let i = 0; i < data.length; i++)
-    {
-      if(data[i].name.includes(query))
-      {
-        toSetData.push(data[i]);
-      }
-    }
-    console.log(toSetData)
-    setCurRenderData(toSetData);
-  }
-
   if(isLoaded)
   {
     return(
@@ -143,14 +142,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scollContainer:{
-    flex: 1
+    flex: 1,
   },
   item: {
     alignItems: 'center',
     justifyContent: 'center',
     margin: 5,
     height: Dimensions.get('window').width / numColumns, // approximate a square
-    width: Dimensions.get('window').width / numColumns - 10
+    width: Dimensions.get('window').width / numColumns - 10,
   },
   button: {
     height: 60,
@@ -163,11 +162,11 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 15,
     height: 60,
-    width: 60
+    width: 60,
   },
   searchBar: {
-    margin: 10
-  }
+    margin: 10,
+  },
 });
 
 export default PantryScreen;

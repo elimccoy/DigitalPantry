@@ -29,7 +29,7 @@ const MainTabNav = () => {
         },
         tabBarActiveTintColor: '#6200EE',
         tabBarInactiveTintColor: 'gray',
-        headerShown: false
+        headerShown: false,
       })}
     >
       <MainTab.Screen name="Home" component={HomeScreen} />

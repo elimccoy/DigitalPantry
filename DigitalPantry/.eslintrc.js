@@ -2,7 +2,7 @@ module.exports = {
   plugins: [
     'react',
     'react-native',
-    'react-hooks'
+    'react-hooks',
   ],
   parser: '@babel/eslint-parser',
   env: {
@@ -14,7 +14,7 @@ module.exports = {
     ecmaFeatures: {
       experimentalObjectRestSpread: true,
       impliedStrict: true,
-      classes: true
+      classes: true,
     },
   },
   rules: {
@@ -29,15 +29,15 @@ module.exports = {
     'react-native/no-inline-styles': 'warn',
     // 'react-native/no-raw-text': 'warn',
     'react-native/no-single-element-style-arrays': 'warn',
+    'comma-dangle': ['warn', 'always-multiline'],
     'no-multiple-empty-lines': 'warn',
     'no-use-before-define': 'off',
     'react/jsx-filename-extension': 'off',
     'react/prop-types': 'off',
-    'comma-dangle': 'off',
     'padded-blocks': 'off',
     'arrow-body-style': 'off',
   },
   globals: {
-    fetch: false
-  }
+    fetch: false,
+  },
 };

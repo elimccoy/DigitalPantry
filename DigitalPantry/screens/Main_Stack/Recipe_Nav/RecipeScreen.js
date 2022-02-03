@@ -14,7 +14,7 @@ const MyRecipes = ({ navigation }) => {
       { title: "Recipe 1", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 2", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 3", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') },
     ],
   }, {
     title: 'row2',
@@ -22,7 +22,7 @@ const MyRecipes = ({ navigation }) => {
       { title: "Recipe 5", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 6", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 7", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') },
     ],
   }, {
     title: 'row3',
@@ -30,7 +30,7 @@ const MyRecipes = ({ navigation }) => {
       { title: "Recipe 9", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 10", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 11", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') },
     ],
   }, {
     title: 'row4',
@@ -38,7 +38,7 @@ const MyRecipes = ({ navigation }) => {
       { title: "Recipe 13", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 14", posterUrl: require('../../../assets/recipePlaceholder.png') },
       { title: "Recipe 15", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') },
     ],
   }];
 
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
     right: 20,
     bottom: 15,
     height: 60,
-    width: 60
-  }
+    width: 60,
+  },
 });
 
 export default MyRecipes;

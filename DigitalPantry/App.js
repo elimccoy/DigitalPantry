@@ -10,7 +10,7 @@ import firebaseConfig from './firebase'
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from 'firebase/auth';
 import store from './store';
 
