@@ -3,15 +3,11 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 
 const RecipeAddScreen = ({ route, navigation }) => {
-
   return (
-
     <View style={styles.container}>
-
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
     </View>
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -20,9 +16,7 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
     flexWrap: 'wrap',
     flexDirection: 'row'
-    
   },
-
 });
 
 export default RecipeAddScreen;

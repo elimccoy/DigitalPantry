@@ -3,6 +3,7 @@ import PantryScreen from './PantryScreen';
 import BarcodeScannerScreen from './BarcodeScannerScreen';
 import PantryItemEditScreen from './PantryItemEditScreen';
 import PantryItemAddScreen from './PantryItemAddScreen';
+import PantryItemInfoScreen from './PantryItemInfoScreen';
 
 
 const PantryStack = createNativeStackNavigator();
@@ -17,6 +18,7 @@ const PantryStackNav = () => {
       <PantryStack.Screen name="BarcodeScreen" component={BarcodeScannerScreen}/>
       <PantryStack.Screen name="EditScreen" component={PantryItemEditScreen}/>
       <PantryStack.Screen name="AddScreen" component={PantryItemAddScreen}/> 
+      <PantryStack.Screen name="InfoScreen" component={PantryItemInfoScreen}/>
     </PantryStack.Navigator>
   );
 }
