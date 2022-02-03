@@ -8,40 +8,40 @@ const MySuggested = () => {
   const rows = [{
     title: 'row1',
     recipes: [
-      { title: "Recipe 1", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 2", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 3", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Suggested Recipe 1", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 2", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 3", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') }
     ]
   },
 
- {
+  {
     title: 'row2',
     recipes: [
-      { title: "Recipe 5", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 6", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 7", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Suggested Recipe 5", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 6", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 7", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') }
     ]
   },
 
   {
     title: 'row3',
     recipes: [
-      { title: "Recipe 9", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 10", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 11", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Suggested Recipe 9", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 10", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 11", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') }
     ]
   },
 
   {
     title: 'row4',
     recipes: [
-      { title: "Recipe 13", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 14", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 15", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') }
+      { title: "Suggested Recipe 13", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 14", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 15", posterUrl: require('../../../assets/recipePlaceholder.png') },
+      { title: "Suggested Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') }
     ]
   }]
 
