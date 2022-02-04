@@ -1,8 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { TextInput, Avatar, Button } from 'react-native-paper';
+import { TextInput, Avatar, Button, Paragraph } from 'react-native-paper';
 import { fetch_upc } from '../../../API/barcodeSpider';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemAddScreen = ({ route, navigation }) => {
@@ -14,7 +15,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   const[imgURI, setImgURI] =  React.useState("Unknown");
   const[brand, setBrand] = React.useState("Unknown");
   const[desc, setDesc] = React.useState("Unknown");
-  const[percentage, setPercentage] = React.useState("100");
+  const [date, setDate] = React.useState(new Date());
+  const [show, setShow] = React.useState(false);
   const[isLoaded, setIsLoaded] = React.useState(false);
 
   //Did mount:
@@ -39,6 +41,12 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     }
   }, []);
 
+  const handleDateSelect = (event, date) => {
+    setShow(false);
+    console.log(date);
+    setDate(date);
+  } 
+
   //Handlers for navigating:
   const donePressHandler = () => {
 
@@ -51,7 +59,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       image: imgURI,
       brand: brand,
       description: desc,
-      percentage: percentage
+      remaining: 'Full',
+      expirationDate: expirationDate
     }
 
     //Pass data as item.
@@ -65,7 +74,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   if (isLoaded) {
     return (
       <View style={styles.container}>
-        <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:imgURI}} />
+        <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:imgURI}}/>
+
         {/*Container for text inputs*/}
         <View style={{ justifyContent: 'space-evenly' }}>
           <TextInput
@@ -83,9 +93,23 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             defaultValue={unit}
             onChangeText={unit => setUnit(unit)}
           />
+          <Paragraph>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
+          <View style={{ padding: 20 }}>
+            <Button icon="check" mode="contained" onPress={() => setShow(true)}>
+              Set expiration date
+            </Button>
+          </View>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={new Date()}
+              mode={date}
+              is24Hour={false}
+              display="default"
+              onChange={handleDateSelect}
+            />
+          )}
         </View>
-  
-        {/*Container for buttons*/}
         <View style={{ flexDirection: 'row', padding: 10 }}>
           <View style={{ flex: 1, padding: 10 }}>
             <Button icon="check" mode="contained" onPress={() => donePressHandler()}>

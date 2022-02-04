@@ -11,7 +11,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [name, onChangeName] = useState('');
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
-  const [percentage, setPercentage] = useState('');
+  const [remaining, setRemaining] = useState('');
   const [buttonsActive, setButtonsActive] = useState([false, false, false])
   const [imgURI, setImgURI] = useState('');
  
@@ -25,17 +25,17 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
       onChangeAmount(passedItem.amount);
-      setPercentage(passedItem.percentage)
+      setRemaining(passedItem.percentage)
       setImgURI(passedItem.image)
 
       //Determine current percentage.
-      if(passedItem.percentage === '100') {
+      if(passedItem.remaining === 'Full') {
         setButtonsActive([false, false, true]);
       }
-      else if(passedItem.percentage === '50') {
+      else if(passedItem.remaining === 'Half') {
         setButtonsActive([false, true, false]);
       }
-      else if(passedItem.percentage === '0') {
+      else if(passedItem.remaining === 'Low') {
         setButtonsActive([true, false, false]);
       }
       setIsLoaded(true);
@@ -52,7 +52,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       image: 'na',
       brand:'na',
       description:'na',
-      percentage:'na'
+      remaining:'na'
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
@@ -61,11 +61,11 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.image = imgURI;
     itemToReturn.brand = curItem.brand;
     itemToReturn.description = curItem.description;
-    itemToReturn.percentage = percentage;
+    itemToReturn.remaining = remaining;
     navigation.navigate('PantryScreen', {item:itemToReturn});
   }
 
-  const pressPercentageButton = (buttonNum, perc) => {
+  const pressRemainingButton = (buttonNum, rema) => {
     
     //Mark button.
     let buttonUpdate = [false, false, false];
@@ -73,7 +73,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 
     //Update buttons and percent.
     setButtonsActive(buttonUpdate);
-    setPercentage(perc);
+    setRemaining(rema);
   }
 
   if(isLoaded) {
@@ -96,30 +96,30 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChangeText={onChangeAmount}
             defaultValue={curItem.amount}
           />
-          <Subheading style={{padding: 10}}>Set Amount Left:</Subheading>
+          <Subheading style={{padding: 10}}>Set Amount Remaining:</Subheading>
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 1, padding: 10 }}>
               <Button 
                 mode="contained" 
-                onPress={() => pressPercentageButton(0, "0")}
+                onPress={() => pressRemainingButton(0, "Low")}
                 disabled={buttonsActive[0]}>
-                0%
+                Low
               </Button>
             </View>
             <View style={{ flex: 1, padding: 10 }}>
               <Button 
                 mode="contained" 
-                onPress={() => pressPercentageButton(1, "50")}
+                onPress={() => pressRemainingButton(1, "Half")}
                 disabled={buttonsActive[1]}>
-                50%
+                Half
               </Button>
             </View>
             <View style={{ flex: 1, padding: 10 }}>
               <Button 
                 mode="contained" 
-                onPress={() => pressPercentageButton(2, "100")}
+                onPress={() => pressRemainingButton(2, "Full")}
                 disabled={buttonsActive[2]}>
-                100%
+                Full
               </Button>
             </View>
           </View>

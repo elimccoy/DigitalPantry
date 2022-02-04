@@ -38,8 +38,8 @@ const PantryItemInfoScreen = ({ route, navigation }) => {
         <Paragraph>{item.brand}</Paragraph>
         <Title>Description:</Title>
         <Paragraph>{item.description}</Paragraph>
-        <Title>Percentage:</Title>
-        <Paragraph>{item.percentage + "%"}</Paragraph>
+        <Title>Remaining:</Title>
+        <Paragraph>{item.remaining}</Paragraph>
       </ScrollView>
     ); 
   } 
