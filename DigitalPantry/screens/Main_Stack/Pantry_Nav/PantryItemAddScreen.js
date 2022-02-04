@@ -41,9 +41,9 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     }
   }, []);
 
+  //Handels date selected. 
   const handleDateSelect = (event, date) => {
     setShow(false);
-    console.log(date);
     setDate(date);
   } 
 
@@ -60,7 +60,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       brand: brand,
       description: desc,
       remaining: 'Full',
-      expirationDate: expirationDate
+      expirationDate: date
     }
 
     //Pass data as item.
@@ -74,8 +74,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   if (isLoaded) {
     return (
       <View style={styles.container}>
-        <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:imgURI}}/>
-
+        <Avatar.Image size={128} style={styles.avatarStyle} source={{uri:imgURI}}/>
         {/*Container for text inputs*/}
         <View style={{ justifyContent: 'space-evenly' }}>
           <TextInput
@@ -93,8 +92,8 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             defaultValue={unit}
             onChangeText={unit => setUnit(unit)}
           />
-          <Paragraph>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
-          <View style={{ padding: 20 }}>
+          <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
+          <View style={styles.expirationDateButton}>
             <Button icon="check" mode="contained" onPress={() => setShow(true)}>
               Set expiration date
             </Button>
@@ -110,14 +109,20 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             />
           )}
         </View>
-        <View style={{ flexDirection: 'row', padding: 10 }}>
-          <View style={{ flex: 1, padding: 10 }}>
-            <Button icon="check" mode="contained" onPress={() => donePressHandler()}>
+        <View style={styles.buttonViewStyle}>
+          <View style={styles.buttonPaddingStyle}>
+            <Button 
+              icon="check" 
+              mode="contained" 
+              onPress={() => donePressHandler()}>
               Done
             </Button>
           </View>
-          <View style={{ flex: 1, padding: 10 }}>
-            <Button icon="camera" mode="contained" onPress={() => morePressHandler()}>
+          <View style={styles.buttonPaddingStyle}>
+            <Button 
+              icon="camera" 
+              mode="contained" 
+              onPress={() => morePressHandler()}>
               Re-Scan
             </Button>
           </View>
@@ -137,7 +142,27 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
     justifyContent: 'center',
   },
-
+  buttonPaddingStyle: {
+    flex: 1, 
+    padding: 10
+  },
+  buttonViewStyle: {
+    flexDirection: 'row',
+    padding: 10 
+  },
+  expirationDateButton: {
+    paddingTop: 10,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
+  expirationDateText: {
+    paddingTop: 10,
+    textAlign: 'center'
+  },
+  avatarStyle: {
+    alignSelf: 'center', 
+    marginBottom: 10
+  }
   });
 
 export default PantryItemAddScreen;

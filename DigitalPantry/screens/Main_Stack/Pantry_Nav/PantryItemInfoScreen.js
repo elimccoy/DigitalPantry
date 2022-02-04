@@ -30,6 +30,8 @@ const PantryItemInfoScreen = ({ route, navigation }) => {
           source={{uri:item.image}} />
         <Title>Name:</Title>
         <Paragraph>{item.name}</Paragraph>
+        <Title>Expiration date:</Title>
+        <Paragraph>{item.expirationDate.toString().slice(0,16)}</Paragraph>
         <Title>Amount:</Title>
         <Paragraph>{item.amount}</Paragraph>
         <Title>Unit of measurement:</Title>

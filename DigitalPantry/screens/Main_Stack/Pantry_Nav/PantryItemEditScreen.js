@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Avatar, TextInput, Button, Subheading } from 'react-native-paper';
+import { Avatar, TextInput, Button, Subheading, Paragraph } from 'react-native-paper';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
@@ -12,7 +13,9 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [unit, onChangeUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
   const [remaining, setRemaining] = useState('');
-  const [buttonsActive, setButtonsActive] = useState([false, false, false])
+  const [buttonsActive, setButtonsActive] = useState([false, false, false]);
+  const [date, setDate] = useState(new Date());
+  const [show, setShow] = useState(false);
   const [imgURI, setImgURI] = useState('');
  
   //Did mount:
@@ -52,7 +55,8 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       image: 'na',
       brand:'na',
       description:'na',
-      remaining:'na'
+      remaining:'na',
+      expirationDate: null
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
@@ -62,6 +66,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.brand = curItem.brand;
     itemToReturn.description = curItem.description;
     itemToReturn.remaining = remaining;
+    itemToReturn.expirationDate = date;
     navigation.navigate('PantryScreen', {item:itemToReturn});
   }
 
@@ -75,12 +80,17 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     setButtonsActive(buttonUpdate);
     setRemaining(rema);
   }
+ 
+  const handleDateSelect = (event, date) => {
+    setShow(false);
+    setDate(date);
+  } 
 
   if(isLoaded) {
     return(
       <View style={styles.container}>
         <View style={{ justifyContent: 'space-evenly' }}>
-          <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:curItem.image}} />
+          <Avatar.Image size={128} style={styles.avatarStyles} source={{uri:curItem.image}} />
           <TextInput
             label="Name:"
             onChangeText={onChangeName}
@@ -96,9 +106,9 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChangeText={onChangeAmount}
             defaultValue={curItem.amount}
           />
-          <Subheading style={{padding: 10}}>Set Amount Remaining:</Subheading>
+          <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
           <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={styles.buttonContainer}>
               <Button 
                 mode="contained" 
                 onPress={() => pressRemainingButton(0, "Low")}
@@ -106,7 +116,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
                 Low
               </Button>
             </View>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={styles.buttonContainer}>
               <Button 
                 mode="contained" 
                 onPress={() => pressRemainingButton(1, "Half")}
@@ -114,7 +124,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
                 Half
               </Button>
             </View>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={styles.buttonContainer}>
               <Button 
                 mode="contained" 
                 onPress={() => pressRemainingButton(2, "Full")}
@@ -123,13 +133,29 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               </Button>
             </View>
           </View>
+          <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
+          <View style={styles.expirationDateButton}>
+            <Button icon="check" mode="contained" onPress={() => setShow(true)}>
+              Set expiration date
+            </Button>
+          </View>
+          {show && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={passedItem.date}
+              mode={date}
+              is24Hour={false}
+              display="default"
+              onChange={handleDateSelect}
+            />
+          )}
           <View style={{ flexDirection: 'row' }}>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={styles.buttonContainer}>
               <Button icon="check" mode="contained" onPress={() => handleConfirm()}>
                 Done
               </Button>
             </View>
-            <View style={{ flex: 1, padding: 10 }}>
+            <View style={styles.buttonContainer}>
               <Button icon="delete" mode="contained" onPress={() => handleConfirm()}>
                 Delete
               </Button>
@@ -153,6 +179,26 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '700'
   },
+  expirationDateButton: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  expirationDateText: {
+    paddingTop: 10,
+    textAlign: 'center'
+  },
+  buttonContainer: {
+    flex: 1, 
+    padding: 10
+  },
+  timeRemainingText: {
+    padding: 10
+  },
+  avatarStyles: {
+    alignSelf: 'center',
+    marginBottom: 10
+  }
 });
 
 export default PantryItemEditScreen;
