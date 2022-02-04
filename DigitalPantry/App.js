@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
@@ -9,7 +10,7 @@ import firebaseConfig from './firebase'
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from 'firebase/auth';
 import store from './store';
 
@@ -18,9 +19,7 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-
   const [isSignedIn, setIsSignedIn] = useState(false); //SET TO FALSE FOR AUTH.
 
   // Listen for authentication state to change.
@@ -37,17 +36,16 @@ export default function App() {
     <ReduxProvider store={store}>
       <PaperProvider>
         <NavigationContainer>
-          <Stack.Navigator
-          screenOptions={{headerShown: false}}
-        >
-          {true ? (
-            <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-          ):(
-            <Stack.Screen name="SignIn" component={SignInScreen}/>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+          <StatusBar translucent={false} backgroundColor='white' />
+          <Stack.Navigator screenOptions={{headerShown: false}}>
+            {true ? (
+              <Stack.Screen name="MainTabNav" component={MainTabNav}/>
+            ):(
+              <Stack.Screen name="SignIn" component={SignInScreen}/>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </ReduxProvider>
   );
 }

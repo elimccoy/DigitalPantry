@@ -12,7 +12,7 @@ const TopNavigator = () => {
       screenOptions={{
         swipeEnabled: false,
         tabBarIndicatorStyle: {
-          backgroundColor: '#6200EE'
+          backgroundColor: '#6200EE',
         },
       }}
     >

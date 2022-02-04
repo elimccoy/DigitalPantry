@@ -12,7 +12,7 @@ const MyRecipesNavigation = () => {
         >
             <RecipeStack.Screen name="RecipeScreen" component={RecipeScreen} />
             <RecipeStack.Screen name="RecipeAddScreen" component={RecipeAddScreen} />
-           
+
 
         </RecipeStack.Navigator>
     );

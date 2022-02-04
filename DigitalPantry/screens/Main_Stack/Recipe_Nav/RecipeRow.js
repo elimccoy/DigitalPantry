@@ -1,9 +1,8 @@
-import { Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
 import React from "react"
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
 function RecipeRow(props) {
-
   const scrollX = React.useRef(new Animated.Value(0)).current;
   const cards = props.recipes;
   const OFFSET = 40
@@ -15,13 +14,13 @@ function RecipeRow(props) {
       horizontal={true}
       decelerationRate={"normal"}
       snapToInterval={ITEM_WIDTH}
-      style={{ marginTop: 40, paddingHorizontal: 0 }}
+      style={styles.root}
       showsHorizontalScrollIndicator={false}
       bounces={false}
       disableIntervalMomentum
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        { useNativeDriver: false }
+        { useNativeDriver: false },
       )}
       scrollEventThrottle={12}
     >
@@ -56,12 +55,8 @@ function RecipeRow(props) {
           >
             <ImageBackground
               source={item.posterUrl}
-              style={{
-                flex: 1,
-                resizeMode: "cover",
-                justifyContent: "center",
-              }}
-              imageStyle={{ borderRadius: 6 }}
+              style={styles.backgroundImageContainer}
+              imageStyle={styles.backgroundImage}
             />
             <Text>
               {item.title}
@@ -72,5 +67,19 @@ function RecipeRow(props) {
     </ScrollView>
   );
 }
+
+const styles = StyleSheet.create({
+  root: {
+    marginTop: 40, paddingHorizontal: 0,
+  },
+  backgroundImageContainer: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  backgroundImage: {
+    borderRadius: 6,
+  },
+});
 
 export default RecipeRow;

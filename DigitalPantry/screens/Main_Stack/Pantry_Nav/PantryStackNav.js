@@ -11,13 +11,13 @@ const PantryStack = createNativeStackNavigator();
 const PantryStackNav = () => {
 
   return (
-    <PantryStack.Navigator 
+    <PantryStack.Navigator
     screenOptions={{headerShown: false}}
     >
       <PantryStack.Screen name="PantryScreen" component={PantryScreen}/>
       <PantryStack.Screen name="BarcodeScreen" component={BarcodeScannerScreen}/>
       <PantryStack.Screen name="EditScreen" component={PantryItemEditScreen}/>
-      <PantryStack.Screen name="AddScreen" component={PantryItemAddScreen}/> 
+      <PantryStack.Screen name="AddScreen" component={PantryItemAddScreen}/>
       <PantryStack.Screen name="InfoScreen" component={PantryItemInfoScreen}/>
     </PantryStack.Navigator>
   );

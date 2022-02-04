@@ -16,7 +16,7 @@ const SignInScreen = () => {
   useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.params;
-      
+
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
       const credential = GoogleAuthProvider.credential(id_token);
