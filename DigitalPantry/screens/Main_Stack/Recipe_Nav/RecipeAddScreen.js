@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import UploadImage from './UploadImage';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RecipeAddScreen = ({ route, navigation }) => {
 
@@ -12,7 +13,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
   return (
 
-    <ScrollView>
+    <KeyboardAwareScrollView>
 
       <UploadImage />
       <TextInput
@@ -27,6 +28,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
         onChangeText={onChangeIng}
         value={ingList}
         multiline={true}
+        scrollEnabled={false}
         placeholder="Ingredients"
         inputAccessoryViewID="Done"
       />
@@ -35,6 +37,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
         onChangeText={onChangeRecipe}
         value={recipeInfo}
         multiline={true}
+        scrollEnabled={false}
         placeholder="Lorem ipsum dolor sit amet"
         inputAccessoryViewID="Done"
       />
@@ -56,11 +59,9 @@ const RecipeAddScreen = ({ route, navigation }) => {
         </View>
       </InputAccessoryView>
 
-    </ScrollView>
-
+    </KeyboardAwareScrollView>
 
   );
-
 }
 
 const styles = StyleSheet.create({
@@ -105,16 +106,6 @@ const styles = StyleSheet.create({
     color: '#007AFF',
     fontSize: 17
   },
-  saveRecipeButton: {
-    height: 48,
-    width: '25%',
-    backgroundColor: '#007AFF',
-    borderRadius: 8,
-    padding: 2,
-    paddingHorizontal: 8,
-    alignItems: 'center',
-
-  }
 
 });
 
