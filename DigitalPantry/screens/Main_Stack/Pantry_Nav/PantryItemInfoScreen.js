@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemInfoScreen = ({ route, navigation }) => {
- 
+
   const [item, setItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -14,19 +14,19 @@ const PantryItemInfoScreen = ({ route, navigation }) => {
   useEffect(() => {
     if(route.params !== undefined)
     {
-      let { passedItem } = route.params; 
+      let { passedItem } = route.params;
       setItem(passedItem);
       setIsLoaded(true);
     }
-  }, []);
+  }, [route.params]);
 
   if(isLoaded)
   {
     return(
       <ScrollView style={styles.container}>
-        <Avatar.Image 
-          size={128} 
-          style={{ alignSelf: 'center', marginTop: 30 }} 
+        <Avatar.Image
+          size={128}
+          style={styles.image}
           source={{uri:item.image}} />
         <Title>Name:</Title>
         <Paragraph>{item.name}</Paragraph>
@@ -43,9 +43,9 @@ const PantryItemInfoScreen = ({ route, navigation }) => {
         <Title>Remaining:</Title>
         <Paragraph>{item.remaining}</Paragraph>
       </ScrollView>
-    ); 
-  } 
-  else 
+    );
+  }
+  else
   {
     return(<LoadingScreen/>)
   }
@@ -55,8 +55,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
-    padding: 10
-  }
+    padding: 10,
+  },
+  image: {
+    alignSelf: 'center',
+    marginTop: 30,
+  },
 });
 
 export default PantryItemInfoScreen;

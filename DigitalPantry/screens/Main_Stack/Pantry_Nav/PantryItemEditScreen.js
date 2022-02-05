@@ -6,7 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemEditScreen = ({ route, navigation }) => {
-  
+
   const [curItem, setCurItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [name, onChangeName] = useState('');
@@ -17,13 +17,17 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
   const [imgURI, setImgURI] = useState('');
- 
+
   //Did mount:
   useEffect(() => {
     if(route.params !== undefined)
     {
+<<<<<<< HEAD
       //Load passed item data.
       let { passedItem } = route.params; 
+=======
+      let { passedItem } = route.params;
+>>>>>>> main
       setCurItem(passedItem);
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
@@ -43,7 +47,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       }
       setIsLoaded(true);
     }
-  }, []);
+  }, [route.params]);
 
   const handleConfirm = () => {
 
@@ -51,12 +55,17 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       key:'na',
       name: 'na',
       unit: 'na',
+<<<<<<< HEAD
       amount: 'na', 
       image: 'na',
       brand:'na',
       description:'na',
       remaining:'na',
       expirationDate: null
+=======
+      amount: 'na',
+      image: 'na',
+>>>>>>> main
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
@@ -173,11 +182,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-  title: {
-    fontSize: 30,
-    fontWeight: '700'
+  inputContainer: {
+    justifyContent: 'space-evenly',
+  },
+  image: {
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  confirmationContainer: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  button: {
+    flex: 1,
+    padding: 10,
   },
   expirationDateButton: {
     paddingTop: 10,

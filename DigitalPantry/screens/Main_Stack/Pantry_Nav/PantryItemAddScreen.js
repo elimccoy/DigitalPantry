@@ -27,7 +27,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
 
       //Connect to API here!
       fetch_upc(upc).then((itemAPIData) => {
- 
+
         //Record data.
         setName(itemAPIData["item_attributes"].title);
         setKey(upc);
@@ -39,7 +39,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         setIsLoaded(true);
       });
     }
-  }, []);
+  }, [route.params]);
 
   //Handels date selected. 
   const handleDateSelect = (event, date) => {
@@ -76,7 +76,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       <View style={styles.container}>
         <Avatar.Image size={128} style={styles.avatarStyle} source={{uri:imgURI}}/>
         {/*Container for text inputs*/}
-        <View style={{ justifyContent: 'space-evenly' }}>
+        <View style={styles.inputContainer}>
           <TextInput
             label="Add Item Name"
             defaultValue={name}

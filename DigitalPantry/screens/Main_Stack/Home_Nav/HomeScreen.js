@@ -30,7 +30,7 @@ const HomeScreen = () => {
   return(
     <ScrollView style={styles.container}>
       {Example_Notifications.map((notification) =>
-        <NotificationCard key={notification.id} {...notification} />
+        <NotificationCard key={notification.id} {...notification} />,
       )}
     </ScrollView>
   );
