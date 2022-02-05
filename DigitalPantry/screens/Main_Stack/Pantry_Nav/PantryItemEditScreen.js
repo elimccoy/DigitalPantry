@@ -142,7 +142,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           {show && (
             <DateTimePicker
               testID="dateTimePicker"
-              value={passedItem.date}
+              value={new Date()}
               mode={date}
               is24Hour={false}
               display="default"
