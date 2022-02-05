@@ -1,9 +1,9 @@
 // https://redux.js.org/tutorials/essentials/part-1-overview-concepts
 
 // template for actions. This is to enforce constants so that you don't make a mistake mispelling an action name.
-// export const <ACTION NAME> = 'pantry/<action name>'; 
+// export const <ACTION NAME> = 'pantry/<action name>';
 
-// template for action creators. This helps you create actions based on the arguments. Replace <arg1> and such with the necessary args. 
+// template for action creators. This helps you create actions based on the arguments. Replace <arg1> and such with the necessary args.
 // Import these to use in store.dispatch(<action name>) to dispatch actions.
 // export const <action name> = (<arg1>, <arg2>, ...) => ({
 //   type: <ACTION NAME>,

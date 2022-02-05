@@ -1,14 +1,15 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Home_Nav/HomeScreen';
 import PantryStackNav from './Pantry_Nav/PantryStackNav'
-import RecipeScreen from './Recipe_Nav/RecipeScreen';
 import ShoppingScreen from './Shopping_Nav/ShoppingScreen';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
+import RecipeStackNav from './Recipe_Nav/RecipeStackNav';
 
 const MainTab = createBottomTabNavigator();
 
+// App bottom tab navigation
 const MainTabNav = () => {
-  return(
+  return (
     <MainTab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
@@ -18,24 +19,25 @@ const MainTabNav = () => {
             iconName = 'home';
           } else if (route.name === 'Pantry') {
             iconName = 'form'
-          }  else if (route.name === 'Recipe') {
+          } else if (route.name === 'Recipe') {
             iconName = 'book'
-          }  else if (route.name === 'Shopping') {
+          } else if (route.name === 'Shopping') {
             iconName = 'shoppingcart'
-          } 
+          }
 
           return <AntDesign name={iconName} size={size} color={color} />
         },
         tabBarActiveTintColor: '#6200EE',
         tabBarInactiveTintColor: 'gray',
-        headerShown: false
+        headerShown: false,
       })}
     >
       <MainTab.Screen name="Home" component={HomeScreen} />
       <MainTab.Screen name="Pantry" component={PantryStackNav} />
-      <MainTab.Screen name="Recipe" component={RecipeScreen} />
+      <MainTab.Screen name="Recipe" component={RecipeStackNav} />
       <MainTab.Screen name="Shopping" component={ShoppingScreen} />
     </MainTab.Navigator>
+
   );
 }
 
