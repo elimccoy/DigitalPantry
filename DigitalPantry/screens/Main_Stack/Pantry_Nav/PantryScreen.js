@@ -6,19 +6,19 @@ import { useState, useEffect, useCallback } from 'react';
 
 //Data is going to be each pantry item.
 const numColumns = 2;
-const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name9', key: 'Test_Data_9', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name10', key: 'Test_Data_10', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name11', key: 'Test_Data_11', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name12', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'},
-              {name: 'name13', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full'}];
+const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full' , date: new Date()},
+              {name: 'name2', key: 'Test_Data_2', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name3', key: 'Test_Data_3', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name4', key: 'Test_Data_4', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name5', key: 'Test_Data_5', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name6', key: 'Test_Data_6', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name7', key: 'Test_Data_7', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name8', key: 'Test_Data_8', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name9', key: 'Test_Data_9', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name10', key: 'Test_Data_10', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name11', key: 'Test_Data_11', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name12', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
+              {name: 'name13', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()}];
 
 const PantryScreen = ({ route, navigation }) => {
 
