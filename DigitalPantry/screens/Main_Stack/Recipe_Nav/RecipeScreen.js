@@ -4,7 +4,6 @@ import { AntDesign } from '@expo/vector-icons';
 import RecipeGrid from './RecipeGrid';
 
 
-
 function RenderScrollView(props) {
 
 const scrollX = React.useRef(new Animated.Value(0)).current;
@@ -15,13 +14,13 @@ const cards = props.cards;
       horizontal={true}
       decelerationRate={"normal"}
       snapToInterval={props.ITEM_WIDTH}
-      style={{ marginTop: 40, paddingHorizontal: 0 }}
+      style={styles.scrollViewRoot}
       showsHorizontalScrollIndicator={false}
       bounces={false}
       disableIntervalMomentum
       onScroll={Animated.event(
         [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-        { useNativeDriver: false }
+        { useNativeDriver: false },
       )}
       scrollEventThrottle={12}
     >
@@ -55,12 +54,8 @@ const cards = props.cards;
           >
             <ImageBackground
               source={item.posterUrl}
-              style={{
-                flex: 1,
-                resizeMode: "cover",
-                justifyContent: "center",
-              }}
-              imageStyle={{ borderRadius: 6 }}
+              style={styles.imageBackgroundContainer}
+              imageStyle={styles.imageBackground}
             />
             <Text>
               Recipe: {item.title}
@@ -74,7 +69,6 @@ const cards = props.cards;
 }
 
 const RecipeScreen = ({ route, navigation }) => {
-
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   }
@@ -151,6 +145,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  scrollViewRoot: {
+    marginTop: 40,
+    paddingHorizontal: 0,
+  },
   button: {
     height: 60,
     width: 60,
@@ -164,6 +162,14 @@ const styles = StyleSheet.create({
     bottom: 15,
     height: 60,
     width: 60,
+  },
+  imageBackgroundContainer: {
+    flex: 1,
+    resizeMode: "cover",
+    justifyContent: "center",
+  },
+  imageBackground: {
+    borderRadius: 6,
   },
 });
 

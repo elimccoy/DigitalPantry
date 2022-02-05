@@ -1,20 +1,17 @@
 import { InputAccessoryView, Keyboard, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, TouchableOpacityBase, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
+import { useState } from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import UploadImage from './UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const RecipeAddScreen = ({ route, navigation }) => {
-
-  const { recipeName, onChangeName } = React.useState("Recipe Name");
-  const { ingList, onChangeIng } = React.useState("Ingredients");
-  const { recipeInfo, onChangeRecipe } = React.useState("Lorem ipsum dolor sit amet");
+  const { recipeName, onChangeName } = useState("Recipe Name");
+  const { ingList, onChangeIng } = useState("Ingredients");
+  const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
 
   return (
-
     <KeyboardAwareScrollView>
-
       <UploadImage />
       <TextInput
         style={styles.recipeName}
@@ -58,21 +55,20 @@ const RecipeAddScreen = ({ route, navigation }) => {
           </TouchableOpacity>
         </View>
       </InputAccessoryView>
-
     </KeyboardAwareScrollView>
-
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-    flexWrap: 'wrap',
-    flexDirection: 'column',
-    //justifyContent: 'center',
-    //alignItems: 'center',
-  },
+  // unused. TODO Remove
+  // container: {
+  //   flex: 1,
+  //   marginTop: StatusBar.currentHeight,
+  //   flexWrap: 'wrap',
+  //   flexDirection: 'column',
+  //   //justifyContent: 'center',
+  //   //alignItems: 'center',
+  // },
   recipeName: {
     height: 40,
     //margin: 12,
@@ -80,13 +76,14 @@ const styles = StyleSheet.create({
     padding: 2,
     fontSize: 36,
   },
-  defaultInput: {
-    height: 36,
-    //margin: 12,
-    //borderWidth: 1,
-    padding: 2,
-    fontSize: 18,
-  },
+  // unused. TODO Remove
+  // defaultInput: {
+  //   height: 36,
+  //   //margin: 12,
+  //   //borderWidth: 1,
+  //   padding: 2,
+  //   fontSize: 18,
+  // },
   multilineInput: {
     //margin: 12,
     //borderWidth: 1,
@@ -100,11 +97,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     backgroundColor: '#F8F8F8',
-    paddingHorizontal: 8
+    paddingHorizontal: 8,
   },
   doneButton: {
     color: '#007AFF',
-    fontSize: 17
+    fontSize: 17,
   },
 
 });
