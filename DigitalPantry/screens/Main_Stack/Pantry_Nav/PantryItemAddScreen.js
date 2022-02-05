@@ -3,10 +3,16 @@ import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Avatar, Button, Paragraph } from 'react-native-paper';
 import { fetch_upc } from '../../../API/barcodeSpider';
+import { useSelector, useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { createItem } from '../../../store/slices/pantry';
 import LoadingScreen from '../LoadingScreen';
 
 const PantryItemAddScreen = ({ route, navigation }) => {
+
+  //Redux data
+  const data = useSelector((state) => state.pantry.ingredients);
+  const dispatch = useDispatch();
 
   const[name, setName] = React.useState("Unknown");
   const[key, setKey] =  React.useState("Unknown");
@@ -63,8 +69,10 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       expirationDate: date
     }
 
-    //Pass data as item.
-    navigation.navigate('PantryScreen', {item:data});
+    //Add to redux.
+    dispatch(createItem(data));
+
+    navigation.navigate('PantryScreen');
   }
 
   const morePressHandler = () => {
@@ -94,7 +102,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
           />
           <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
           <View style={styles.expirationDateButton}>
-            <Button icon="check" mode="contained" onPress={() => setShow(true)}>
+            <Button icon="calendar" mode="contained" onPress={() => setShow(true)}>
               Set expiration date
             </Button>
           </View>

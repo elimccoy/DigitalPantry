@@ -1,54 +1,37 @@
-import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Title, Avatar, Paragraph  } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import LoadingScreen from '../LoadingScreen';
+import { useSelector, useDispatch } from 'react-redux';
 
 const PantryItemInfoScreen = ({ route, navigation }) => {
 
-  const [item, setItem] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const item = useSelector((state) => state.pantry.ingredients.find((i) => (i.key == route.params.key)));
 
-  //Did mount:
-  useEffect(() => {
-    if(route.params !== undefined)
-    {
-      let { passedItem } = route.params;
-      setItem(passedItem);
-      setIsLoaded(true);
-    }
-  }, [route.params]);
+  console.log(item);
 
-  if(isLoaded)
-  {
-    return(
-      <ScrollView style={styles.container}>
-        <Avatar.Image
-          size={128}
-          style={styles.image}
-          source={{uri:item.image}} />
-        <Title>Name:</Title>
-        <Paragraph>{item.name}</Paragraph>
-        <Title>Expiration date:</Title>
-        <Paragraph>{item.expirationDate.toString().slice(0,16)}</Paragraph>
-        <Title>Amount:</Title>
-        <Paragraph>{item.amount}</Paragraph>
-        <Title>Unit of measurement:</Title>
-        <Paragraph>{item.unit}</Paragraph>
-        <Title>Brand:</Title>
-        <Paragraph>{item.brand}</Paragraph>
-        <Title>Description:</Title>
-        <Paragraph>{item.description}</Paragraph>
-        <Title>Remaining:</Title>
-        <Paragraph>{item.remaining}</Paragraph>
-      </ScrollView>
-    );
-  }
-  else
-  {
-    return(<LoadingScreen/>)
-  }
+  return(
+    <ScrollView style={styles.container}>
+      <Avatar.Image
+        size={128}
+        style={styles.image}
+        source={{uri:item.image}} />
+      <Title>Name:</Title>
+      <Paragraph>{item.name}</Paragraph>
+      <Title>Expiration date:</Title>
+      <Paragraph>{item.expirationDate.toString().slice(0,16)}</Paragraph>
+      <Title>Amount:</Title>
+      <Paragraph>{item.amount}</Paragraph>
+      <Title>Unit of measurement:</Title>
+      <Paragraph>{item.unit}</Paragraph>
+      <Title>Brand:</Title>
+      <Paragraph>{item.brand}</Paragraph>
+      <Title>Description:</Title>
+      <Paragraph>{item.description}</Paragraph>
+      <Title>Remaining:</Title>
+      <Paragraph>{item.remaining}</Paragraph>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({

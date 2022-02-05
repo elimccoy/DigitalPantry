@@ -4,8 +4,13 @@ import { Avatar, TextInput, Button, Subheading, Paragraph } from 'react-native-p
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
+import { useDispatch } from 'react-redux';
+import { deleteItem, updateItem } from '../../../store/slices/pantry';
 
 const PantryItemEditScreen = ({ route, navigation }) => {
+
+  //Redux data
+  const dispatch = useDispatch();
 
   const [curItem, setCurItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -67,7 +72,14 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.description = curItem.description;
     itemToReturn.remaining = remaining;
     itemToReturn.expirationDate = date;
-    navigation.navigate('PantryScreen', {item:itemToReturn});
+    
+    dispatch(updateItem(itemToReturn));
+    navigation.navigate('PantryScreen');
+  }
+
+  const handleDete = () => {
+    dispatch(deleteItem(curItem.key));
+    navigation.navigate('PantryScreen');
   }
 
   const pressRemainingButton = (buttonNum, rema) => {
@@ -135,7 +147,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           </View>
           <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
           <View style={styles.expirationDateButton}>
-            <Button icon="check" mode="contained" onPress={() => setShow(true)}>
+            <Button icon="calendar" mode="contained" onPress={() => setShow(true)}>
               Set expiration date
             </Button>
           </View>
@@ -156,7 +168,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               </Button>
             </View>
             <View style={styles.buttonContainer}>
-              <Button icon="delete" mode="contained" onPress={() => handleConfirm()}>
+              <Button icon="delete" mode="contained" onPress={() => handleDete()}>
                 Delete
               </Button>
             </View>
