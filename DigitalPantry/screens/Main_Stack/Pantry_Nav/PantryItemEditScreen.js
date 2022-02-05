@@ -22,12 +22,8 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   useEffect(() => {
     if(route.params !== undefined)
     {
-<<<<<<< HEAD
       //Load passed item data.
       let { passedItem } = route.params; 
-=======
-      let { passedItem } = route.params;
->>>>>>> main
       setCurItem(passedItem);
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
@@ -55,17 +51,12 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       key:'na',
       name: 'na',
       unit: 'na',
-<<<<<<< HEAD
       amount: 'na', 
       image: 'na',
       brand:'na',
       description:'na',
       remaining:'na',
       expirationDate: null
-=======
-      amount: 'na',
-      image: 'na',
->>>>>>> main
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
