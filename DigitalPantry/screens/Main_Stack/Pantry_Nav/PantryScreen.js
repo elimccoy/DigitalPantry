@@ -20,6 +20,8 @@ const data = [{name: 'name1', key: 'Test_Data_1', unit: 'na', amount: 'na', imag
               {name: 'name12', key: 'Test_Data_12', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()},
               {name: 'name13', key: 'Test_Data_13', unit: 'na', amount: 'na', image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', brand:'na', description:'na', remaining:'Full', date: new Date()}];
 
+//Redux get data array.
+
 const PantryScreen = ({ route, navigation }) => {
 
   //States.
