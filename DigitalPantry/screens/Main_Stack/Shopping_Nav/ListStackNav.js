@@ -1,21 +1,20 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native';
 import ShoppingScreen from './ShoppingScreen';
 import ListAddScreen from './ListAddScreen';
-
-/**
- * TO-DO: add edit/delete screen
- */
+import ListEditDeleteScreen from './ListEditDeleteScreen';
+import CustomNavigationBar from './CustomNavigationBar';
 
 const ListStack = createNativeStackNavigator();
 
 const ListStackNav = () => { //navigator for list related screens
   return (
-    <ListStack.Navigator screenOptions={{ headerShown: false }}>
+    <ListStack.Navigator initialRouteName="ShoppingScreen" screenOptions={{ header: (props) => <CustomNavigationBar {...props} />,} }>
 
       <ListStack.Screen name="ShoppingScreen" component={ShoppingScreen} />
 
       <ListStack.Screen name="ListAddScreen" component={ListAddScreen} />
+
+      <ListStack.Screen name="ListEditDeleteScreen" component={ListEditDeleteScreen} />
 
     </ListStack.Navigator>
   );
