@@ -16,13 +16,13 @@ const SuggestedItem = ({item,addItem}) => { //takes in function addItem and also
     const [key, setId] = React.useState(itm.key);
 
 
-    return(
-        <View >
+    return (
 
-            <List.Item title={name} description={data} left={() => <IconButton icon="plus-circle" 
-                size={20} onPress={() => addItem(itm)}/>} right={() => <Text> {amount} </Text>} />
- 
-        </View>
+
+        <List.Item title={name} description={data} left={() => <IconButton icon="plus-circle"
+            size={20} onPress={() => addItem(itm)} />} right={() => <Text> {amount} </Text>} />
+
+
 
     );
 
