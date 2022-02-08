@@ -1,14 +1,14 @@
 import { v4 as uuid } from 'uuid';
 
-export const CREATE_NOTIFICATION = 'notifications/create'; 
-export const DELETE_NOTIFICATION = 'notifications/delete'; 
+export const CREATE_NOTIFICATION = 'notifications/create';
+export const DELETE_NOTIFICATION = 'notifications/delete';
 
 /**
  * Creates a new notification to show the user
  * @param {{
     notifType: NotificationType
     contents: string
-  }} ActionProps 
+  }} ActionProps
  * @returns {{
    type: ActionType
    id: string
@@ -32,7 +32,7 @@ export const deleteNotification = (id) => ({
 
 const INITIAL_STATE = {
   notifications: [/*{
-    id: number - unique identifier for the notification 
+    id: number - unique identifier for the notification
     type: ENUM - represents a type to draw a card differently depending on what type of notification this is
     timestamp: number
     contents: String - the text to show the user
@@ -56,7 +56,7 @@ const reducers = {
       timestamp: action.timestamp,
       type: action.notifType,
       contents: action.contents,
-     }]
+     }],
    }),
    [DELETE_NOTIFICATION]: (state, action) => ({
      ...state,

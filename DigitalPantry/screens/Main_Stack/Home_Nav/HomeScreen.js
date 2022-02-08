@@ -14,7 +14,7 @@ const HomeScreen = () => {
           key={notification.id}
           {...notification}
           cancel={() => dispatch(deleteNotification(notification.id))}
-        />
+        />,
       )}
     </ScrollView>
   );
