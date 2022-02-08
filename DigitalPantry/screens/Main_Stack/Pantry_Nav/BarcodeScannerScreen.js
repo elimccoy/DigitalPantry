@@ -16,7 +16,7 @@ const BarcodeScannerScreen = ({navigation}) => {
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-  
+
     navigation.navigate("AddScreen", {upc: data});
   };
 
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });
 
