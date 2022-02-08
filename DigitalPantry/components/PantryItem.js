@@ -5,11 +5,11 @@ const PantryItem = ({item}) => {
 
   return(
     <View style={styles.container}>
-      <ImageBackground 
-        source={{uri:item.image}} 
-        resizeMode="cover" 
+      <ImageBackground
+        source={{uri:item.image}}
+        resizeMode="cover"
         style={styles.backgroundImgStyle}
-        imageStyle={{ borderRadius: 3}}>
+        imageStyle={styles.backgroundImgStyleImageStyles}>
         <Badge style={styles.nameBadge}>{item.name}</Badge>
         <Badge style={styles.statusBadge}>{item.amount}</Badge>
       </ImageBackground>
@@ -26,25 +26,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 3,
     elevation: 3,
-    shadowColor: '#52006A'
+    shadowColor: '#52006A',
   },
   backgroundImgStyle: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
   },
+  backgroundImgStyleImageStyles: {
+    borderRadius: 3,
+  },
   statusBadge: {
     position: 'absolute',
     bottom: 7,
     left: 7,
-    maxWidth: "70%"
+    maxWidth: "70%",
   },
   nameBadge: {
     position: 'absolute',
     top: 7,
     right: 7,
-    maxWidth: "70%"
-  }
+    maxWidth: "70%",
+  },
 });
 
 export default PantryItem;

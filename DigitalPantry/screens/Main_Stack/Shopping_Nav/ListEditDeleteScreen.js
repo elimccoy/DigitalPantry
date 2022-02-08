@@ -1,5 +1,5 @@
 import { StyleSheet, View, Button, ScrollView } from 'react-native';
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { TextInput } from 'react-native-paper';
 import LoadingScreen from '../LoadingScreen';
 
@@ -8,16 +8,15 @@ import LoadingScreen from '../LoadingScreen';
  * Styling: make it more similar to pantry edit screen
  */
 const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functions
-  const [itm, setItm] = React.useState(null);
-  const [itmName, setItmName] = React.useState("");
-  const [amt, setAmt] = React.useState("");
-  const [units, setUnits] = React.useState("");
-  const [key, setKey] = React.useState("");
-  const [isLoaded, setIsLoaded] = React.useState(false);
+  const [itm, setItm] = useState(null);
+  const [itmName, setItmName] = useState('');
+  const [amt, setAmt] = useState('');
+  const [units, setUnits] = useState('');
+  const [key, setKey] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
 
 
-
-  React.useEffect(() => {
+  useEffect(() => {
     if (route.params !== undefined) {
       let { itemToEdit } = route.params;
       setItm(itemToEdit);
@@ -27,18 +26,17 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
       setKey(itemToEdit.key);
       setIsLoaded(true);
     };
-  }, []);
-
+  }, [route.params]);
 
 
   const deleteItem = () => {
-    var newItm = { key: key, amount: amt, name: undefined, data: units }; //flag object
+    const newItm = { key: key, amount: amt, name: undefined, data: units }; //flag object
     setItm(newItm);
     navigation.navigate('ShoppingScreen', { newItem: newItm }); // 1 is delete
   }
 
   const editItem = () => {
-    var newItm = { key: key, amount: amt, name: itmName, data: units }; //make object
+    const newItm = { key: key, amount: amt, name: itmName, data: units }; //make object
     //setItm(newItm);
 
     navigation.navigate('ShoppingScreen', { newItem: newItm }); // 1 is edit
@@ -47,10 +45,7 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
 
   if (isLoaded) {
     return (
-
       <View style={styles.container}>
-
-
         <TextInput
           style={styles.input}
           label="Product Name"
@@ -73,34 +68,25 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
         />
 
         <Button style={styles.button}
-          title='Save changes'
+          title="Save changes"
           onPress={() => editItem()}
         />
 
         <Button style={styles.button}
-          title='Delete Item'
+          title="Delete Item"
           onPress={() => deleteItem()} //will be functions that get passed
         />
-
-
       </View>
     );
   } else {
     return (<LoadingScreen />);
   }
-
 }
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
-
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: '700'
+    justifyContent: 'center',
   },
   input: {
     height: 40,
@@ -113,9 +99,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 30,
     margin: 17,
-  }
+  },
 });
-
 
 
 export default ListEditDeleteScreen;

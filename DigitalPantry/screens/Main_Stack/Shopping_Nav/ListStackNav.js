@@ -8,14 +8,10 @@ const ListStack = createNativeStackNavigator();
 
 const ListStackNav = () => { //navigator for list related screens
   return (
-    <ListStack.Navigator initialRouteName="ShoppingScreen" screenOptions={{ header: (props) => <CustomNavigationBar {...props} />,} }>
-
+    <ListStack.Navigator initialRouteName="ShoppingScreen" screenOptions={{ header: (props) => <CustomNavigationBar {...props} />} }>
       <ListStack.Screen name="ShoppingScreen" component={ShoppingScreen} />
-
       <ListStack.Screen name="ListAddScreen" component={ListAddScreen} />
-
       <ListStack.Screen name="ListEditDeleteScreen" component={ListEditDeleteScreen} />
-
     </ListStack.Navigator>
   );
 }

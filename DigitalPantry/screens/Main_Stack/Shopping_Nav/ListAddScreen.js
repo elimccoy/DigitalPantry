@@ -1,5 +1,5 @@
 import { StyleSheet, View, Button} from 'react-native';
-import * as React from 'react';
+import { useState } from 'react';
 import { TextInput } from 'react-native-paper';
 
 /**TO-DO
@@ -8,18 +8,18 @@ import { TextInput } from 'react-native-paper';
  * Styling: make it more similar to pantry edit screen
  */
 const ListAddScreen = ({ navigation }) => {
-  const [itm, setItm] = React.useState({});
-  const [itmName, setItmName] = React.useState("");
-  const [amt, setAmt] = React.useState("");
-  const [units, setUnits] = React.useState("");
-  const [key, setKey] = React.useState("")
+  const [itm, setItm] = useState({});
+  const [itmName, setItmName] = useState('');
+  const [amt, setAmt] = useState('');
+  const [units, setUnits] = useState('');
+  const [key, setKey] = useState('')
 
   //adds item to list
   const add = () => {
-    let amtInt = parseInt(amt);
-    let k = (amtInt * 3).toString();
+    const amtInt = parseInt(amt);
+    const k = (amtInt * 3).toString();
     setKey(k);
-    var newItm = { key: k, amount: amt, name: itmName, data: "idk" }; //make object
+    const newItm = { key: k, amount: amt, name: itmName, data: 'idk' }; //make object
 
     setItm({ key: key, amount: amt, name: itmName, data: units });
     navigation.navigate('ShoppingScreen', { newItem: newItm }); //pass object to ShoppingScreen to be added
@@ -27,26 +27,24 @@ const ListAddScreen = ({ navigation }) => {
 
 
   return (
-
     <View style={styles.container}>
-
       <TextInput
         style={styles.input}
-        label="Product Name"
+        label='Product Name'
         value={itmName}
         onChangeText={itmName => setItmName(itmName)}
       />
 
       <TextInput
         style={styles.input}
-        label="Unit"
+        label='Unit'
         value={units}
         onChangeText={units => setUnits(units)}
       />
 
       <TextInput
         style={styles.input}
-        label="Amount"
+        label='Amount'
         value={amt}
         onChangeText={amt => setAmt(amt)}
       />
@@ -55,7 +53,6 @@ const ListAddScreen = ({ navigation }) => {
         title='Confirm'
         onPress={() => add()}
       />
-
     </View>
   );
 
@@ -65,12 +62,7 @@ const ListAddScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
-
-  },
-  title: {
-    fontSize: 30,
-    fontWeight: '700'
+    justifyContent: 'center',
   },
   input: {
     height: 40,

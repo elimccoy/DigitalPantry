@@ -24,7 +24,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
 
       //Connect to API here!
       fetch_upc(upc).then((itemAPIData) => {
- 
+
         //Record data.
         setName(itemAPIData["item_attributes"].title);
         setKey(upc);
@@ -36,7 +36,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         setIsLoaded(true);
       });
     }
-  }, []);
+  }, [route.params]);
 
   //Handlers for navigating:
   const donePressHandler = () => {
@@ -49,7 +49,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       amount: amount,
       image: imgURI,
       brand: brand,
-      description: desc
+      description: desc,
     }
 
     //Pass data as item.
@@ -63,9 +63,9 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   if (isLoaded) {
     return (
       <View style={styles.container}>
-        <Avatar.Image size={128} style={{ alignSelf: 'center', marginBottom: 10 }} source={{uri:imgURI}} />
+        <Avatar.Image size={128} style={styles.image} source={{uri:imgURI}} />
         {/*Container for text inputs*/}
-        <View style={{ justifyContent: 'space-evenly' }}>
+        <View style={styles.inputContainer}>
           <TextInput
             label="Add Item Name"
             defaultValue={name}
@@ -82,15 +82,15 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             onChangeText={unit => setUnit(unit)}
           />
         </View>
-  
+
         {/*Container for buttons*/}
-        <View style={{ flexDirection: 'row', padding: 10 }}>
-          <View style={{ flex: 1, padding: 10 }}>
+        <View style={styles.confirmationContainer}>
+          <View style={styles.button}>
             <Button icon="check" mode="contained" onPress={() => donePressHandler()}>
               Done
             </Button>
           </View>
-          <View style={{ flex: 1, padding: 10 }}>
+          <View style={styles.button}>
             <Button icon="camera" mode="contained" onPress={() => morePressHandler()}>
               Re-Scan
             </Button>
@@ -111,7 +111,21 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight,
     justifyContent: 'center',
   },
-
-  });
+  confirmationContainer: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  button: {
+    flex: 1,
+    padding: 10,
+  },
+  image: {
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
+  inputContainer: {
+    justifyContent: 'space-evenly',
+  },
+});
 
 export default PantryItemAddScreen;

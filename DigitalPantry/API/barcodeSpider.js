@@ -2,17 +2,17 @@ import CONFIG from '../config';
 const API_TOKEN = CONFIG.barcodeSpider.api_token;
 
 /**
- * 
+ *
  * @typedef BarcodeSpiderResponse
  * @type {object}
  * @property {number} code the HTTP status code
  * @property {string} status the name of the status code
- * @property {string} message a description of the error 
+ * @property {string} message a description of the error
  */
 
 /**
  * Represents the full response object from the fetch.
- * Documentation can be found here: https://devapi.barcodespider.com/documentation#response 
+ * Documentation can be found here: https://devapi.barcodespider.com/documentation#response
  * @typedef UpcFetchResponse
  * @type {object}
  * @property {BarcodeSpiderResponse} item_response The response of the request with code, status, and message.
