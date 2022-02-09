@@ -1,6 +1,8 @@
 import { StyleSheet, View, Button} from 'react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { TextInput } from 'react-native-paper';
+import { addItem } from '../../../store/slices/shoppingList';
 
 /**TO-DO
  * finish implementing cancel
@@ -8,23 +10,21 @@ import { TextInput } from 'react-native-paper';
  * Styling: make it more similar to pantry edit screen
  */
 const ListAddScreen = ({ navigation }) => {
-  const [itm, setItm] = useState({});
+  const dispatch = useDispatch();
+
   const [itmName, setItmName] = useState('');
   const [amt, setAmt] = useState('');
   const [units, setUnits] = useState('');
-  const [key, setKey] = useState('')
 
-  //adds item to list
-  const add = () => {
-    const amtInt = parseInt(amt);
-    const k = (amtInt * 3).toString();
-    setKey(k);
-    const newItm = { key: k, amount: amt, name: itmName, data: 'idk' }; //make object
+  const confirm = () => {
+    dispatch(addItem({
+      amount: amt,
+      name: itmName,
+      data: units,
+    }));
 
-    setItm({ key: key, amount: amt, name: itmName, data: units });
-    navigation.navigate('ShoppingScreen', { newItem: newItm }); //pass object to ShoppingScreen to be added
+    navigation.navigate('ShoppingScreen'); // return to shopping screen
   };
-
 
   return (
     <View style={styles.container}>
@@ -51,7 +51,7 @@ const ListAddScreen = ({ navigation }) => {
 
       <Button
         title='Confirm'
-        onPress={() => add()}
+        onPress={confirm}
       />
     </View>
   );
