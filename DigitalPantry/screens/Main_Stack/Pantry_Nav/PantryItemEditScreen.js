@@ -28,7 +28,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     if(route.params !== undefined)
     {
       //Load passed item data.
-      let { passedItem } = route.params; 
+      let { passedItem } = route.params;
       setCurItem(passedItem);
       onChangeName(passedItem.name);
       onChangeUnit(passedItem.unit);
@@ -56,12 +56,12 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       key:'na',
       name: 'na',
       unit: 'na',
-      amount: 'na', 
+      amount: 'na',
       image: 'na',
       brand:'na',
       description:'na',
       remaining:'na',
-      expirationDate: null
+      expirationDate: null,
     };
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
@@ -72,7 +72,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.description = curItem.description;
     itemToReturn.remaining = remaining;
     itemToReturn.expirationDate = date;
-    
+
     dispatch(updateItem(itemToReturn));
     navigation.navigate('PantryScreen');
   }
@@ -83,7 +83,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   }
 
   const pressRemainingButton = (buttonNum, rema) => {
-    
+
     //Mark button.
     let buttonUpdate = [false, false, false];
     buttonUpdate[buttonNum] = true;
@@ -92,11 +92,11 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     setButtonsActive(buttonUpdate);
     setRemaining(rema);
   }
- 
+
   const handleDateSelect = (event, date) => {
     setShow(false);
     setDate(date);
-  } 
+  }
 
   if(isLoaded) {
     return(
@@ -121,24 +121,24 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.buttonContainer}>
-              <Button 
-                mode="contained" 
+              <Button
+                mode="contained"
                 onPress={() => pressRemainingButton(0, "Low")}
                 disabled={buttonsActive[0]}>
                 Low
               </Button>
             </View>
             <View style={styles.buttonContainer}>
-              <Button 
-                mode="contained" 
+              <Button
+                mode="contained"
                 onPress={() => pressRemainingButton(1, "Half")}
                 disabled={buttonsActive[1]}>
                 Half
               </Button>
             </View>
             <View style={styles.buttonContainer}>
-              <Button 
-                mode="contained" 
+              <Button
+                mode="contained"
                 onPress={() => pressRemainingButton(2, "Full")}
                 disabled={buttonsActive[2]}>
                 Full
@@ -205,23 +205,23 @@ const styles = StyleSheet.create({
   expirationDateButton: {
     paddingTop: 10,
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
   },
   expirationDateText: {
     paddingTop: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   buttonContainer: {
-    flex: 1, 
-    padding: 10
+    flex: 1,
+    padding: 10,
   },
   timeRemainingText: {
-    padding: 10
+    padding: 10,
   },
   avatarStyles: {
     alignSelf: 'center',
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 export default PantryItemEditScreen;

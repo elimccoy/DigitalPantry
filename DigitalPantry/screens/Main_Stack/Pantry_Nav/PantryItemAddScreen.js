@@ -47,11 +47,11 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     }
   }, [route.params]);
 
-  //Handels date selected. 
+  //Handels date selected.
   const handleDateSelect = (event, date) => {
     setShow(false);
     setDate(date);
-  } 
+  }
 
   //Handlers for navigating:
   const donePressHandler = () => {
@@ -66,7 +66,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       brand: brand,
       description: desc,
       remaining: 'Full',
-      expirationDate: date
+      expirationDate: date,
     }
 
     //Add to redux.
@@ -119,17 +119,17 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         </View>
         <View style={styles.buttonViewStyle}>
           <View style={styles.buttonPaddingStyle}>
-            <Button 
-              icon="check" 
-              mode="contained" 
+            <Button
+              icon="check"
+              mode="contained"
               onPress={() => donePressHandler()}>
               Done
             </Button>
           </View>
           <View style={styles.buttonPaddingStyle}>
-            <Button 
-              icon="camera" 
-              mode="contained" 
+            <Button
+              icon="camera"
+              mode="contained"
               onPress={() => morePressHandler()}>
               Re-Scan
             </Button>
@@ -151,26 +151,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   buttonPaddingStyle: {
-    flex: 1, 
-    padding: 10
+    flex: 1,
+    padding: 10,
   },
   buttonViewStyle: {
     flexDirection: 'row',
-    padding: 10 
+    padding: 10,
   },
   expirationDateButton: {
     paddingTop: 10,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
   expirationDateText: {
     paddingTop: 10,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   avatarStyle: {
-    alignSelf: 'center', 
-    marginBottom: 10
-  }
+    alignSelf: 'center',
+    marginBottom: 10,
+  },
   });
 
 export default PantryItemAddScreen;
