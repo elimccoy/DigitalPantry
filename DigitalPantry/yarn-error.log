@@ -1,0 +1,63 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\Eli McCoy\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @react-native-community/datetimepicker
+
+PATH: 
+  C:\Users\Eli McCoy\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\Eli McCoy\bin;C:\Python39\Scripts;C:\Python39;C:\Program Files\AdoptOpenJDK\jdk-11.0.10.9-hotspot\bin;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;C:\Program Files\Razer\ChromaBroadcast\bin;C:\mingw\bin;C:\Program Files (x86)\Razer\ChromaBroadcast\bin;D:\Program Files\Razer\ChromaBroadcast\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Users\Eli McCoy\AppData\Local\Programs\Python\Python38-32\Scripts;C:\Users\Eli McCoy\AppData\Local\Programs\Python\Python38-32;C:\Users\Eli McCoy\AppData\Local\Microsoft\WindowsApps;C:\Users\Eli McCoy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\CLion 2020.2.3\bin;C:\MinGW\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2020.2.3\bin;C:\Program Files (x86)\SMLNJ\bin;C:\Program Files\swipl\bin;C:\Program Files\PuTTY;C:\Windows\system32\config\systemprofile\AppData\Local\Microsoft\WindowsApps;C:\Program Files\dotnet;C:\Program Files (x86)\dotnet;C:\Program Files\Microsoft SQL Server\130\Tools\Binn;C:\php-8.0.3;C:\Program Files\nodejs;C:\ProgramData\chocolatey\bin;C:\Program Files\Git\cmd;C:\Users\Eli McCoy\AppData\Local\Microsoft\WindowsApps;C:\Users\Eli McCoy\AppData\Local\Programs\Microsoft VS Code\bin;C:\Program Files\JetBrains\CLion 2020.2.3\bin;C:\MinGW\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2020.2.3\bin;C:\Users\Eli McCoy\.dotnet\tools;C:\php-8.0.3;C:\Users\Eli McCoy\AppData\Roaming\npm;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  14.16.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, unlink 'C:\Users\Eli McCoy\Desktop\DigitalPantry\DigitalPantry\node_modules\xdl\binaries\windows\adb\adb.exe'
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "@react-navigation/bottom-tabs": "^6.0.9",
+      "@react-navigation/native": "^6.0.6",
+      "@react-navigation/native-stack": "^6.2.5",
+      "expo": "~44.0.0",
+      "expo-auth-session": "~3.5.0",
+      "expo-barcode-scanner": "~11.2.0",
+      "expo-cli": "^5.0.3",
+      "expo-dev-client": "~0.8.3",
+      "expo-random": "~12.1.1",
+      "expo-status-bar": "~1.2.0",
+      "firebase": "^9.6.2",
+      "install": "^0.13.0",
+      "npm": "^8.3.0",
+      "react": "17.0.1",
+      "react-dom": "17.0.1",
+      "react-native": "0.64.3",
+      "react-native-paper": "^4.11.1",
+      "react-native-safe-area-context": "3.3.2",
+      "react-native-screens": "~3.10.1",
+      "react-native-web": "0.17.1",
+      "react-redux": "^7.2.6",
+      "redux": "^4.1.2"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
