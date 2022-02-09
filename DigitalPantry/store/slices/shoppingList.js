@@ -9,6 +9,7 @@ export const ADD_SUGGESTED_ITEM = 'list/add_suggested_item';
 export const DELETE_SUGGESTED_ITEM = 'list/delete_suggested_item';
 export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
+export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
 
 export const addItem = ({ amount, name, info, units }) => ({
   type: ADD_ITEM,
@@ -45,16 +46,30 @@ export const deleteSuggestedItem = (key) => ({
   key,
 });
 
+/**
+ * Deletes several items at a time based on the array of item keys
+ * Used to "delete checked items"
+ * @param {array<string>} keys
+ * @returns action to dispatch
+ */
 export const deleteItems = (keys) => ({
   type: DELETE_ITEMS,
   keys,
-})
+});
+
+export const clearShoppingList = () => ({
+  type: CLEAR_SHOPPING_LIST,
+});
 
 // Expects the item with the provided key to be in the suggested.
 // This both removes the item from the suggested list and adds it to the shopping list.
 export const moveSuggestedToList = (key) => ({
   type: ADD_FROM_SUGGESTED_TO_LIST,
   key,
+});
+
+export const clearSuggestedItems = () => ({
+  type: CLEAR_SUGGESTED_ITEMS,
 });
 
 const INITIAL_STATE = {
@@ -121,11 +136,33 @@ const reducers = {
     ...state,
     list: [],
   }),
+  [ADD_SUGGESTED_ITEM]: (state, action) => ({
+    ...state,
+    suggestd: [...state.suggested, {
+      key: uuid(),
+      name: action.name,
+      info: action.info,
+      amount: action.amount,
+      units: action.units,
+     }],
+  }),
+  [DELETE_SUGGESTED_ITEM]: (state, action) => ({
+    ...state,
+    suggested: state.suggested.filter(({ key }) => key !== action.key),
+  }),
+  DELETE_ITEMS: (state, action) => ({
+    ...state,
+    list: list.filter(({ key }) => action.keys.indexOf(key) > -1),
+  }),
   [ADD_FROM_SUGGESTED_TO_LIST]: (state, action) => ({
     ...state,
     list: [...state.list, state.suggested.find(({ key }) => key === action.key)],
     suggested: state.suggested.filter(({ key }) => key !== action.key),
-   }),
+  }),
+  [CLEAR_SUGGESTED_ITEMS]: (state) => ({
+    ...state,
+    suggested: [],
+  }),
 };
 
 // boilerplate
