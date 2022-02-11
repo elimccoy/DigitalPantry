@@ -150,6 +150,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
         <TextInput
           label="Amount:"
           mode={"outlined"}
+          keyboardType = 'numeric'
           onChangeText={onChangeAmount}
           defaultValue={item.amount}
         />

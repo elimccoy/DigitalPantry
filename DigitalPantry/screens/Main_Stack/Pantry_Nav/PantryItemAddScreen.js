@@ -153,8 +153,9 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             onChangeText={name => setName(name)}
           />
           <TextInput
-            label="Quantity"
+            label="Amount"
             mode="outlined"
+            keyboardType = 'numeric'
             defaultValue={amount}
             onChangeText={amount => setAmount(amount)}
           />
