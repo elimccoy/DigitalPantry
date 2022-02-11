@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import LoadingScreen from '../LoadingScreen';
 import { useDispatch } from 'react-redux';
 import { deleteItem, updateItem } from '../../../store/slices/pantry';
+import DropDown from "react-native-paper-dropdown";
 
 const PantryItemEditScreen = ({ route, navigation }) => {
 
@@ -15,13 +16,68 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [curItem, setCurItem] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [name, onChangeName] = useState('');
-  const [unit, onChangeUnit] = useState('');
+  const [unit, setUnit] = useState('');
   const [amount, onChangeAmount] = useState('');
   const [remaining, setRemaining] = useState('');
   const [buttonsActive, setButtonsActive] = useState([false, false, false]);
   const [date, setDate] = useState(new Date());
   const [show, setShow] = useState(false);
+  const[showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
   const [imgURI, setImgURI] = useState('');
+  const measurementList = [
+    {
+      label: "Pack",
+      value: "Pack",
+    },
+    {
+      label: "Bag",
+      value: "Bag",
+    },
+    {
+      label: "Tablespoon",
+      value: "Tablespoon",
+    },
+    {
+      label: "Ounce",
+      value: "Ounce",
+    },
+    {
+      label: "Cup",
+      value: "Cup",
+    },
+    {
+      label: "Quart",
+      value: "Quart",
+    },
+    {
+      label: "Pint",
+      value: "Pint",
+    },
+    {
+      label: "Pound",
+      value: "Pound",
+    },
+    {
+      label: "Gallon",
+      value: "Gallon",
+    },
+    {
+      label: "Milliliter",
+      value: "Milliliter",
+    },
+    {
+      label: "Grams",
+      value: "Grams",
+    },
+    {
+      label: "Kilogram",
+      value: "Kilogram",
+    },
+    {
+      label: "Liter",
+      value: "Liter",
+    },
+  ];
 
   //Did mount:
   useEffect(() => {
@@ -31,7 +87,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       let { passedItem } = route.params;
       setCurItem(passedItem);
       onChangeName(passedItem.name);
-      onChangeUnit(passedItem.unit);
+      setUnit(passedItem.unit);
       onChangeAmount(passedItem.amount);
       setRemaining(passedItem.percentage)
       setImgURI(passedItem.image)
@@ -63,6 +119,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       remaining:'na',
       expirationDate: null,
     };
+    
     itemToReturn.name = name;
     itemToReturn.key = curItem.key;
     itemToReturn.unit = unit;
@@ -105,18 +162,25 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           <Avatar.Image size={128} style={styles.avatarStyles} source={{uri:curItem.image}} />
           <TextInput
             label="Name:"
+            mode={"outlined"}
             onChangeText={onChangeName}
             defaultValue={curItem.name}
           />
           <TextInput
-            label="Unit:"
-            onChangeText={onChangeUnit}
-            defaultValue={curItem.unit}
-          />
-          <TextInput
             label="Amount:"
+            mode={"outlined"}
             onChangeText={onChangeAmount}
             defaultValue={curItem.amount}
+          />
+          <DropDown
+            label={"Measurements"}
+            mode={"outlined"}
+            visible={showMultiSelectDropDown}
+            showDropDown={() => setShowMultiSelectDropDown(true)}
+            onDismiss={() => setShowMultiSelectDropDown(false)}
+            value={unit}
+            setValue={(res) => {setUnit(res)}}
+            list={measurementList}
           />
           <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
           <View style={{ flexDirection: 'row' }}>
@@ -184,6 +248,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     marginTop: StatusBar.currentHeight,
     justifyContent: 'center',
   },

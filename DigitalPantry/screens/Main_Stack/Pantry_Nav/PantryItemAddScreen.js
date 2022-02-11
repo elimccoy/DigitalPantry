@@ -121,7 +121,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     let data = {
       name: name,
       key: key,
-      unit: unit.slice(1, unit.length),
+      unit: unit,
       amount: amount,
       image: imgURI,
       brand: brand,
@@ -159,16 +159,15 @@ const PantryItemAddScreen = ({ route, navigation }) => {
             onChangeText={amount => setAmount(amount)}
           />
           <DropDown
-              label={"Measurements"}
-              mode={"outlined"}
-              visible={showMultiSelectDropDown}
-              showDropDown={() => setShowMultiSelectDropDown(true)}
-              onDismiss={() => setShowMultiSelectDropDown(false)}
-              value={unit}
-              setValue={(res) => {setUnit(res)}}
-              list={measurementList}
-              multiSelect
-            />
+            label={"Measurements"}
+            mode={"outlined"}
+            visible={showMultiSelectDropDown}
+            showDropDown={() => setShowMultiSelectDropDown(true)}
+            onDismiss={() => setShowMultiSelectDropDown(false)}
+            value={unit}
+            setValue={(res) => {setUnit(res)}}
+            list={measurementList}
+          />
           <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
           <View style={styles.expirationDateButton}>
             <Button icon="calendar" mode="contained" onPress={() => setShow(true)}>
