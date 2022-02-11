@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: StatusBar.currentHeight,
     justifyContent: 'center',
-    padding: 10
+    padding: 10,
   },
   buttonPaddingStyle: {
     flex: 1,
