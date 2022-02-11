@@ -12,7 +12,7 @@ import DropDown from "react-native-paper-dropdown";
 const PantryItemAddScreen = ({ route, navigation }) => {
 
   //Redux data
-  const data = useSelector((state) => state.pantry.ingredients);
+  //const data = useSelector((state) => state.pantry.ingredients);
   const dispatch = useDispatch();
 
   const[name, setName] = React.useState("Unknown");
