@@ -1,4 +1,6 @@
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
+import { db } from '../firebase';
 
 export async function loggingOut() {
   const auth = getAuth();
@@ -7,4 +9,4 @@ export async function loggingOut() {
   }, function(error) {
     // An error happened.
   });
-}
+};
