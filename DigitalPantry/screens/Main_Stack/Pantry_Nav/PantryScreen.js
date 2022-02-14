@@ -63,7 +63,7 @@ const PantryScreen = ({ navigation }) => {
     return (
       <TouchableOpacity
         style={styles.item}
-        onLongPress={() => {navigation.navigate('EditScreen', {passedItem:item})}}
+        onLongPress={() => {navigation.navigate('EditScreen', {key:item.key})}}
         onPress={() => {navigation.navigate("InfoScreen",{key:item.key})}}
       >
         <PantryItem item={item}/>
