@@ -138,7 +138,7 @@ const reducers = {
   }),
   [ADD_SUGGESTED_ITEM]: (state, action) => ({
     ...state,
-    suggestd: [...state.suggested, {
+    suggested: [...state.suggested, {
       key: uuid(),
       name: action.name,
       info: action.info,
@@ -152,7 +152,7 @@ const reducers = {
   }),
   DELETE_ITEMS: (state, action) => ({
     ...state,
-    list: list.filter(({ key }) => action.keys.indexOf(key) > -1),
+    list: list.filter(({ key }) => action.keys.indexOf(key) === -1),
   }),
   [ADD_FROM_SUGGESTED_TO_LIST]: (state, action) => ({
     ...state,
