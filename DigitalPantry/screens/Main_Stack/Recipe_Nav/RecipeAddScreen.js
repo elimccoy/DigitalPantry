@@ -7,7 +7,7 @@ import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Accessory = Platform.select({
-  ios: IOSAccessory
+  ios: IOSAccessory,
 });
 
 const RecipeAddScreen = ({ route, navigation }) => {
@@ -49,7 +49,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
-      <Accessory/>
+      { Accessory && <Accessory/> }
 
     </KeyboardAwareScrollView>
   );
