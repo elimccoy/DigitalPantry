@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import * as Google from 'expo-auth-session/providers/google';
-import { Button, Text, View } from 'react-native';
+import { View, Image } from 'react-native';
+import { Button } from 'react-native-paper';
 import { getAuth, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
 import styles from '../../styles/SignInScreenStyles'
 
@@ -10,7 +11,7 @@ const SignInScreen = () => {
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest(
     {
       clientId: '957242178167-l7u7cvcautet1mbsb49arrhhbnrdho3e.apps.googleusercontent.com',
-      },
+    },
   );
 
   useEffect(() => {
@@ -18,7 +19,6 @@ const SignInScreen = () => {
       const { id_token } = response.params;
 
       const auth = getAuth();
-      const provider = new GoogleAuthProvider();
       const credential = GoogleAuthProvider.credential(id_token);
       signInWithCredential(auth, credential);
     }
@@ -26,12 +26,24 @@ const SignInScreen = () => {
 
   return(
     <View style={styles.container}>
-      <Text style={styles.text}>Sign In Screen!</Text>
-      <Button
-        disabled={!request}
-        title="Login"
-        onPress={() => {promptAsync();}}
+      <Image
+        style={styles.logo}
+        source={require('../../assets/digitalPantryLogo.png')}
       />
+      <Button 
+        icon="google" 
+        style={styles.buttonStyle}
+        mode="contained" 
+        onPress={() => setShow(true)}>
+        Sign-in with Google
+      </Button>
+      <Button 
+        icon="apple" 
+        style={styles.buttonStyle}
+        mode="contained" 
+        onPress={() => setShow(true)}>
+        Sign-in with Apple
+      </Button>
     </View>
   );
 }
