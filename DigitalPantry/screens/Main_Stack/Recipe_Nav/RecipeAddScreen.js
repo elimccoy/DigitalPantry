@@ -1,4 +1,4 @@
-import { InputAccessoryView, Keyboard, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, TouchableOpacityBase, View, Platform} from 'react-native';
+import { InputAccessoryView, Keyboard, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, TouchableOpacityBase, View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
@@ -18,59 +18,97 @@ const RecipeAddScreen = ({ route, navigation }) => {
   return (
     <KeyboardAwareScrollView>
       <UploadImage />
-      <TextInput
-        style={styles.recipeName}
-        onEndEditing={onChangeName}
-        value={recipeName}
-        placeholder="Recipe Name"
-        inputAccessoryViewID="Done"
-      />
-      <TextInput
-        style={styles.multilineInput}
-        onChangeText={onChangeIng}
-        value={ingList}
-        multiline={true}
-        scrollEnabled={false}
-        placeholder="Ingredients"
-        inputAccessoryViewID="Done"
-      />
-      <TextInput
-        style={styles.multilineInput}
-        onChangeText={onChangeRecipe}
-        value={recipeInfo}
-        multiline={true}
-        scrollEnabled={false}
-        placeholder="Lorem ipsum dolor sit amet"
-        inputAccessoryViewID="Done"
-      />
-      <Button onPress={() => navigation.navigate('RecipeScreen')}>
-        Save
-      </Button>
+      <View style={styles.container}>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.recipeName}
+            onEndEditing={onChangeName}
+            value={recipeName}
+            mode={'outlined'}
+            label={'Recipe Name'}
+            inputAccessoryViewID="Done"
+          />
+          <TextInput
+            style={styles.multilineInput}
+            onChangeText={onChangeIng}
+            value={ingList}
+            multiline={true}
+            scrollEnabled={false}
+            mode={'outlined'}
+            label={'Ingredients'}
+            placeholder="Ingredients"
+            inputAccessoryViewID="Done"
+          />
+          <TextInput
+            style={styles.multilineInput}
+            onChangeText={onChangeRecipe}
+            value={recipeInfo}
+            multiline={true}
+            scrollEnabled={false}
+            mode={'outlined'}
+            label={'Instructions'}
+            placeholder="Lorem ipsum dolor sit amet"
+            inputAccessoryViewID="Done"
+          />
+        </View>
+
+        <View style={styles.buttonViewStyle}>
+          <View style={styles.buttonPaddingStyle}>
+
+            <Button
+              style={styles.saveButton}
+              onPress={() => navigation.navigate('RecipeScreen')}
+              mode={'contained'}
+              icon={'check'}
+            >
+              Save
+            </Button>
+
+          </View>
+
+        </View>
+
+
+      </View>
+
+
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
-      { Accessory && <Accessory/> }
+      {Accessory && <Accessory />}
 
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight,
+    justifyContent: 'center',
+    padding: 10,
+  },
   recipeName: {
-    height: 40,
-    //margin: 12,
-    //borderWidth: 1,
-    padding: 2,
     fontSize: 36,
   },
   multilineInput: {
-    //margin: 12,
-    //borderWidth: 1,
-    padding: 2,
     fontSize: 18,
   },
-
+  buttonPaddingStyle: {
+    flex: 1,
+    padding: 10,
+  },
+  buttonViewStyle: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  saveButton: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
 });
 
 export default RecipeAddScreen;
