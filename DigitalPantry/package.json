@@ -26,6 +26,7 @@
     "install": "^0.13.0",
     "metro-config": "^0.67.0",
     "npm": "^8.3.0",
+    "qs": "^6.10.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "^0.64.3",
