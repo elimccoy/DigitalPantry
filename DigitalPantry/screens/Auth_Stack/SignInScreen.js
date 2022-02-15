@@ -34,14 +34,14 @@ const SignInScreen = () => {
         icon="google" 
         style={styles.buttonStyle}
         mode="contained" 
-        onPress={() => setShow(true)}>
+        onPress={() => promptAsync()}>
         Sign-in with Google
       </Button>
       <Button 
         icon="apple" 
         style={styles.buttonStyle}
         mode="contained" 
-        onPress={() => setShow(true)}>
+        onPress={() => promptAsync()}>
         Sign-in with Apple
       </Button>
     </View>

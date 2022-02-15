@@ -38,7 +38,7 @@ export default function App() {
         <NavigationContainer>
           <StatusBar translucent={false} backgroundColor='white' />
           <Stack.Navigator screenOptions={{headerShown: false}}>
-            {false ? (
+            {true ? (
               <Stack.Screen name="MainTabNav" component={MainTabNav}/>
             ):(
               <Stack.Screen name="SignIn" component={SignInScreen}/>
