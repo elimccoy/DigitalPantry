@@ -4,33 +4,26 @@ import PantryItem from '../../../components/PantryItem';
 import LoadingScreen from '../LoadingScreen';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
+import PantryCategoryBlock from '../../../components/PantryCategoryBlock'
 
 //Data is going to be each pantry item.
 const numColumns = 2;
+const categories = [{catName:"Test 1", key:1}, {catName:"Test 2", key:2}, {catName:"Test 3", key:3}];
 //const data = [];
 
 const PantryScreen = ({ navigation }) => {
 
   //Redux data
   const data = useSelector((state) => state.pantry.ingredients);
-  //const dispatch = useDispatch();
 
   //States.
   const [query, onChangeQuery] = useState(""); //Search Query state
-  const [curRenderData, setCurRenderData] = useState(null); //Data items being shown. Adjusted by query.
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  //Did mount.
-  useEffect(() => {
-    setCurRenderData(data);//Load init data.
-    setIsLoaded(true);
-  }, [data]);
 
   //Handle Query complete search.
   const handleQueryComplete = useCallback(() => {
     if(query === "")
     {
-      setCurRenderData(data);
+      //setCurRenderData(data);
       return;
     }
 
@@ -45,7 +38,7 @@ const PantryScreen = ({ navigation }) => {
       }
     }
     console.log(toSetData)
-    setCurRenderData(toSetData);
+    //setCurRenderData(toSetData);
   }, [query]);
 
   //Effect for query
@@ -53,53 +46,46 @@ const PantryScreen = ({ navigation }) => {
     handleQueryComplete();
   }, [handleQueryComplete]);
 
-  //Handle short press of item.
+  //Handle add item.
   const handlePress = () => {
     navigation.navigate('BarcodeScreen');
   }
 
-  //Handle long press of item.
-  const renderItem = ({ item, index }) => {
+  const renderItem = ({item, index}) => {
     return (
-      <TouchableOpacity
-        style={styles.item}
-        onLongPress={() => {navigation.navigate('EditScreen', {key:item.key})}}
-        onPress={() => {navigation.navigate("InfoScreen",{key:item.key})}}
-      >
-        <PantryItem item={item}/>
-      </TouchableOpacity>
+      <PantryCategoryBlock
+        navigation={navigation}
+        category={item.catName}
+      />
     );
-  };
+  }
 
-  if(isLoaded)
-  {
-    return(
-      <View style={styles.container}>
-        <View>
+  return(
+    <View style={styles.container}>
+      <View>
         <Searchbar
           placeholder="Search"
           onChangeText={(res) => { onChangeQuery(res) }}
           value={query}
-          style={styles.searchBar}/>
-        </View>
-        <FlatList
-          data={curRenderData}
-          style={styles.scollContainer}
-          renderItem={renderItem}
-          numColumns={numColumns}
-        />
-        <FAB
-          icon="plus"
-          style={styles.button}
-          onPress={() => handlePress()}/>
+          style={styles.searchBar} />
       </View>
+      
+      <FlatList
+        data={categories}
+        style={styles.scollContainer}
+        renderItem={renderItem}
+        numColumns={1}
+        scrollEnabled={true}
+      />
+
+
+      <FAB
+        icon="plus"
+        style={styles.button}
+        onPress={() => handlePress()} />
+    </View>
     );
   }
-  else
-  {
-    return(<LoadingScreen/>);
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -107,13 +93,6 @@ const styles = StyleSheet.create({
   },
   scollContainer:{
     flex: 1,
-  },
-  item: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 5,
-    height: Dimensions.get('window').width / numColumns, // approximate a square
-    width: Dimensions.get('window').width / numColumns - 10,
   },
   button: {
     height: 60,
