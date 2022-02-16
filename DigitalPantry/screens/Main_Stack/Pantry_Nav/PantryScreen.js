@@ -1,24 +1,25 @@
 import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { FAB, Searchbar } from 'react-native-paper';
-import { pantryItemCategories } from '../../../data/PantryItemData'
+import { pantryItemCategories } from '../../../data/PantryItemData';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
-import PantryCategoryBlock from '../../../components/PantryCategoryBlock'
-
-//Data is going to be each pantry item.
-const numColumns = 2;
-//const categories = [{catName:"Test Category 1", key:1}, {catName:"Test Category 2", key:2}, {catName:"Test Category 3", key:3}];
-//const data = [];
+import PantryCategoryBlock from '../../../components/PantryCategoryBlock';
+import { useFocusEffect } from "@react-navigation/core";
 
 const PantryScreen = ({ navigation }) => {
 
-  //Redux data
+  //States.
+  const [query, onChangeQuery] = useState(""); //Search Query state
   const data = useSelector((state) => state.pantry.ingredients);
   const [curRenderData, setCurRenderData] = useState(data);
 
-  //States.
-  const [query, onChangeQuery] = useState(""); //Search Query state
-
+  //Update current data on navigation back to page.
+  useFocusEffect(
+    useCallback(() => {
+      setCurRenderData(data);
+    }, [data])
+  );
+  
   //Handle Query complete search.
   const handleQueryComplete = useCallback(() => {
     if(query === "")
@@ -61,7 +62,7 @@ const PantryScreen = ({ navigation }) => {
     );
   }
 
-  return(
+  return (
     <View style={styles.container}>
       <View>
         <Searchbar
@@ -82,8 +83,8 @@ const PantryScreen = ({ navigation }) => {
         style={styles.button}
         onPress={() => handlePress()} />
     </View>
-    );
-  }
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

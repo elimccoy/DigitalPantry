@@ -19,8 +19,10 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [remaining, setRemaining] = useState(item.remaining);
   const [buttonsActive, setButtonsActive] = useState([false, false, false]);
   const [date, setDate] = useState(item.expirationDate);
+  const [category, setCategory] = useState(item.category);
   const [show, setShow] = useState(false);
   const[showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+  const[showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = useState(false);
   const measurementList = [
     {
       label: "Pack",
@@ -73,6 +75,21 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     {
       label: "Liter",
       value: "Liter",
+    },
+  ];
+
+  const categoryList = [
+    {
+      label: "Test Category 1",
+      value: "Test Category 1",
+    },
+    {
+      label: "Test Category 2",
+      value: "Test Category 2",
+    },
+    {
+      label: "Test Category 3",
+      value: "Test Category 3",
     },
   ];
 
@@ -164,9 +181,19 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           setValue={(res) => { setUnit(res) }}
           list={measurementList}
         />
+        <DropDown
+          label={"Category"}
+          mode={"outlined"}
+          visible={showMultiSelectDropDownCategory}
+          showDropDown={() => setShowMultiSelectDropDownCategory(true)}
+          onDismiss={() => setShowMultiSelectDropDownCategory(false)}
+          value={category}
+          setValue={(res) => {setCategory(res)}}
+          list={categoryList}
+        />
         <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
         <View style={{ flexDirection: 'row' }}>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(0, "Low")}
@@ -174,7 +201,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               Low
             </Button>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(1, "Half")}
@@ -182,7 +209,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               Half
             </Button>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(2, "Full")}
@@ -252,19 +279,26 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   expirationDateText: {
-    paddingTop: 10,
+    paddingTop: 3,
     textAlign: 'center',
+  },
+  buttonContainerNoTopPadding: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   buttonContainer: {
     flex: 1,
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10
   },
   timeRemainingText: {
-    padding: 10,
+    padding: 2,
   },
   avatarStyles: {
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 7,
   },
 });
 
