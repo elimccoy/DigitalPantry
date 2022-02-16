@@ -1,4 +1,4 @@
-import { StyleSheet, View, FlatList,TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import PantryItem from '../components/PantryItem';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -10,12 +10,7 @@ const PantryCategoryBlock = ({category, navigation}) => {
 
   //Redux data
   const data = useSelector((state) => state.pantry.ingredients);
-  const [curRenderData, setCurRenderData] = useState(null); //Data items being shown. Adjusted by query.
-
-  //Did mount.
-  useEffect(() => {
-    setCurRenderData(data);//Load init data.
-  }, [data]);
+  const [isOpen, setIsOpen] = useState(true);
 
   //Handle long press of item.
   const renderItem = ({ item, index }) => {
@@ -32,12 +27,15 @@ const PantryCategoryBlock = ({category, navigation}) => {
 
   return(
     <View style={styles.container}>
-      <View style={styles.catrgoryTitle}>
+      <TouchableOpacity 
+        style={styles.catrgoryTitle}
+        onLongPress={() => {isOpen ? setIsOpen(false) : setIsOpen(true)}}
+      >
         <Title style={styles.textColorWhite}>{category}</Title>
-      </View>
+      </TouchableOpacity>
       <FlatList
-        data={curRenderData}
-        style={styles.scollContainer}
+        data={data}
+        style={isOpen ? styles.scollContainer : styles.hidden}
         renderItem={renderItem}
         numColumns={numColumns}
         scrollEnabled={false}
@@ -60,6 +58,9 @@ const styles = StyleSheet.create({
   },
   scollContainer:{
     flex: 1,
+  },
+  hidden:{
+    height: 0
   },
   catrgoryTitle : {
     paddingLeft: 7,

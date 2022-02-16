@@ -8,7 +8,7 @@ import PantryCategoryBlock from '../../../components/PantryCategoryBlock'
 
 //Data is going to be each pantry item.
 const numColumns = 2;
-const categories = [{catName:"Test 1", key:1}, {catName:"Test 2", key:2}, {catName:"Test 3", key:3}];
+const categories = [{catName:"Test Category 1", key:1}, {catName:"Test Category 2", key:2}, {catName:"Test Category 3", key:3}];
 //const data = [];
 
 const PantryScreen = ({ navigation }) => {
