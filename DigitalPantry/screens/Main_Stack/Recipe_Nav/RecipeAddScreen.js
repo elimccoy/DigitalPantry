@@ -2,9 +2,11 @@ import { InputAccessoryView, Keyboard, ScrollView, StyleSheet, Text, Touchable, 
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
 import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { createRecipe } from '../../../store/slices/recipes';
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
@@ -14,6 +16,19 @@ const RecipeAddScreen = ({ route, navigation }) => {
   const { recipeName, onChangeName } = useState("Recipe Name");
   const { ingList, onChangeIng } = useState("Ingredients");
   const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.recipes.categories);
+
+  const save = () => {
+    dispatch(createRecipe({
+      title: recipeName,
+      ingredients: ingList,
+      steps: recipeInfo,
+      category: categories[0].name, // placeholder to categorize the first recipe with some value
+    }));
+
+    navigation.navigate('RecipeScreen');
+  }
 
   return (
     <KeyboardAwareScrollView>
@@ -43,7 +58,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
         placeholder="Lorem ipsum dolor sit amet"
         inputAccessoryViewID="Done"
       />
-      <Button onPress={() => navigation.navigate('RecipeScreen')}>
+      <Button onPress={save}>
         Save
       </Button>
 

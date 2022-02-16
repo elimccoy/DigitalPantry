@@ -2,49 +2,22 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import React from "react"
 import { AntDesign } from '@expo/vector-icons';
 import RecipeGrid from './RecipeGrid';
+import { useSelector } from 'react-redux';
+
 
 const MyRecipes = ({ navigation }) => {
+  const savedRecipesByCategory = useSelector((state) => state.recipes.categories.map((category) => ({
+    title: category.name,
+    recipes: state.recipes.saved.filter((recipe) => recipe.category === category.name),
+  })));
+
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   };
 
-  const rows = [{
-    title: 'row1',
-    recipes: [
-      { title: "Recipe 1", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 2", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 3", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 4", posterUrl: require('../../../assets/recipePlaceholder.png') },
-    ],
-  }, {
-    title: 'row2',
-    recipes: [
-      { title: "Recipe 5", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 6", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 7", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 8", posterUrl: require('../../../assets/recipePlaceholder.png') },
-    ],
-  }, {
-    title: 'row3',
-    recipes: [
-      { title: "Recipe 9", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 10", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 11", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 12", posterUrl: require('../../../assets/recipePlaceholder.png') },
-    ],
-  }, {
-    title: 'row4',
-    recipes: [
-      { title: "Recipe 13", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 14", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 15", posterUrl: require('../../../assets/recipePlaceholder.png') },
-      { title: "Recipe 16", posterUrl: require('../../../assets/recipePlaceholder.png') },
-    ],
-  }];
-
   return (
     <View style={styles.container}>
-      <RecipeGrid rowList={rows} />
+      <RecipeGrid rowList={savedRecipesByCategory} />
       {/* This has to stay as the last component to remain on top. */}
       <TouchableOpacity onPress={addPressHandler} style={styles.button}>
         <AntDesign style={styles.icon} name="pluscircle" size={60} color="#6200EE" />
