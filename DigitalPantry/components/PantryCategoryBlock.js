@@ -1,16 +1,15 @@
 import { StyleSheet, View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import PantryItem from '../components/PantryItem';
-import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Title } from 'react-native-paper';
 
 const numColumns = 2;
 
-const PantryCategoryBlock = ({category, navigation}) => {
+const PantryCategoryBlock = ({category, navigation, data}) => {
 
-  //Redux data
-  const data = useSelector((state) => state.pantry.ingredients);
+  //Redux data:
   const [isOpen, setIsOpen] = useState(true);
+  const [renderData, setRenderData] = useState(data);
 
   //Handle long press of item.
   const renderItem = ({ item, index }) => {
@@ -25,6 +24,19 @@ const PantryCategoryBlock = ({category, navigation}) => {
     );
   };
 
+  //On data change, render correct data and open all tabs.
+  useEffect(() => {
+
+    let renderCategoryData = [];
+    for(let i = 0; i < data.length; i++) {
+      if(data[i].category === category) {
+        renderCategoryData.push(data[i]);
+      }
+    }
+    setRenderData(renderCategoryData);
+    setIsOpen(true);
+  }, [data]); 
+
   return(
     <View style={styles.container}>
       <TouchableOpacity 
@@ -34,7 +46,7 @@ const PantryCategoryBlock = ({category, navigation}) => {
         <Title style={styles.textColorWhite}>{category}</Title>
       </TouchableOpacity>
       <FlatList
-        data={data}
+        data={renderData}
         style={isOpen ? styles.scollContainer : styles.hidden}
         renderItem={renderItem}
         numColumns={numColumns}

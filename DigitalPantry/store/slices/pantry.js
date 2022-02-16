@@ -41,7 +41,8 @@ const INITIAL_STATE = {
     brand: Brand of pantry item,
     description: API desc of item,
     remaining: Amout remaining ,
-    expirationDate: Expiration Date
+    expirationDate: Expiration Date,
+    Category: category for sorting pantry items.
   }*/
   {
     name: 'name1',
@@ -53,6 +54,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full' ,
     expirationDate: new Date(),
+    category: 'Test Category 1'
   }, {
     name: 'name2',
     key: 'Test_Data_2',
@@ -63,6 +65,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 1'
   }, {
     name: 'name3',
     key: 'Test_Data_3',
@@ -73,6 +76,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 1'
   }, {
     name: 'name4',
     key: 'Test_Data_4',
@@ -83,6 +87,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 1'
   }, {
     name: 'name5',
     key: 'Test_Data_5',
@@ -93,6 +98,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 1'
   }, {
     name: 'name6',
     key: 'Test_Data_6',
@@ -103,6 +109,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 2'
   }, {
     name: 'name7',
     key: 'Test_Data_7',
@@ -113,6 +120,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 2'
   }, {
     name: 'name8',
     key: 'Test_Data_8',
@@ -123,6 +131,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 2'
   }, {
     name: 'name9',
     key: 'Test_Data_9',
@@ -133,6 +142,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 2'
   }, {
     name: 'name10',
     key: 'Test_Data_10',
@@ -143,6 +153,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 2'
   }, {
     name: 'name11',
     key: 'Test_Data_11',
@@ -153,6 +164,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 3'
   }, {
     name: 'name12',
     key: 'Test_Data_12',
@@ -163,6 +175,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 3'
   }, {
     name: 'name13',
     key: 'Test_Data_13',
@@ -173,6 +186,7 @@ const INITIAL_STATE = {
     description:'na',
     remaining:'Full',
     expirationDate: new Date(),
+    category: 'Test Category 3'
   }],
 };
 
@@ -196,6 +210,7 @@ const reducers = {
       description: action.description,
       remaining: action.remaining,
       expirationDate: action.expirationDate,
+      category: action.category
     }, ...state.ingredients],
   }),
   [DELETE_ITEM]: (state, action) => ({
@@ -214,6 +229,7 @@ const reducers = {
       description: action.description,
       remaining: action.remaining,
       expirationDate: action.expirationDate,
+      category:action.category
     } : i)),
   }),
 };

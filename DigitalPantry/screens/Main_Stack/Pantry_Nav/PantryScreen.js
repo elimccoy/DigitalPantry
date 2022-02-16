@@ -15,6 +15,7 @@ const PantryScreen = ({ navigation }) => {
 
   //Redux data
   const data = useSelector((state) => state.pantry.ingredients);
+  const [curRenderData, setCurRenderData] = useState(data);
 
   //States.
   const [query, onChangeQuery] = useState(""); //Search Query state
@@ -23,7 +24,7 @@ const PantryScreen = ({ navigation }) => {
   const handleQueryComplete = useCallback(() => {
     if(query === "")
     {
-      //setCurRenderData(data);
+      setCurRenderData(data);
       return;
     }
 
@@ -38,7 +39,7 @@ const PantryScreen = ({ navigation }) => {
       }
     }
     console.log(toSetData)
-    //setCurRenderData(toSetData);
+    setCurRenderData(toSetData);
   }, [query]);
 
   //Effect for query
@@ -56,6 +57,7 @@ const PantryScreen = ({ navigation }) => {
       <PantryCategoryBlock
         navigation={navigation}
         category={item.catName}
+        data={curRenderData}
       />
     );
   }
@@ -69,7 +71,6 @@ const PantryScreen = ({ navigation }) => {
           value={query}
           style={styles.searchBar} />
       </View>
-      
       <FlatList
         data={categories}
         style={styles.scollContainer}
@@ -77,8 +78,6 @@ const PantryScreen = ({ navigation }) => {
         numColumns={1}
         scrollEnabled={true}
       />
-
-
       <FAB
         icon="plus"
         style={styles.button}
