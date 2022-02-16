@@ -17,9 +17,9 @@ const PantryScreen = ({ navigation }) => {
   useFocusEffect(
     useCallback(() => {
       setCurRenderData(data);
-    }, [data])
+    }, [data]),
   );
-  
+
   //Handle Query complete search.
   const handleQueryComplete = useCallback(() => {
     if(query === "")

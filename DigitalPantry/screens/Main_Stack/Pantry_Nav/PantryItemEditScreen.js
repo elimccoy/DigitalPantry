@@ -127,6 +127,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.description = item.description;
     itemToReturn.remaining = remaining;
     itemToReturn.expirationDate = date;
+    itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
     navigation.navigate('PantryScreen');
@@ -291,7 +292,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 10
+    paddingTop: 10,
   },
   timeRemainingText: {
     padding: 2,

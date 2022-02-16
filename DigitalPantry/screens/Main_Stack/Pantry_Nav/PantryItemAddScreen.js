@@ -112,7 +112,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
           setName(itemAPIData["item_attributes"].title);
           setKey(upc);
           setUnit("");
-          setAmount("NA");
+          setAmount("");
           setImgURI(itemAPIData["item_attributes"].image);
           if(itemAPIData["item_attributes"].brand !== "") setBrand(itemAPIData["item_attributes"].brand);
           if(itemAPIData["item_attributes"].description !== "") setDesc(itemAPIData["item_attributes"].description);

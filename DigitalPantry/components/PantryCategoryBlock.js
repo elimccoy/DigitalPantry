@@ -35,11 +35,11 @@ const PantryCategoryBlock = ({category, navigation, data}) => {
     }
     setRenderData(renderCategoryData);
     setIsOpen(true);
-  }, [data]); 
+  }, [data]);
 
   return(
     <View style={styles.container}>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.catrgoryTitle}
         onLongPress={() => {isOpen ? setIsOpen(false) : setIsOpen(true)}}
       >
@@ -59,7 +59,7 @@ const PantryCategoryBlock = ({category, navigation, data}) => {
 const styles = StyleSheet.create({
   container: {
     height: 'auto',
-    width: '100%'
+    width: '100%',
   },
   item: {
     alignItems: 'center',
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   hidden:{
-    height: 0
+    height: 0,
   },
   catrgoryTitle : {
     paddingLeft: 7,
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   textColorWhite: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 });
 
 export default PantryCategoryBlock;
