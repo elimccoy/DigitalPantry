@@ -1,10 +1,9 @@
 import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
-import React from "react"
+import { useRef } from "react"
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
-function RecipeRow(props) {
-  const scrollX = React.useRef(new Animated.Value(0)).current;
-  const cards = props.recipes;
+function RecipeRow({ recipes }) {
+  const scrollX = useRef(new Animated.Value(0)).current;
   const OFFSET = 40
   const ITEM_WIDTH = Dimensions.get("window").width - (OFFSET * 2)
   const ITEM_HEIGHT = 200
@@ -24,7 +23,7 @@ function RecipeRow(props) {
       )}
       scrollEventThrottle={12}
     >
-      {props.recipes.map((item, idx) => {
+      {recipes.map((item, idx) => {
         const inputRange = [
           (idx - 1) * ITEM_WIDTH,
           idx * ITEM_WIDTH,
@@ -47,11 +46,10 @@ function RecipeRow(props) {
               width: ITEM_WIDTH,
               height: ITEM_HEIGHT,
               marginLeft: idx === 0 ? OFFSET : undefined,
-              marginRight: idx === cards.length - 1 ? OFFSET : undefined,
               opacity: opacity,
               transform: [{ scale: translate }],
             }}
-            key={item.title}
+            key={item.id}
           >
             <ImageBackground
               source={item.posterUrl}
