@@ -1,0 +1,1 @@
+export let pantryItemCategories = [{catName:"Test Category 1", key:1}, {catName:"Test Category 2", key:2}, {catName:"Test Category 3", key:3}];

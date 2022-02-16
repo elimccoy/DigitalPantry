@@ -23,6 +23,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   const[brand, setBrand] = React.useState("Unknown");
   const[desc, setDesc] = React.useState("Unknown");
   const[date, setDate] = React.useState(new Date());
+  const[category, setCategory] = React.useState("Unknown");
   const[show, setShow] = React.useState(false);
   const[showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
   const[isLoaded, setIsLoaded] = React.useState(false);

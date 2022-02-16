@@ -1,14 +1,13 @@
 import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
 import { FAB, Searchbar } from 'react-native-paper';
-import PantryItem from '../../../components/PantryItem';
-import LoadingScreen from '../LoadingScreen';
+import { pantryItemCategories } from '../../../data/PantryItemData'
 import { useSelector, useDispatch } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 import PantryCategoryBlock from '../../../components/PantryCategoryBlock'
 
 //Data is going to be each pantry item.
 const numColumns = 2;
-const categories = [{catName:"Test Category 1", key:1}, {catName:"Test Category 2", key:2}, {catName:"Test Category 3", key:3}];
+//const categories = [{catName:"Test Category 1", key:1}, {catName:"Test Category 2", key:2}, {catName:"Test Category 3", key:3}];
 //const data = [];
 
 const PantryScreen = ({ navigation }) => {
@@ -72,7 +71,7 @@ const PantryScreen = ({ navigation }) => {
           style={styles.searchBar} />
       </View>
       <FlatList
-        data={categories}
+        data={pantryItemCategories}
         style={styles.scollContainer}
         renderItem={renderItem}
         numColumns={1}
