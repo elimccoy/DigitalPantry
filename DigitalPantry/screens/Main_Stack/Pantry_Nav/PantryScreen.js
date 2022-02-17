@@ -40,7 +40,7 @@ const PantryScreen = ({ navigation }) => {
     }
     console.log(toSetData)
     setCurRenderData(toSetData);
-  }, [query]);
+  }, [query, data]);
 
   //Effect for query
   useEffect(() => {

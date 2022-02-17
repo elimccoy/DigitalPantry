@@ -102,7 +102,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     } else if(item.remaining === "Low") {
       setButtonsActive([true, false, false]);
     }
-  }, []);
+  }, [item.remaining]);
 
   const handleConfirm = () => {
 
@@ -157,7 +157,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: 'space-evenly' }}>
+      <View style={styles.inputContainer}>
         <Avatar.Image size={128} style={styles.avatarStyles} source={{ uri: item.image }} />
         <TextInput
           label="Name:"
@@ -193,7 +193,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           list={categoryList}
         />
         <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.flexRow}>
           <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
@@ -235,7 +235,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChange={handleDateSelect}
           />
         )}
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.flexRow}>
           <View style={styles.buttonContainer}>
             <Button icon="check" mode="contained" onPress={() => handleConfirm()}>
               Done
@@ -261,18 +261,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     justifyContent: 'space-evenly',
-  },
-  image: {
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
-  confirmationContainer: {
-    flexDirection: 'row',
-    padding: 10,
-  },
-  button: {
-    flex: 1,
-    padding: 10,
   },
   expirationDateButton: {
     paddingTop: 10,
@@ -300,6 +288,9 @@ const styles = StyleSheet.create({
   avatarStyles: {
     alignSelf: 'center',
     marginBottom: 7,
+  },
+  flexRow: {
+    flexDirection: 'row',
   },
 });
 

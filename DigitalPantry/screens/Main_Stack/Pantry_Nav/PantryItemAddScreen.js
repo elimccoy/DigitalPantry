@@ -123,7 +123,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         }
       });
     }
-  }, [route.params]);
+  }, [route.params, navigation]);
 
   //Handels date selected.
   const handleDateSelect = (event, date) => {
