@@ -30,18 +30,19 @@ const SignInScreen = () => {
         style={styles.logo}
         source={require('../../assets/digitalPantryLogo.png')}
       />
-      <Button 
-        icon="google" 
+      <Button
+        icon="google"
         style={styles.buttonStyle}
-        mode="contained" 
+        mode="contained"
         onPress={() => promptAsync()}>
         Sign-in with Google
       </Button>
-      <Button 
-        icon="apple" 
+      <Button
+        icon="apple"
         style={styles.buttonStyle}
-        mode="contained" 
-        onPress={() => promptAsync()}>
+        mode="contained"
+        onPress={() => promptAsync()}
+        disabled = "true">
         Sign-in with Apple
       </Button>
     </View>

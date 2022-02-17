@@ -15,12 +15,12 @@ const styles = StyleSheet.create({
   logo: {
     height: 170,
     width: 170,
-    marginBottom: 170
+    marginBottom: 170,
   },
   buttonStyle: {
     width: '65%',
-    marginTop: 10
-  },  
+    marginTop: 10,
+  },
 });
 
 export default styles;
