@@ -35,7 +35,7 @@ const PantryCategoryBlock = ({category, navigation, data}) => {
     }
     setRenderData(renderCategoryData);
     setIsOpen(true);
-  }, [data]);
+  }, [data, category]);
 
   return(
     <View style={styles.container}>

@@ -17,9 +17,6 @@ const NotificationCard = ({ type, content, cancel }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   card: {
     marginHorizontal: 10,
     marginVertical: 5,

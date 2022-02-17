@@ -24,10 +24,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  card: {
-    marginHorizontal: 10,
-    marginVertical: 5,
-  },
 });
 
 export default HomeScreen;
