@@ -23,8 +23,10 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   const[brand, setBrand] = React.useState("Unknown");
   const[desc, setDesc] = React.useState("Unknown");
   const[date, setDate] = React.useState(new Date());
+  const[category, setCategory] = React.useState("");
   const[show, setShow] = React.useState(false);
-  const[showMultiSelectDropDown, setShowMultiSelectDropDown] = React.useState(false);
+  const[showMultiSelectDropDownMeasurement, setShowMultiSelectDropDownMeasurement] = React.useState(false);
+  const[showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = React.useState(false);
   const[isLoaded, setIsLoaded] = React.useState(false);
   const measurementList = [
     {
@@ -81,6 +83,21 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     },
   ];
 
+  const categoryList = [
+    {
+      label: "Test Category 1",
+      value: "Test Category 1",
+    },
+    {
+      label: "Test Category 2",
+      value: "Test Category 2",
+    },
+    {
+      label: "Test Category 3",
+      value: "Test Category 3",
+    },
+  ];
+
   //Did mount:
   React.useEffect(() => {
     //Handle incoming data (either new data or edited data.)
@@ -95,7 +112,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
           setName(itemAPIData["item_attributes"].title);
           setKey(upc);
           setUnit("");
-          setAmount("NA");
+          setAmount("");
           setImgURI(itemAPIData["item_attributes"].image);
           if(itemAPIData["item_attributes"].brand !== "") setBrand(itemAPIData["item_attributes"].brand);
           if(itemAPIData["item_attributes"].description !== "") setDesc(itemAPIData["item_attributes"].description);
@@ -106,7 +123,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
         }
       });
     }
-  }, [route.params]);
+  }, [route.params, navigation]);
 
   //Handels date selected.
   const handleDateSelect = (event, date) => {
@@ -128,6 +145,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       description: desc,
       remaining: 'Full',
       expirationDate: date,
+      category: category,
     }
 
     //Add to redux.
@@ -162,12 +180,22 @@ const PantryItemAddScreen = ({ route, navigation }) => {
           <DropDown
             label={"Measurements"}
             mode={"outlined"}
-            visible={showMultiSelectDropDown}
-            showDropDown={() => setShowMultiSelectDropDown(true)}
-            onDismiss={() => setShowMultiSelectDropDown(false)}
+            visible={showMultiSelectDropDownMeasurement}
+            showDropDown={() => setShowMultiSelectDropDownMeasurement(true)}
+            onDismiss={() => setShowMultiSelectDropDownMeasurement(false)}
             value={unit}
             setValue={(res) => {setUnit(res)}}
             list={measurementList}
+          />
+          <DropDown
+            label={"Category"}
+            mode={"outlined"}
+            visible={showMultiSelectDropDownCategory}
+            showDropDown={() => setShowMultiSelectDropDownCategory(true)}
+            onDismiss={() => setShowMultiSelectDropDownCategory(false)}
+            value={category}
+            setValue={(res) => {setCategory(res)}}
+            list={categoryList}
           />
           <Paragraph style={styles.expirationDateText}>Expiration Date: {date.toString().slice(0,16)}</Paragraph>
           <View style={styles.expirationDateButton}>

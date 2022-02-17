@@ -19,8 +19,10 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const [remaining, setRemaining] = useState(item.remaining);
   const [buttonsActive, setButtonsActive] = useState([false, false, false]);
   const [date, setDate] = useState(item.expirationDate);
+  const [category, setCategory] = useState(item.category);
   const [show, setShow] = useState(false);
   const[showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+  const[showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = useState(false);
   const measurementList = [
     {
       label: "Pack",
@@ -76,6 +78,21 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     },
   ];
 
+  const categoryList = [
+    {
+      label: "Test Category 1",
+      value: "Test Category 1",
+    },
+    {
+      label: "Test Category 2",
+      value: "Test Category 2",
+    },
+    {
+      label: "Test Category 3",
+      value: "Test Category 3",
+    },
+  ];
+
   useEffect(() => {
     //Check to see what button should be active.
     if(item.remaining === "Full") {
@@ -85,7 +102,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     } else if(item.remaining === "Low") {
       setButtonsActive([true, false, false]);
     }
-  }, []);
+  }, [item.remaining]);
 
   const handleConfirm = () => {
 
@@ -110,6 +127,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.description = item.description;
     itemToReturn.remaining = remaining;
     itemToReturn.expirationDate = date;
+    itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
     navigation.navigate('PantryScreen');
@@ -139,7 +157,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: 'space-evenly' }}>
+      <View style={styles.inputContainer}>
         <Avatar.Image size={128} style={styles.avatarStyles} source={{ uri: item.image }} />
         <TextInput
           label="Name:"
@@ -164,9 +182,19 @@ const PantryItemEditScreen = ({ route, navigation }) => {
           setValue={(res) => { setUnit(res) }}
           list={measurementList}
         />
+        <DropDown
+          label={"Category"}
+          mode={"outlined"}
+          visible={showMultiSelectDropDownCategory}
+          showDropDown={() => setShowMultiSelectDropDownCategory(true)}
+          onDismiss={() => setShowMultiSelectDropDownCategory(false)}
+          value={category}
+          setValue={(res) => {setCategory(res)}}
+          list={categoryList}
+        />
         <Subheading style={styles.timeRemainingText}>Set Amount Remaining:</Subheading>
-        <View style={{ flexDirection: 'row' }}>
-          <View style={styles.buttonContainer}>
+        <View style={styles.flexRow}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(0, "Low")}
@@ -174,7 +202,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               Low
             </Button>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(1, "Half")}
@@ -182,7 +210,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
               Half
             </Button>
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonContainerNoTopPadding}>
             <Button
               mode="contained"
               onPress={() => pressRemainingButton(2, "Full")}
@@ -207,7 +235,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
             onChange={handleDateSelect}
           />
         )}
-        <View style={{ flexDirection: 'row' }}>
+        <View style={styles.flexRow}>
           <View style={styles.buttonContainer}>
             <Button icon="check" mode="contained" onPress={() => handleConfirm()}>
               Done
@@ -234,37 +262,35 @@ const styles = StyleSheet.create({
   inputContainer: {
     justifyContent: 'space-evenly',
   },
-  image: {
-    alignSelf: 'center',
-    marginBottom: 10,
-  },
-  confirmationContainer: {
-    flexDirection: 'row',
-    padding: 10,
-  },
-  button: {
-    flex: 1,
-    padding: 10,
-  },
   expirationDateButton: {
     paddingTop: 10,
     paddingLeft: 10,
     paddingRight: 10,
   },
   expirationDateText: {
-    paddingTop: 10,
+    paddingTop: 3,
     textAlign: 'center',
+  },
+  buttonContainerNoTopPadding: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   buttonContainer: {
     flex: 1,
-    padding: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
   },
   timeRemainingText: {
-    padding: 10,
+    padding: 2,
   },
   avatarStyles: {
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: 7,
+  },
+  flexRow: {
+    flexDirection: 'row',
   },
 });
 

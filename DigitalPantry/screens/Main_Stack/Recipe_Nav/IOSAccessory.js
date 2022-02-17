@@ -16,7 +16,7 @@ export default function IOSAccessory() {
       </View>
     </InputAccessoryView>
   );
-  
+
 }
 
 const styles = StyleSheet.create({
@@ -36,4 +36,3 @@ const styles = StyleSheet.create({
 
 });
 
-    
