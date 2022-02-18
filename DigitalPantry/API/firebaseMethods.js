@@ -1,3 +1,4 @@
+
 import { collection, getDocs, query, where, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { db } from '../firebase';
@@ -26,7 +27,7 @@ export async function fetchSavedRecipes(userId) {
   } catch (e) {
     console.error('Error fetching recipes', e);
   }
-}
+};
 
 export async function saveRecipe(userId, recipe) {
   try {
@@ -37,4 +38,4 @@ export async function saveRecipe(userId, recipe) {
   } catch (e) {
     console.error('Error saving recipes', e);
   }
-}
+};
