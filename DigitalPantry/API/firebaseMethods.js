@@ -18,7 +18,11 @@ const RecipesRef = collection(db, 'Recipes')
 // adds recipe to firestore database
 export async function fetchSavedRecipes(userId) {
   try {
-    return getDocs(query(RecipesRef, where('userId', '==', userId)));
+    return (await getDocs(query(RecipesRef, where('userId', '==', userId)))).docs
+      .map((recipe) => ({
+        id: recipe.id,
+        ...recipe.data(),
+      }));
   } catch (e) {
     console.error('Error fetching recipes', e);
   }
@@ -26,12 +30,10 @@ export async function fetchSavedRecipes(userId) {
 
 export async function saveRecipe(userId, recipe) {
   try {
-    const ref = await addDoc(RecipesRef, {
-      userId: userId,
-      name: recipe.name,
-      ingredients: recipe.ingredients,
-
-    })
+    return await addDoc(RecipesRef, {
+      userId,
+      ...recipe,
+    });
   } catch (e) {
     console.error('Error saving recipes', e);
   }

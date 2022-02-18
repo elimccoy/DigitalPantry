@@ -1,3 +1,6 @@
+import { initializeApp } from 'firebase/app';
+import { getFirestore } from 'firebase/firestore';
+
 const firebaseConfig = {
   apiKey: 'AIzaSyCMcQYxPpoFREEVPgSm1qFEMSBd6jbldVc',
   authDomain: 'digitalpantry-481.firebaseapp.com',

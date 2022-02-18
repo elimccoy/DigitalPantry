@@ -1,6 +1,7 @@
 import 'react-native-get-random-values';
 
 import React, { useState } from 'react';
+import { LogBox } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,6 +15,8 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import store from './store';
+
+LogBox.ignoreLogs(['Setting a timer']);
 
 const auth = getAuth();
 const Stack = createNativeStackNavigator();
