@@ -1,18 +1,73 @@
-import { StyleSheet, View, Button} from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { useState } from 'react';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
+import DropDown from "react-native-paper-dropdown";
+import { StatusBar } from 'expo-status-bar';
 
-/**TO-DO
- * finish implementing cancel
- * change keys (hard coded for now)
- * Styling: make it more similar to pantry edit screen
- */
+
+
 const ListAddScreen = ({ navigation }) => {
   const [itm, setItm] = useState({});
   const [itmName, setItmName] = useState('');
   const [amt, setAmt] = useState('');
   const [units, setUnits] = useState('');
-  const [key, setKey] = useState('')
+  const [key, setKey] = useState('');
+  const [show, setShow] = useState(false);
+  const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+  const measurementList = [
+    {
+      label: "Pack",
+      value: "Pack",
+    },
+    {
+      label: "Bag",
+      value: "Bag",
+    },
+    {
+      label: "Tablespoon",
+      value: "Tablespoon",
+    },
+    {
+      label: "Ounce",
+      value: "Ounce",
+    },
+    {
+      label: "Cup",
+      value: "Cup",
+    },
+    {
+      label: "Quart",
+      value: "Quart",
+    },
+    {
+      label: "Pint",
+      value: "Pint",
+    },
+    {
+      label: "Pound",
+      value: "Pound",
+    },
+    {
+      label: "Gallon",
+      value: "Gallon",
+    },
+    {
+      label: "Milliliter",
+      value: "Milliliter",
+    },
+    {
+      label: "Grams",
+      value: "Grams",
+    },
+    {
+      label: "Kilogram",
+      value: "Kilogram",
+    },
+    {
+      label: "Liter",
+      value: "Liter",
+    },
+  ];
 
   //adds item to list
   const add = () => {
@@ -27,33 +82,44 @@ const ListAddScreen = ({ navigation }) => {
 
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        label='Product Name'
-        value={itmName}
-        onChangeText={itmName => setItmName(itmName)}
-      />
+    <ScrollView keyboardShouldPersistTaps='handled'>
 
-      <TextInput
-        style={styles.input}
-        label='Unit'
-        value={units}
-        onChangeText={units => setUnits(units)}
-      />
+      <View style={styles.container}>
+        <TextInput
+          label="Name:"
+          //style={styles.input}
+          mode={"outlined"}
+          value={itmName}
+          onChangeText={itmName => setItmName(itmName)}
+        />
 
-      <TextInput
-        style={styles.input}
-        label='Amount'
-        value={amt}
-        onChangeText={amt => setAmt(amt)}
-      />
+        <TextInput
+          label="Amount:"
+          mode={"outlined"}
+          //style={styles.input}
+          keyboardType='numeric'
+          value={amt}
+          onChangeText={amt => setAmt(amt)}
+        />
 
-      <Button
-        title='Confirm'
-        onPress={() => add()}
-      />
-    </View>
+        <DropDown
+          label={"Measurements: "}
+          mode={"outlined"}
+          visible={showMultiSelectDropDown}
+          showDropDown={() => setShowMultiSelectDropDown(true)}
+          onDismiss={() => setShowMultiSelectDropDown(false)}
+          value={units}
+          setValue={(res) => { setUnits(res) }}
+          list={measurementList}
+        />
+
+        <View style={styles.buttonContainer}>
+          <Button icon="check" mode="contained" onPress={() => add()}>
+            Done
+          </Button>
+        </View>
+      </View>
+    </ScrollView>
   );
 
 }
@@ -62,14 +128,16 @@ const ListAddScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     justifyContent: 'center',
+    marginTop: StatusBar.currentHeight,
   },
-  input: {
-    height: 40,
-    margin: 17,
-    borderWidth: 1,
+
+  buttonContainer: {
+    flex: 1,
     padding: 10,
   },
+
 });
 
 

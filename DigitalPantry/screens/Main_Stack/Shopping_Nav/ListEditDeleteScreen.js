@@ -1,7 +1,9 @@
-import { StyleSheet, View, Button, ScrollView } from 'react-native';
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View , ScrollView} from 'react-native';
 import { useState, useEffect } from 'react';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import LoadingScreen from '../LoadingScreen';
+import { StatusBar } from 'expo-status-bar';
+import DropDown from "react-native-paper-dropdown";
 
 /**TO-DO
  * change keys (hard coded for now)
@@ -14,7 +16,62 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
   const [units, setUnits] = useState('');
   const [key, setKey] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
-
+  const [show, setShow] = useState(false);
+  const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+  const measurementList = [
+    {
+      label: "Pack",
+      value: "Pack",
+    },
+    {
+      label: "Bag",
+      value: "Bag",
+    },
+    {
+      label: "Tablespoon",
+      value: "Tablespoon",
+    },
+    {
+      label: "Ounce",
+      value: "Ounce",
+    },
+    {
+      label: "Cup",
+      value: "Cup",
+    },
+    {
+      label: "Quart",
+      value: "Quart",
+    },
+    {
+      label: "Pint",
+      value: "Pint",
+    },
+    {
+      label: "Pound",
+      value: "Pound",
+    },
+    {
+      label: "Gallon",
+      value: "Gallon",
+    },
+    {
+      label: "Milliliter",
+      value: "Milliliter",
+    },
+    {
+      label: "Grams",
+      value: "Grams",
+    },
+    {
+      label: "Kilogram",
+      value: "Kilogram",
+    },
+    {
+      label: "Liter",
+      value: "Liter",
+    },
+  ];
 
   useEffect(() => {
     if (route.params !== undefined) {
@@ -45,38 +102,56 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
 
   if (isLoaded) {
     return (
+      <ScrollView keyboardShouldPersistTaps='handled'>
       <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          label="Product Name"
-          value={itmName}
-          onChangeText={itmName => setItmName(itmName)}
-        />
+        <View style={{ justifyContent: 'space-evenly' }}>
+          
+         
+              <TextInput
+                label="Name:"
+                //style={styles.input}
+                mode={"outlined"}
+                value={itmName}
+                onChangeText={itmName => setItmName(itmName)}
+              />
+         
 
-        <TextInput
-          style={styles.input}
-          label="Unit"
-          value={units}
-          onChangeText={units => setUnits(units)}
-        />
+          <TextInput
+            label="Amount:"
+            mode={"outlined"}
+            //style={styles.input}
+            keyboardType = 'numeric'
+            value={amt}
+            onChangeText={amt => setAmt(amt)}
+          />
 
-        <TextInput
-          style={styles.input}
-          label="Amount"
-          value={amt}
-          onChangeText={amt => setAmt(amt)}
-        />
+          <DropDown
+            label={"Measurements: "}
+            mode={"outlined"}
+            visible={showMultiSelectDropDown}
+            showDropDown={() => setShowMultiSelectDropDown(true)}
+            onDismiss={() => setShowMultiSelectDropDown(false)}
+            value={units}
+            setValue={(res) => { setUnits(res) }}
+            list={measurementList}
+          />
 
-        <Button style={styles.button}
-          title="Save changes"
-          onPress={() => editItem()}
-        />
+          <View style={{ flexDirection: 'row' }}>
+            <View style={styles.buttonContainer}>
+              <Button icon="check" mode="contained" onPress={() => editItem()}>
+                Done
+              </Button>
+            </View>
+            <View style={styles.buttonContainer}>
+              <Button icon="delete" mode="contained" onPress={() => deleteItem()}>
+                Delete
+              </Button>
+            </View>
+          </View>
 
-        <Button style={styles.button}
-          title="Delete Item"
-          onPress={() => deleteItem()} //will be functions that get passed
-        />
+        </View>
       </View>
+      </ScrollView>
     );
   } else {
     return (<LoadingScreen />);
@@ -86,20 +161,16 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
     justifyContent: 'center',
+    marginTop: StatusBar.currentHeight,
   },
-  input: {
-    height: 40,
-    margin: 17,
-    borderWidth: 1,
+
+  buttonContainer: {
+    flex: 1,
     padding: 10,
   },
 
-  button: {
-    borderWidth: 1,
-    padding: 30,
-    margin: 17,
-  },
 });
 
 
