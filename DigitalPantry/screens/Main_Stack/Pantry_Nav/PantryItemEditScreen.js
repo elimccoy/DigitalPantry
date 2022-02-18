@@ -89,7 +89,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       value: "Liter",
     },
   ];
-  
+
   const categoryList = [
     {
       label: "Test Category 1",
