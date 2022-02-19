@@ -5,13 +5,7 @@ const RecipeItem = ({ item }) => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={{ uri: item.image }}
-        resizeMode="cover"
-        style={styles.backgroundImgStyle}
-        imageStyle={styles.backgroundImgStyleImageStyles}>
-        <Badge style={styles.nameBadge}>{item.name}</Badge>
-      </ImageBackground>
+      
     </View>
   );
 }
