@@ -22,14 +22,20 @@ export const createRecipe = ({
 });
 
 export const deleteRecipe = (id) => ({
-  type: DELETE_NOTIFICATION,
+  type: DELETE_RECIPE,
   id,
 });
 
 export const saveRecipe = (id) => ({
-  type: DELETE_NOTIFICATION,
+  type: SAVE_RECIPE,
   id,
 });
+
+export const editRecipe = (id) => ({
+  type: EDIT_RECIPE,
+  id,
+});
+
 
 const INITIAL_STATE = {
   categories: [{
@@ -147,6 +153,24 @@ const reducers = {
   [DELETE_RECIPE]: (state, action) => ({
     ...state,
     saved: state.saved.filter(({ id }) => id !== action.id),
+  }),
+  [EDIT_RECIPE]: (state, action) => ({
+    ...state,
+    // edit the recipe
+    saved: [{
+      id: action.id,
+      category: action.category,
+      title: action.name,
+      ingredients: action.ingredients,
+      steps: action.steps,
+      posterUrl: action.posterUrl || placeholderImage,
+    }, ...state.saved],
+    // automatically create the category if it doesn't exist
+    categories: state.categories.find((c) => c.name === action.category)
+      ? state.categories
+      : [...state.categories, {
+        name: action.category,
+      }],
   }),
 };
 
