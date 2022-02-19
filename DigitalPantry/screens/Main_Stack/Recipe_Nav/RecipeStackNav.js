@@ -14,6 +14,7 @@ const TopNavigator = () => {
         tabBarIndicatorStyle: {
           backgroundColor: '#6200EE',
         },
+        
       }}
     >
       <TopTab.Screen name="Saved" component={MyRecipesNavigation} />
