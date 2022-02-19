@@ -52,7 +52,7 @@ function RecipeRow({ recipes }) {
             key={item.id}
           >
             <ImageBackground
-              source={item.posterUrl}
+              source={{uri: item.posterUrl}}
               style={styles.backgroundImageContainer}
               imageStyle={styles.backgroundImage}
             />

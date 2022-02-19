@@ -11,6 +11,8 @@ const MyRecipes = ({ navigation }) => {
     recipes: state.recipes.saved.filter((recipe) => recipe.category === category.name),
   })));
 
+  console.log(savedRecipesByCategory);
+
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   };
