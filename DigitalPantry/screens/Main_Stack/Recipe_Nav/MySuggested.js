@@ -1,11 +1,11 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import RecipeRow from './RecipeRow';
 import RecipeItem from '../../../components/RecipeItem'
 import LoadingScreen from '../LoadingScreen';
 import { v4 as uuid } from 'uuid';
 import * as recAPI from '../../../API/recipes';
+import { useFocusEffect } from "@react-navigation/core";
 
 const MySuggested = () => {
   
@@ -15,21 +15,22 @@ const MySuggested = () => {
   //steps
   //category
 
-  //Get ingredients from redux.
-  const ingredients = useSelector((state) => state.pantry.ingredients);
-
   //States:
   const [recipes, setRecipes] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  
+  //Get ingredients from redux.
+  const ingredients = useSelector((state) => state.pantry.ingredients);
 
-  //didMount.
-  useEffect(() => {
-
+  //Force API check on update of ingredients.
+  useEffect(() =>{
     //Determine search params by using ingredients.
     let concatList = "";
     ingredients.forEach((ingredient) => {
       concatList += ingredient.name + ",";
     });
+
+    console.log(concatList);
 
     let searchParams = {
       ingredients: concatList,
@@ -37,13 +38,12 @@ const MySuggested = () => {
 
     //Call API.
     recAPI.fetchRecipesByIngredients(searchParams).then((res) => {
-      
+    
       console.log("API Called");
 
       //Create objs for each recipe.
       let resRecipes = [];
       for(let i = 0; i < res.length; i++){
-      
         let newRecipe = {
           id: uuid(),
           category: 'Test Category',
@@ -60,11 +60,10 @@ const MySuggested = () => {
 
       //Flag screen load state.
       setIsLoaded(true);
-
     });
+  }, [ingredients]);
 
-  }, []);
-
+  //Render item for each flat list item.
   const renderItem = ({item, index}) => {
     return (
       <RecipeItem item={item}/>
