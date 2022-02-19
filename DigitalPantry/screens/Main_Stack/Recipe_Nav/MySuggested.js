@@ -1,19 +1,22 @@
 import { StyleSheet, View, Text, FlatList } from 'react-native';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import RecipeItem from '../../../components/RecipeItem'
 import LoadingScreen from '../LoadingScreen';
 import { v4 as uuid } from 'uuid';
 import * as recAPI from '../../../API/recipes';
-import { useFocusEffect } from "@react-navigation/core";
+
+const NUMSUGGESTED = 20;
 
 const MySuggested = () => {
   
-  //Data breakdown:
-  //title
-  //ingredients
-  //steps
-  //category
+  /*
+    Data breakdown:
+    title
+    ingredients
+    steps
+    category
+  */
 
   //States:
   const [recipes, setRecipes] = useState(null);
@@ -22,7 +25,7 @@ const MySuggested = () => {
   //Get ingredients from redux.
   const ingredients = useSelector((state) => state.pantry.ingredients);
 
-  //Force API check on update of ingredients.
+  //Force API call on update of ingredients.
   useEffect(() =>{
     //Determine search params by using ingredients.
     let concatList = "";
@@ -30,10 +33,9 @@ const MySuggested = () => {
       concatList += ingredient.name + ",";
     });
 
-    console.log(concatList);
-
     let searchParams = {
       ingredients: concatList,
+      number: NUMSUGGESTED,
     }
 
     //Call API.
@@ -52,8 +54,6 @@ const MySuggested = () => {
         }
         resRecipes.push(newRecipe);
       }
-
-      console.log(resRecipes);
 
       //Save recipes to state.
       setRecipes(resRecipes);
