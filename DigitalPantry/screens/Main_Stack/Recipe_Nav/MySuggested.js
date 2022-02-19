@@ -19,45 +19,51 @@ const MySuggested = () => {
   const ingredients = useSelector((state) => state.pantry.ingredients);
 
   //States:
-  const [recipes, setRecipes] = useState(ingredients);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [recipes, setRecipes] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // //didMount.
-  // useEffect(() => {
+  //didMount.
+  useEffect(() => {
 
-  //   //Determine search params.
-  //   let searchParams = {
-  //     ingredients: "Apple",
-  //   }
+    //Determine search params by using ingredients.
+    let concatList = "";
+    ingredients.forEach((ingredient) => {
+      concatList += ingredient.name + ",";
+    });
 
-  //   //Call API.
-  //   recAPI.fetchRecipesByIngredients(searchParams).then((res) => {
-  //     console.log(res);
-    
-  //     //Create objs for each recipe.
-  //     let resRecipes = [];
-  //     for(let i = 0; i < res.length; i++){
+    let searchParams = {
+      ingredients: concatList,
+    }
+
+    //Call API.
+    recAPI.fetchRecipesByIngredients(searchParams).then((res) => {
       
-  //       let newRecipe = {
-  //         id: uuid(),
-  //         category: 'Test Category',
-  //         title: res[i].title,
-  //         posterUrl: res[i].image,
-  //       }
-  //       resRecipes.push(newRecipe);
-  //     }
+      console.log("API Called");
 
-  //     console.log(resRecipes);
+      //Create objs for each recipe.
+      let resRecipes = [];
+      for(let i = 0; i < res.length; i++){
+      
+        let newRecipe = {
+          id: uuid(),
+          category: 'Test Category',
+          title: res[i].title,
+          posterUrl: res[i].image,
+        }
+        resRecipes.push(newRecipe);
+      }
 
-  //     //Save recipes to state.
-  //     setRecipes(resRecipes);
+      console.log(resRecipes);
 
-  //     //Flag screen load state.
-  //     setIsLoaded(true);
+      //Save recipes to state.
+      setRecipes(resRecipes);
 
-  //   });
+      //Flag screen load state.
+      setIsLoaded(true);
 
-  // }, []);
+    });
+
+  }, []);
 
   const renderItem = ({item, index}) => {
     return (

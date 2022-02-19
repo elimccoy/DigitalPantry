@@ -10,12 +10,12 @@ const RecipeItem = ({item}) => {
         onPress={() => {console.log("onShortPress")}}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri:item.image}}
+          source={{uri:item.posterUrl}}
           resizeMode="cover"
           style={styles.backgroundImgStyle}
           imageStyle={styles.backgroundImgStyleImageStyles}/>
       </View>
-      <Paragraph>{item.name}</Paragraph>
+      <Paragraph>{item.title}</Paragraph>
     </TouchableOpacity>
   );
 }
