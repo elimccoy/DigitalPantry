@@ -128,6 +128,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   //Handels date selected.
   const handleDateSelect = (event, date) => {
     setShow(false);
+    if(date === undefined) date = new Date();
     setDate(date);
   }
 
