@@ -19,10 +19,10 @@ const MyRecipes = ({ navigation }) => {
     <View style={styles.container}>
       <RecipeGrid rowList={savedRecipesByCategory} />
       {/* This has to stay as the last component to remain on top. */}
-      <TouchableOpacity onPress={addPressHandler} style={styles.button}>
-        <AntDesign style={styles.icon} name="pluscircle" size={60} color="#6200EE" />
-        <View style={styles.floatingButton} />
-      </TouchableOpacity>
+      <FAB
+          icon="plus"
+          style={styles.button}
+          onPress={() => addPressHandler()}/>
     </View>
   );
 }
@@ -39,7 +39,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white',
     borderRadius: 90,
     position: 'absolute',
     right: 20,
