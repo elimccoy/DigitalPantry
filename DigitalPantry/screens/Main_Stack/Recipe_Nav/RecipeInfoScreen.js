@@ -30,8 +30,9 @@ const RecipeInfoScreen = ({ route, navigation }) => {
             <Title>Category:</Title>
             <Paragraph>{recipe.category}</Paragraph>
 
+{/*Temp Buttons for navigation to be styled later*/}
             <Button onPress={handleExit}> Done </Button>
-            <Button onPress={ } > Edit </Button>
+            <Button onPress={handleEdit}> Edit </Button>
         </ScrollView>
     );
 }
