@@ -1,5 +1,7 @@
-import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
 import { useRef } from "react"
+
+import placeholderImage from '../../../assets/recipePlaceholder.png';
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
 function RecipeRow({ recipes }) {
@@ -52,7 +54,7 @@ function RecipeRow({ recipes }) {
             key={item.id}
           >
             <ImageBackground
-              source={item.posterUrl}
+              source={{ uri: item.posterUrl || Image.resolveAssetSource(placeholderImage).uri }}
               style={styles.backgroundImageContainer}
               imageStyle={styles.backgroundImage}
             />

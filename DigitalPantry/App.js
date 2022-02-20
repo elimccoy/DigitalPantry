@@ -1,6 +1,7 @@
 import 'react-native-get-random-values';
 
 import React, { useState } from 'react';
+import { LogBox } from 'react-native';
 import { Provider as ReduxProvider } from 'react-redux';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,15 +9,14 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
 import MainTabNav from './screens/Main_Stack/MainTabNav';
-import firebaseConfig from './firebase'
-import { initializeApp } from 'firebase/app';
+import './firebase'; // Initializes firebase
 import {
   getAuth,
   onAuthStateChanged,
 } from 'firebase/auth';
 import store from './store';
 
-initializeApp(firebaseConfig);
+LogBox.ignoreLogs(['Setting a timer']);
 
 const auth = getAuth();
 const Stack = createNativeStackNavigator();

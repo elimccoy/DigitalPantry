@@ -40,13 +40,11 @@ const MySuggested = ({navigation}) => {
 
     //Call API.
     recAPI.fetchRecipesByIngredients(searchParams).then((res) => {
-    
       console.log("API Called");
 
       //Create objs for each recipe.
       let resRecipes = [];
       for(let i = 0; i < res.length; i++){
-        
         let missingIngredients = "";
         let ownedIngredients = "";
 

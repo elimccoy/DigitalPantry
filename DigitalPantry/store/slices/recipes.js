@@ -1,13 +1,11 @@
-import { v4 as uuid } from 'uuid';
-
-const placeholderImage = require('../../assets/recipePlaceholder.png');
-
 export const CREATE_RECIPE = 'recipes/create';
 export const DELETE_RECIPE = 'recipes/delete';
 export const EDIT_RECIPE = 'recipes/edit';
 export const SAVE_RECIPE = 'recipes/save';
+export const SET_SAVED_RECIPES = 'recipes/set_saved_recipes';
 
 export const createRecipe = ({
+  id, // must come from fiebase
   title,
   ingredients,
   steps,
@@ -15,7 +13,7 @@ export const createRecipe = ({
   posterUrl,
 }) => ({
   type: CREATE_RECIPE,
-  id: uuid(), // generate a random uuidv4 random id
+  id,
   category,
   title,
   ingredients,
@@ -29,102 +27,26 @@ export const deleteRecipe = (id) => ({
 });
 
 export const saveRecipe = (id) => ({
-  type: DELETE_NOTIFICATION,
+  type: SAVE_RECIPE,
   id,
 });
 
+export const setSavedRecipes = (recipes) => ({
+  type: SET_SAVED_RECIPES,
+  recipes,
+});
+
 const INITIAL_STATE = {
-  categories: [{
-    name: 'Breakfasts',
-  }, {
-    name: 'Lunches',
-  }, {
-    name: 'Soups',
-  }, {
-    name: 'American',
-  }],
+  categories: [/*{
+    name: string
+  }*/],
   // List of categories of saved recipes
-  saved: [{
-    id: uuid(),
-    category: 'Breakfasts',
-    title: 'Recipe 1',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Breakfasts',
-    title: 'Recipe 2',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Breakfasts',
-    title: 'Recipe 3',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Breakfasts',
-    title: 'Recipe 4',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Lunches',
-    title: 'Recipe 5',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Lunches',
-    title: 'Recipe 6',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Lunches',
-    title: 'Recipe 7',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Lunches',
-    title: 'Recipe 8',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Soups',
-    title: 'Recipe 9',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Soups',
-    title: 'Recipe 10',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Soups',
-    title: 'Recipe 11',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'Soups',
-    title: 'Recipe 12',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'American',
-    title: 'Recipe 13',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'American',
-    title: 'Recipe 14',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'American',
-    title: 'Recipe 15',
-    posterUrl: placeholderImage,
-  }, {
-    id: uuid(),
-    category: 'American',
-    title: 'Recipe 16',
-    posterUrl: placeholderImage,
-  }],
+  saved: [/*{
+    id: string - comes from firebase
+    title: string,
+    ingredients: array<string>,
+    steps: array<string>,
+  }*/],
 };
 
 const reducers = {
@@ -137,7 +59,7 @@ const reducers = {
       title: action.title,
       ingredients: action.ingredients,
       steps: action.steps,
-      posterUrl: action.posterUrl || placeholderImage,
+      posterUrl: action.posterUrl,
     }, ...state.saved],
     // automatically create the category if it doesn't exist
     categories: state.categories.find((c) => c.name === action.category)
@@ -145,10 +67,21 @@ const reducers = {
       : [...state.categories, {
         name: action.category,
       }],
-  }),
-  [DELETE_RECIPE]: (state, action) => ({
-    ...state,
+    }),
+    [DELETE_RECIPE]: (state, action) => ({
+      ...state,
     saved: state.saved.filter(({ id }) => id !== action.id),
+  }),
+  [SET_SAVED_RECIPES]: (state, action) => ({
+    ...state,
+    saved: action.recipes,
+    // Create a list of categories from the list of recipes
+    // Filters to array of strings to make it easy to filter with onlyUnique then converts to array of objects
+    categories: action.recipes
+      .map((r) => r.category)
+      .filter(onlyUnique).map((r) => ({
+        name: r,
+      })),
   }),
 };
 
@@ -160,3 +93,7 @@ export default function (state = INITIAL_STATE, action) {
 
   return state;
 };
+
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index;
+}

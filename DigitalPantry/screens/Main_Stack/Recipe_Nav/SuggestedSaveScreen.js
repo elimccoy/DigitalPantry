@@ -61,11 +61,12 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     //Add recipe to redux.
     //let combinedIngredients = missingIngredients + ownedIngredients;
     let recipeToSave = {
+      id: route.params.item.id,
       title: title,
       ingredients: "NA",
       steps: "NA",
       category: category,
-      posterUrl: { uri: imgURI },
+      posterUrl: imgURI,
     }
 
     dispatch(createRecipe(recipeToSave));
