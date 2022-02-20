@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Colors } from 'react-native-paper';
 
 const LoadingScreen = () => {
   return(
     <View style={styles.container}>
-      <Text>Loading...</Text>
+      <ActivityIndicator animating={true} size='large'/>
     </View>
   );
 }

@@ -1,4 +1,4 @@
-import MySuggested from './MySuggested';
+import MySuggestedNav from './MySuggestedNav'
 import MyRecipesNavigation from './MyRecipesNavigation';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -17,7 +17,7 @@ const TopNavigator = () => {
       }}
     >
       <TopTab.Screen name="Saved" component={MyRecipesNavigation} />
-      <TopTab.Screen name="Suggested" component={MySuggested} />
+      <TopTab.Screen name="Suggested" component={MySuggestedNav} />
 
     </TopTab.Navigator>
 

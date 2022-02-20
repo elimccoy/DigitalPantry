@@ -4,19 +4,16 @@ import { Paragraph } from 'react-native-paper';
 const RecipeItem = ({item}) => {
 
   return(
-    <TouchableOpacity
-        style={styles.item}
-        onLongPress={() => {console.log("onLongPress")}}
-        onPress={() => {console.log("onShortPress")}}>
+    <View style={styles.item}>
       <View style={styles.container}>
         <ImageBackground
-          source={{uri:item.posterUrl}}
+          source={item.posterUrl}
           resizeMode="cover"
           style={styles.backgroundImgStyle}
           imageStyle={styles.backgroundImgStyleImageStyles}/>
       </View>
       <Paragraph>{item.title}</Paragraph>
-    </TouchableOpacity>
+    </View>
   );
 }
 
