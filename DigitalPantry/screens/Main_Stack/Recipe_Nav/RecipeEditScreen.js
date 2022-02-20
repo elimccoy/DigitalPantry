@@ -1,7 +1,11 @@
-import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Button, TextInput } from 'react-native';
 import { editRecipe } from '../../../store/slices/recipes';
-import LoadingScreen from '../LoadingScreen';
+import { useSelector, useDispatch } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import IOSAccessory from './IOSAccessory';
+import UploadImage from './UploadImage';
 
 const RecipeEditScreen = ({ route, navigation }) => {
 
@@ -17,9 +21,7 @@ const RecipeEditScreen = ({ route, navigation }) => {
   const { recipeInfo, onChangeRecipe } = useState(state.recipes.steps);
   const categories = useSelector((state) => state.recipes.categories);
 
-  const dispatch = useDispatch();
-
-  const save = () => {
+  const saveRecipe = () => {
     dispatch(editRecipe({
       id: recipe.id,
       title: recipeName,
@@ -28,6 +30,11 @@ const RecipeEditScreen = ({ route, navigation }) => {
       category: categories[0].name, // placeholder to categorize the first recipe with some value
     }));
 
+    navigation.navigate('RecipeScreen');
+  }
+
+  const deleteRecipe = () => {
+    dispatch(deleteRecipe(recipe.id))
     navigation.navigate('RecipeScreen');
   }
 
@@ -59,19 +66,15 @@ const RecipeEditScreen = ({ route, navigation }) => {
         placeholder="Lorem ipsum dolor sit amet"
         inputAccessoryViewID="Done"
       />
-      <Button onPress={save}>
-        Save
-      </Button>
+      <Button title="Save" onPress={saveRecipe} />
+
+      <Button title="Delete" onPress={deleteRecipe} />
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
       {Accessory && <Accessory />}
     </KeyboardAwareScrollView>
   );
-
-
-
-
 }
 
 const styles = StyleSheet.create({
@@ -90,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PantryItemEditScreen;
+export default RecipeEditScreen;
