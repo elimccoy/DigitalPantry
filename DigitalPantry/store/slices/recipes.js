@@ -52,82 +52,82 @@ const INITIAL_STATE = {
     id: uuid(),
     category: 'Breakfasts',
     title: 'Recipe 1',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Breakfasts',
     title: 'Recipe 2',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Breakfasts',
     title: 'Recipe 3',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Breakfasts',
     title: 'Recipe 4',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Lunches',
     title: 'Recipe 5',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Lunches',
     title: 'Recipe 6',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Lunches',
     title: 'Recipe 7',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Lunches',
     title: 'Recipe 8',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Soups',
     title: 'Recipe 9',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Soups',
     title: 'Recipe 10',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Soups',
     title: 'Recipe 11',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'Soups',
     title: 'Recipe 12',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'American',
     title: 'Recipe 13',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'American',
     title: 'Recipe 14',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'American',
     title: 'Recipe 15',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }, {
     id: uuid(),
     category: 'American',
     title: 'Recipe 16',
-    posterUrl: placeholderImage,
+    imageURL: placeholderImage,
   }],
 };
 
@@ -141,7 +141,7 @@ const reducers = {
       title: action.name,
       ingredients: action.ingredients,
       steps: action.steps,
-      posterUrl: action.posterUrl || placeholderImage,
+      imageURL: action.imageURL || placeholderImage,
     }, ...state.saved],
     // automatically create the category if it doesn't exist
     categories: state.categories.find((c) => c.name === action.category)
@@ -163,7 +163,7 @@ const reducers = {
       title: action.name,
       ingredients: action.ingredients,
       steps: action.steps,
-      posterUrl: action.posterUrl || placeholderImage,
+      imageURL: action.imageURL || placeholderImage,
     }, ...state.saved],
     // automatically create the category if it doesn't exist
     categories: state.categories.find((c) => c.name === action.category)
