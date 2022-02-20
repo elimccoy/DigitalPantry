@@ -1,12 +1,17 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { TextInput, Avatar, Button, Title, Paragraph, Subheading } from 'react-native-paper';
+import { Avatar, Button, Title, Paragraph, Subheading } from 'react-native-paper';
 import DropDown from "react-native-paper-dropdown";
 import LoadingScreen from '../LoadingScreen';
+import { useDispatch } from 'react-redux';
 import * as recAPI from '../../../API/recipes';
+import { createRecipe } from '../../../store/slices/recipes'
 
 const SuggestedSaveScreen = ({ route, navigation }) => {
+
+  //Redux data
+  const dispatch = useDispatch(); 
 
   const[imgURI, setImgURI] =  React.useState(null);
   const[title, setTitle] = React.useState("");
@@ -48,7 +53,20 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
 
   //Handlers for navigating:
   const donePressHandler = () => {
-    navigation.navigate('Suggested');
+
+    //Add recipe to redux.
+    //let combinedIngredients = missingIngredients + ownedIngredients;
+    let recipeToSave = {
+      title: title,
+      ingredients: "NA",
+      steps: "NA",
+      category: category,
+      posterUrl: { uri: imgURI },
+    }
+
+    dispatch(createRecipe(recipeToSave));
+
+    navigation.navigate('SuggestedMain');
   }
 
   if(isLoaded) {
@@ -58,10 +76,6 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
         <Avatar.Image size={128} style={styles.avatarStyle} source={{ uri: imgURI }} />
         {/*Container for text inputs*/}
         <View style={styles.inputContainer}>
-          <Subheading style={styles.SubHeading}>Missing Ingredients:</Subheading>
-          <Paragraph style={styles.ingredientList}>{missingIngredients}</Paragraph>
-          <Subheading style={styles.SubHeading}>Owned Ingredients:</Subheading>
-          <Paragraph style={styles.ingredientList}>{ownedIngredients}</Paragraph>
           <DropDown
             label={"Category"}
             mode={"outlined"}
@@ -72,6 +86,10 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
             setValue={(res) => { setCategory(res) }}
             list={categoryList}
           />
+          <Subheading style={styles.SubHeading}>Missing Ingredients:</Subheading>
+          <Paragraph style={styles.ingredientList}>{missingIngredients}</Paragraph>
+          <Subheading style={styles.SubHeading}>Owned Ingredients:</Subheading>
+          <Paragraph style={styles.ingredientList}>{ownedIngredients}</Paragraph>
         </View>
         <View style={styles.buttonViewStyle}>
           <View style={styles.buttonPaddingStyle}>

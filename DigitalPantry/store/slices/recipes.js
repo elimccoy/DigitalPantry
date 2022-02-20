@@ -12,6 +12,7 @@ export const createRecipe = ({
   ingredients,
   steps,
   category,
+  posterUrl,
 }) => ({
   type: CREATE_RECIPE,
   id: uuid(), // generate a random uuidv4 random id
@@ -19,6 +20,7 @@ export const createRecipe = ({
   title,
   ingredients,
   steps,
+  posterUrl,
 });
 
 export const deleteRecipe = (id) => ({
@@ -132,7 +134,7 @@ const reducers = {
     saved: [{
       id: action.id,
       category: action.category,
-      title: action.name,
+      title: action.title,
       ingredients: action.ingredients,
       steps: action.steps,
       posterUrl: action.posterUrl || placeholderImage,
