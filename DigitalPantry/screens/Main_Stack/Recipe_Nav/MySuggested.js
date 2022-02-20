@@ -6,7 +6,7 @@ import LoadingScreen from '../LoadingScreen';
 import { v4 as uuid } from 'uuid';
 import * as recAPI from '../../../API/recipes';
 
-const NUMSUGGESTED = 1;
+const NUMSUGGESTED = 2;
 
 const MySuggested = ({navigation}) => {
   
@@ -47,11 +47,12 @@ const MySuggested = ({navigation}) => {
       let resRecipes = [];
       for(let i = 0; i < res.length; i++){
         
-        const missingIngredients = "";
-        const ownedIngredients = "";
+        let missingIngredients = "";
+        let ownedIngredients = "";
 
         console.log(res[i].missedIngredients)
 
+        //Make map of measurements and amounts.
 
         for(let j = 0; j < res[i].missedIngredients.length; j++) {
           missingIngredients += (res[i].missedIngredients[j].name + "\n");
@@ -68,6 +69,8 @@ const MySuggested = ({navigation}) => {
           posterUrl: {uri: res[i].image},
           missingIngredients: missingIngredients,
           ownedIngredients: ownedIngredients,
+          steps: res[i].instructions,
+          sourceURL: res[i].sourceURL,
           id: res[i].id,
         }
         console.log(newRecipe);

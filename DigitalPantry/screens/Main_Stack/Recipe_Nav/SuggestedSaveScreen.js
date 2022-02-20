@@ -5,22 +5,23 @@ import { Avatar, Button, Title, Paragraph, Subheading } from 'react-native-paper
 import DropDown from "react-native-paper-dropdown";
 import LoadingScreen from '../LoadingScreen';
 import { useDispatch } from 'react-redux';
+import { createRecipe } from '../../../store/slices/recipes';
 import * as recAPI from '../../../API/recipes';
-import { createRecipe } from '../../../store/slices/recipes'
 
 const SuggestedSaveScreen = ({ route, navigation }) => {
 
   //Redux data
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const[imgURI, setImgURI] =  React.useState(null);
   const[title, setTitle] = React.useState("");
   const[steps, setSteps] = React.useState("");
   const[ownedIngredients, setOwnedIngredients] = React.useState("");
   const[missingIngredients, setMissingIngredients] = React.useState("");
+  const[instructions, setInstructions] = React.useState("");
   const[category, setCategory] = React.useState("");
   const[showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = React.useState(false);
-  const[isLoaded, setIsLoaded] = React.useState(true);
+  const[isLoaded, setIsLoaded] = React.useState(false);
 
   const categoryList = [
     {
@@ -44,11 +45,14 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
       setTitle(route.params.item.title);
       setOwnedIngredients(route.params.item.ownedIngredients);
       setMissingIngredients(route.params.item.missingIngredients);
-
-      //Read from API steps.
-
-
+      setInstructions(route.params.item.steps);
     }
+
+    recAPI.fetchRecipeInfo(route.params.item.id).then((res) => {
+      setInstructions(res.instructions);
+    }).then(() => {
+      setIsLoaded(true);
+    });
   }, [route.params, navigation]);
 
   //Handlers for navigating:
@@ -90,6 +94,8 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
           <Paragraph style={styles.ingredientList}>{missingIngredients}</Paragraph>
           <Subheading style={styles.SubHeading}>Owned Ingredients:</Subheading>
           <Paragraph style={styles.ingredientList}>{ownedIngredients}</Paragraph>
+          <Subheading style={styles.SubHeading}>Steps:</Subheading>
+          <Paragraph>{instructions}</Paragraph>
         </View>
         <View style={styles.buttonViewStyle}>
           <View style={styles.buttonPaddingStyle}>
