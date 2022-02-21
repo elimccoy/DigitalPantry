@@ -3,6 +3,7 @@ import 'react-native-get-random-values';
 import React, { useState } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -10,16 +11,28 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
 import MainTabNav from './screens/Main_Stack/MainTabNav';
 import firebaseConfig from './firebase'
-import { initializeApp } from 'firebase/app';
+import { getApps, getApp, initializeApp } from 'firebase/app';
+import { getReactNativePersistence } from 'firebase/auth/react-native';
 import {
   getAuth,
+  initializeAuth,
   onAuthStateChanged,
 } from 'firebase/auth';
 import { store, persistor } from './store';
 
-initializeApp(firebaseConfig);
+// Initializes app on first reload and prevents crashing on reloads
+let app;
+let auth;
+if (getApps().length < 1) {
+  app = initializeApp(firebaseConfig);
+  auth = initializeAuth(app, {
+    persistence: getReactNativePersistence(AsyncStorage),
+  });
+} else {
+  app = getApp();
+  auth = getAuth();
+}
 
-const auth = getAuth();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
