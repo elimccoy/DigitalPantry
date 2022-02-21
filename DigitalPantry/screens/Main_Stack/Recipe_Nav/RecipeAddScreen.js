@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
+import IngredientInfo from './IngredientInfo';
+import { ingData } from './IngredientInfo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Accessory = Platform.select({
@@ -11,9 +13,14 @@ const Accessory = Platform.select({
 });
 
 const RecipeAddScreen = ({ route, navigation }) => {
-  const { recipeName, onChangeName } = useState("Recipe Name");
-  const { ingList, onChangeIng } = useState("Ingredients");
-  const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
+  const [recipeName, onChangeName] = useState("Recipe Name");
+  const [recipeInfo, onChangeRecipe] = useState("Lorem ipsum dolor sit amet");
+
+  const [ingredients, addIngredient] = useState([]);
+
+  function addIngredients() {
+    addIngredient([...ingredients, ingData]);
+  }
 
   return (
     <KeyboardAwareScrollView>
@@ -23,23 +30,18 @@ const RecipeAddScreen = ({ route, navigation }) => {
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.recipeName}
-            onEndEditing={onChangeName}
+            onChangeText={onChangeName}
             value={recipeName}
             mode={'outlined'}
             label={'Recipe Name'}
             inputAccessoryViewID="Done"
           />
-          <TextInput
-            style={styles.multilineInput}
-            onChangeText={onChangeIng}
-            value={ingList}
-            multiline={true}
-            scrollEnabled={false}
-            mode={'outlined'}
-            label={'Ingredients'}
-            placeholder="Ingredients"
-            inputAccessoryViewID="Done"
-          />
+
+          { ingredients.map((item, i) => ( <IngredientInfo ingData={item}/> )) }
+          <Button onPress={addIngredients}>
+            Add Ingredient
+          </Button>
+
           <TextInput
             style={styles.multilineInput}
             onChangeText={onChangeRecipe}
@@ -66,13 +68,9 @@ const RecipeAddScreen = ({ route, navigation }) => {
             </Button>
 
           </View>
-
         </View>
 
-
       </View>
-
-
 
       <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
@@ -91,6 +89,9 @@ const styles = StyleSheet.create({
   },
   recipeName: {
     fontSize: 36,
+  },
+  singlelineInput: {
+    fontSize: 18,
   },
   multilineInput: {
     fontSize: 18,
