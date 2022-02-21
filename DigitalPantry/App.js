@@ -2,6 +2,7 @@ import 'react-native-get-random-values';
 
 import React, { useState } from 'react';
 import { Provider as ReduxProvider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -14,7 +15,7 @@ import {
   getAuth,
   onAuthStateChanged,
 } from 'firebase/auth';
-import store from './store';
+import { store, persistor } from './store';
 
 initializeApp(firebaseConfig);
 
@@ -36,18 +37,20 @@ export default function App() {
 
   return (
     <ReduxProvider store={store}>
-      <PaperProvider>
-        <NavigationContainer>
-          <StatusBar translucent={false} backgroundColor='white' />
-          <Stack.Navigator screenOptions={{headerShown: false}}>
-            {isSignedIn ? (
-              <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-            ):(
-              <Stack.Screen name="SignIn" component={SignInScreen}/>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PaperProvider>
+      <PersistGate loading={null} persistor={persistor}>
+        <PaperProvider>
+          <NavigationContainer>
+            <StatusBar translucent={false} backgroundColor='white' />
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              {isSignedIn ? (
+                <Stack.Screen name="MainTabNav" component={MainTabNav}/>
+              ):(
+                <Stack.Screen name="SignIn" component={SignInScreen}/>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
+      </PersistGate>
     </ReduxProvider>
   );
 }
