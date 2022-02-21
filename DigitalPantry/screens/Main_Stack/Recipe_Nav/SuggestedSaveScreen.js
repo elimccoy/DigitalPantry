@@ -7,6 +7,7 @@ import LoadingScreen from '../LoadingScreen';
 import { useDispatch } from 'react-redux';
 import { createRecipe } from '../../../store/slices/recipes';
 import * as recAPI from '../../../API/recipes';
+import { saveRecipe } from '../../../API/firebaseMethods';
 
 const SuggestedSaveScreen = ({ route, navigation }) => {
 
@@ -56,12 +57,11 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
   }, [route.params, navigation]);
 
   //Handlers for navigating:
-  const donePressHandler = () => {
+  const donePressHandler = async () => {
 
     //Add recipe to redux.
     //let combinedIngredients = missingIngredients + ownedIngredients;
-    let recipeToSave = {
-      id: route.params.item.id,
+    const recipeToSave = {
       title: title,
       ingredients: "NA",
       steps: "NA",
@@ -69,9 +69,19 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
       posterUrl: imgURI,
     }
 
-    dispatch(createRecipe(recipeToSave));
+    try {
+      const recipe = await saveRecipe('kleb', recipeToSave);
 
-    navigation.navigate('SuggestedMain');
+      // Create the recipe with the id from firebase
+      dispatch(createRecipe({
+        id: recipe.id,
+        ...recipeToSave,
+      }));
+
+      navigation.navigate('SuggestedMain');
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   if(isLoaded) {
