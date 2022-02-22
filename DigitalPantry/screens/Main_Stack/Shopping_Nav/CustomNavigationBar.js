@@ -4,7 +4,7 @@ const CustomNavigationBar = ({ navigation, back }) => {
   return (
     <Appbar.Header>
         {back ? <Appbar.BackAction onPress={navigation.goBack} /> : null}
-      <Appbar.Content title="Shopping Screen"/>
+      <Appbar.Content title="Shopping List"/>
     </Appbar.Header>
   );
 }
