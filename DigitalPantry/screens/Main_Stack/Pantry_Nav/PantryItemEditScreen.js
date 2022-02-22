@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItem, updateItem } from '../../../store/slices/pantry';
 import DropDown from "react-native-paper-dropdown";
+import {deleteSuggestedItem, addSuggestedItem} from '../../../store/slices/shoppingList';
+
 
 const PantryItemEditScreen = ({ route, navigation }) => {
 
@@ -130,6 +132,14 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
+
+    //Add item to suggested list if needed 
+    if(itemToReturn.remaining === 'Low' && item.remaining !== 'Low'){ //from fuller to low
+      dispatch(addSuggestedItem(itemToReturn));
+    }else if(itemToReturn.remaining !== 'Low' && item.remaining === 'Low'){//from low to fuller
+      dispatch(deleteSuggestedItem(itemToReturn.key));
+    }
+    
     navigation.navigate('PantryScreen');
   }
 
