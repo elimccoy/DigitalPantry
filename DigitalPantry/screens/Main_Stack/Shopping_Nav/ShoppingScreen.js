@@ -15,7 +15,7 @@ const ShoppingScreen = ({ route, navigation }) => {
   const listItems = useSelector((state) => state.shoppingList.list);
   const suggItems = useSelector((state) => state.shoppingList.suggested);
   const dispatch = useDispatch();
- 
+
   const [showFab] = useState(true);
   const [expanded, setExpanded] = useState(true);
   const [cabIsOpen, setCabIsOpen] = useState(false);
@@ -43,7 +43,7 @@ const ShoppingScreen = ({ route, navigation }) => {
 
   const closeHeader = () => {
     setCabIsOpen(false);
-    //unselect items currently selected
+    //unselect items if any selected
   }
 
   const deleteSelected = () => {
@@ -75,20 +75,29 @@ const ShoppingScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
-
-      <FlatList
-        data={listItems}
-        style={styles.scollContainer}
-        renderItem={renderItem}
-        numColumns={2}
-      />
-
-      <FlatList
-        data={suggItems}
-        style={styles.scollContainer}
-        renderItem={renderSuggestedItem}
-        numColumns={2}
-      />
+      <ScrollView>
+        <FlatList
+          data={listItems}
+          //style={styles.scollContainer}
+          numColumns={2}
+          renderItem={renderItem}
+          scrollEnabled={true}
+        />
+        <List.Accordion
+          title="Suggested Ingredients"
+          expanded={expanded}
+          onPress={handlePress}
+          titleStyle={styles.listTitle}
+        >
+          <FlatList
+            data={suggItems}
+            //style={styles.scollContainer}
+            numColumns={2}
+            renderItem={renderSuggestedItem}
+            scrollEnabled={false}
+          />
+        </List.Accordion>
+      </ScrollView>
 
       <FAB.Group
         visible={showFab}
@@ -174,6 +183,8 @@ const styles = StyleSheet.create({
     color: '#6200EE',
     fontWeight: "bold",
   },
+
+
 });
 
 export default ShoppingScreen;

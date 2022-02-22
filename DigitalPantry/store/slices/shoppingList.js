@@ -11,21 +11,28 @@ export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
 export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
 
-export const addItem = ({ amount, name, info, units }) => ({
+export const addItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_ITEM,
+  key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
-export const editItem = ({ key, amount, name, info, units }) => ({
+export const editItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: EDIT_ITEM,
   key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
 export const deleteItem = (key) => ({
@@ -72,42 +79,58 @@ export const clearSuggestedItems = () => ({
 
 const INITIAL_STATE = {
 
-  list: [],
-  suggested: [],
-/*
+ 
+
   list: [{
     key: uuid(),
-    name: 'Oranges',
-    info: 'orange data',
+    name: 'Shopping Item1',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '6',
   }, {
     key: uuid(),
-    name: 'Apples',
-    info: 'apple data',
+    name: 'Shopping Item2',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '11',
   }, {
     key: uuid(),
-    name: 'Broccoli',
-    info: 'broccoli data',
+    name: 'Shopping Item3',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '1',
   }],
   suggested: [{
     key: uuid(),
-    name: 'Onions',
-    info: 'onion data',
+    name: 'Suggested Item1',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '3',
   }, {
     key: uuid(),
-    name: 'Cheese',
-    info: 'cheese data',
+    name: 'Suggested Item2',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '2',
-  }, {
-    key: uuid(),
-    name: 'Milk',
-    info: 'milk data',
-    amount: '3',
-  }], */
+  }, 
+  ], 
 };
+
 
 const reducers = {
    [ADD_ITEM]: (state, action) => ({

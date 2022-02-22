@@ -1,10 +1,9 @@
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TextInput, Button } from 'react-native-paper';
+import { TextInput, Button, Avatar } from 'react-native-paper';
 import DropDown from "react-native-paper-dropdown";
 import { addItem } from '../../../store/slices/shoppingList';
-import { StatusBar } from 'expo-status-bar';
 
 const ListAddScreen = ({ navigation }) => {
 
@@ -97,39 +96,40 @@ const ListAddScreen = ({ navigation }) => {
     <ScrollView keyboardShouldPersistTaps='handled'>
 
       <View style={styles.container}>
+        <View style={{ justifyContent: 'space-evenly' }}>
+          <Avatar.Image size={128} style={styles.avatarStyles} source={ 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg'} />
+          <TextInput
+            label='Name:'
+            mode={'outlined'}
+            value={itmName}
+            onChangeText={itmName => setItmName(itmName)}
+          />
 
-        <TextInput
-          label='Name:'
-          mode={'outlined'}
-          value={itmName}
-          onChangeText={itmName => setItmName(itmName)}
-        />
+          <TextInput
+            label='Amount:'
+            mode={'outlined'}
+            keyboardType='numeric'
+            value={amt}
+            onChangeText={amt => setAmt(amt)}
+          />
 
-        <TextInput
-          label='Amount:'
-          mode={'outlined'}
-          keyboardType='numeric'
-          value={amt}
-          onChangeText={amt => setAmt(amt)}
-        />
+          <DropDown
+            label={'Measurements:'}
+            mode={'outlined'}
+            visible={showMultiSelectDropDown}
+            showDropDown={() => setShowMultiSelectDropDown(true)}
+            onDismiss={() => setShowMultiSelectDropDown(false)}
+            value={units}
+            setValue={(res) => { setUnits(res) }}
+            list={measurementList}
+          />
 
-        <DropDown
-          label={'Measurements:'}
-          mode={'outlined'}
-          visible={showMultiSelectDropDown}
-          showDropDown={() => setShowMultiSelectDropDown(true)}
-          onDismiss={() => setShowMultiSelectDropDown(false)}
-          value={units}
-          setValue={(res) => { setUnits(res) }}
-          list={measurementList}
-        />
-
-        <View style={styles.buttonContainer}>
-          <Button icon='check' mode='contained' onPress={() => confirm()}>
-            Done
-          </Button>
+          <View style={styles.buttonContainer}>
+            <Button icon='check' mode='contained' onPress={() => confirm()}>
+              Done
+            </Button>
+          </View>
         </View>
-
       </View>
 
     </ScrollView>
@@ -142,11 +142,15 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     justifyContent: 'center',
-   // marginTop: StatusBar.currentHeight,
+    // marginTop: StatusBar.currentHeight,
   },
   buttonContainer: {
     flex: 1,
     padding: 10,
+  },
+  avatarStyles: {
+    alignSelf: 'center',
+    marginBottom: 7,
   },
 });
 

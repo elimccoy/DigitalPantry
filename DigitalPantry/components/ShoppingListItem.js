@@ -14,7 +14,7 @@ const ShoppingListItem = ({item}) => {
       style={styles.backgroundImgStyle}
       imageStyle={styles.backgroundImgStyleImageStyles}>
       <Badge style={styles.nameBadge}>{item.name}</Badge>
-      <Badge style={styles.statusBadge}>{item.amount + ((item.info === undefined) ? "" : (" " + item.info))}</Badge>
+      <Badge style={styles.statusBadge}>{item.amount + ((item.unit === undefined) ? "" : (" " + item.unit))}</Badge>
     </ImageBackground>
   </View>
   );

@@ -17,7 +17,7 @@ const SuggestedItem = ({ item, addItem }) => { //takes in function addItem and a
           style={styles.addButton}
         />
         <Badge style={styles.nameBadge}>{item.name}</Badge>
-        <Badge style={styles.statusBadge}>{item.amount + ((item.info === undefined) ? "" : (" " + item.info))}</Badge>
+        <Badge style={styles.statusBadge}>{item.amount + ((item.unit === undefined) ? "" : (" " + item.unit))}</Badge>
       </ImageBackground>
     </View>
   );
