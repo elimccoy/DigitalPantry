@@ -8,12 +8,14 @@ import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { createRecipe } from '../../../store/slices/recipes';
 import { saveRecipe } from '../../../API/firebaseMethods';
+import { getUser } from '../../../UserProvider';
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
 });
 
 const RecipeAddScreen = ({ route, navigation }) => {
+  const user = getUser();
   const [ recipeName, onChangeName ] = useState("Recipe Name");
   const [ ingList, onChangeIng ] = useState("1 cup flour");
   const [ recipeInfo, onChangeRecipe ] = useState("Lorem ipsum dolor sit amet");
@@ -29,7 +31,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
     };
 
     try {
-      const recipe = await saveRecipe('kleb', newRecipe);
+      const recipe = await saveRecipe(user.id, newRecipe);
 
       // Create the recipe with the id from firebase
       dispatch(createRecipe({

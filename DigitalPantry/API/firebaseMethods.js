@@ -1,5 +1,5 @@
 
-import { collection, getDocs, query, where, addDoc } from 'firebase/firestore';
+import { doc, collection, getDoc, setDoc, getDocs, query, where, addDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { db } from '../firebase';
 
@@ -12,12 +12,15 @@ export async function loggingOut() {
   });
 };
 
-const RecipesRef = collection(db, 'Recipes')
+const RecipesRef = collection(db, 'Recipes');
 
-// Following recipes are agnostic to the current logged in user and the userId should be passed into these functions
-
-// adds recipe to firestore database
+/**
+ * Fetches recipes from the database based on the provided userId
+ * @param {string} userId - represents the user id of the user according to the Users/ table
+ * @returns {Promise} - Promise resolved when the fetch is complete. 
+ */
 export async function fetchSavedRecipes(userId) {
+  console.log(21, userId);
   try {
     return (await getDocs(query(RecipesRef, where('userId', '==', userId)))).docs
       .map((recipe) => ({
@@ -29,6 +32,12 @@ export async function fetchSavedRecipes(userId) {
   }
 };
 
+/**
+ * Saves a recipe to the database
+ * @param {string} userId - represents the user id of the user according to the Users/ table
+ * @param {*} recipe - the recipe object. This is the exact data that will be saved to the database.
+ * @returns {promise} - Promise that can be resolved to handle when the save is complete
+ */
 export async function saveRecipe(userId, recipe) {
   try {
     return await addDoc(RecipesRef, {
@@ -37,5 +46,64 @@ export async function saveRecipe(userId, recipe) {
     });
   } catch (e) {
     console.error('Error saving recipes', e);
+  }
+};
+
+/**
+ * Creates the user if they don't exist and returns the user based on the user auth data.
+ * @param {object} userAuth - this comes from the first argument inside auth.onAuthStateChanged
+ * @returns the user document
+ */
+export const generateUserDocument = async (userAuth) => {
+  if (!userAuth) {
+    console.error('No user provided to save');
+    return;
+  };
+
+  const userRef = doc(db, 'Users', userAuth.uid);
+  const snapshot = await getDoc(userRef);
+
+  // Initially creates user if they don't exist in the database.
+  if (!snapshot.exists()) {
+    const { email, displayName, photoURL } = userAuth;
+
+    try {
+      const u = {
+        displayName,
+        email,
+        photoURL,
+      };
+
+      await setDoc(userRef, u);
+    } catch (error) {
+      console.error('Error creating user document', error);
+    }
+  }
+
+  const userDocument = await getUserDocument(userAuth.uid);
+  return {
+    ...userDocument,
+    ...userAuth.providerData[0],
+  }
+};
+
+/**
+ * Queries for a user in the database
+ * @param {string} uid - The id for the user authenticated, not in the database.
+ * @returns the user document
+ */
+const getUserDocument = async (uid) => {
+  if (!uid) return null;
+  try {
+    const userRef = doc(db, 'Users', uid);
+    const userDocument = await getDoc(userRef);
+
+    return {
+      id: userDocument.id,
+      uid,
+      ...userDocument.data(),
+    };
+  } catch (error) {
+    console.error("Error fetching user", error);
   }
 };
