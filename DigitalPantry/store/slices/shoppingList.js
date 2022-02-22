@@ -33,12 +33,9 @@ export const deleteItem = (key) => ({
   key,
 });
 
-export const addSuggestedItem = ({ amount, name, info, units }) => ({
+export const addSuggestedItem = (props) => ({
   type: ADD_SUGGESTED_ITEM,
-  amount,
-  name,
-  info,
-  units,
+  ...props,
 });
 
 export const deleteSuggestedItem = (key) => ({
@@ -72,7 +69,12 @@ export const clearSuggestedItems = () => ({
   type: CLEAR_SUGGESTED_ITEMS,
 });
 
+
 const INITIAL_STATE = {
+
+  list: [],
+  suggested: [],
+/*
   list: [{
     key: uuid(),
     name: 'Oranges',
@@ -104,7 +106,7 @@ const INITIAL_STATE = {
     name: 'Milk',
     info: 'milk data',
     amount: '3',
-  }],
+  }], */
 };
 
 const reducers = {
@@ -139,7 +141,7 @@ const reducers = {
   [ADD_SUGGESTED_ITEM]: (state, action) => ({
     ...state,
     suggested: [...state.suggested, {
-      key: uuid(),
+      key: action.key,
       name: action.name,
       info: action.info,
       amount: action.amount,
@@ -163,6 +165,8 @@ const reducers = {
     ...state,
     suggested: [],
   }),
+
+ 
 };
 
 // boilerplate
