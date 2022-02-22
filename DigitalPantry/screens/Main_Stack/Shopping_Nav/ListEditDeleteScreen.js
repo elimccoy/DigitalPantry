@@ -1,19 +1,75 @@
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import { editItem, deleteItem } from '../../../store/slices/shoppingList';
+import DropDown from "react-native-paper-dropdown";
 
-/**TO-DO
- * Styling: make it more similar to pantry edit screen
- */
+
 const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functions
+
   const initialItem = route.params.itemToEdit;
 
   const dispatch = useDispatch();
   const [itmName, setItmName] = useState(initialItem.name);
   const [amt, setAmt] = useState(initialItem.amount);
   const [units, setUnits] = useState(initialItem.units);
+  const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+
+  const measurementList = [
+    {
+      label: "Pack",
+      value: "Pack",
+    },
+    {
+      label: "Bag",
+      value: "Bag",
+    },
+    {
+      label: "Tablespoon",
+      value: "Tablespoon",
+    },
+    {
+      label: "Ounce",
+      value: "Ounce",
+    },
+    {
+      label: "Cup",
+      value: "Cup",
+    },
+    {
+      label: "Quart",
+      value: "Quart",
+    },
+    {
+      label: "Pint",
+      value: "Pint",
+    },
+    {
+      label: "Pound",
+      value: "Pound",
+    },
+    {
+      label: "Gallon",
+      value: "Gallon",
+    },
+    {
+      label: "Milliliter",
+      value: "Milliliter",
+    },
+    {
+      label: "Grams",
+      value: "Grams",
+    },
+    {
+      label: "Kilogram",
+      value: "Kilogram",
+    },
+    {
+      label: "Liter",
+      value: "Liter",
+    },
+  ];
 
   const _deleteItem = () => {
     dispatch(deleteItem(initialItem.key));
@@ -33,57 +89,65 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        label="Product Name"
-        value={itmName}
-        onChangeText={itmName => setItmName(itmName)}
-      />
+    <ScrollView keyboardShouldPersistTaps='handled'>
+      <View style={{ justifyContent: 'space-evenly' }}>
+        <TextInput
+          label='Name:'
+          mode={'outlined'}
+          value={itmName}
+          onChangeText={itmName => setItmName(itmName)}
+        />
 
-      <TextInput
-        style={styles.input}
-        label="Unit"
-        value={units}
-        onChangeText={units => setUnits(units)}
-      />
+        <TextInput
+          label='Amount:'
+          mode={'outlined'}
+          value={amt}
+          onChangeText={amt => setAmt(amt)}
+        />
 
-      <TextInput
-        style={styles.input}
-        label="Amount"
-        value={amt}
-        onChangeText={amt => setAmt(amt)}
-      />
+        <DropDown
+          label={'Measurements:'}
+          mode={'outlined'}
+          visible={showMultiSelectDropDown}
+          showDropDown={() => setShowMultiSelectDropDown(true)}
+          onDismiss={() => setShowMultiSelectDropDown(false)}
+          value={units}
+          setValue={(res) => { setUnits(res) }}
+          list={measurementList}
+        />
 
-      <Button style={styles.button}
-        title="Save changes"
-        onPress={_editItem}
-      />
+        <View style={{ flexDirection: 'row' }}>
 
-      <Button style={styles.button}
-        title="Delete Item"
-        onPress={_deleteItem}
-      />
-    </View>
+          <View style={styles.buttonContainer}>
+            <Button icon='check' mode='contained' onPress={() => _editItem()}>
+              Done
+            </Button>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button icon='delete' mode='contained' onPress={() => _deleteItem()}>
+              Delete
+            </Button>
+          </View>
+
+        </View>
+
+      </View>
+
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-  },
-  input: {
-    height: 40,
-    margin: 17,
-    borderWidth: 1,
     padding: 10,
+    justifyContent: 'center',
+  //  marginTop: StatusBar.currentHeight,
   },
-
-  button: {
-    borderWidth: 1,
-    padding: 30,
-    margin: 17,
+  buttonContainer: {
+    flex: 1,
+    padding: 10,
   },
 });
 
