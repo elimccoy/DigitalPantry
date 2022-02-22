@@ -1,10 +1,8 @@
-import { StyleSheet, View, Button} from 'react-native';
+import { StyleSheet, View} from 'react-native';
 import React from "react"
-import { AntDesign } from '@expo/vector-icons';
 import RecipeGrid from './RecipeGrid';
 import { useSelector } from 'react-redux';
-import { FAB, Searchbar } from 'react-native-paper';
-
+import { FAB } from 'react-native-paper';
 
 const MyRecipes = ({ navigation }) => {
   const savedRecipesByCategory = useSelector((state) => state.recipes.categories.map((category) => ({
@@ -16,16 +14,10 @@ const MyRecipes = ({ navigation }) => {
     navigation.navigate('RecipeAddScreen');
   };
 
-const editPressHandler = () => {
-  navigation.navigate('RecipeEditScreen');
-}
-
-
   return (
     <View style={styles.container}>
       <RecipeGrid rowList={savedRecipesByCategory} />
       {/* This has to stay as the last component to remain on top. */}
-      <Button title = "Edit Screen!" onPress = {editPressHandler}/> 
       <FAB
           icon="plus"
           style={styles.button}

@@ -15,7 +15,6 @@ const MyRecipesNavigation = () => {
             <RecipeStack.Screen name="RecipeAddScreen" component={RecipeAddScreen} />
             <RecipeStack.Screen name="RecipeEditScreen" component={RecipeEditScreen} />
             <RecipeStack.Screen name="RecipeInfoScreen" component={RecipeInfoScreen} />
-
         </RecipeStack.Navigator>
     );
 }

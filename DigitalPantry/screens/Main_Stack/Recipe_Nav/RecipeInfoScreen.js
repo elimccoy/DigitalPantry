@@ -1,18 +1,18 @@
-import { StyleSheet, ScrollView } from 'react-native';
-import { Title, Avatar, Paragraph } from 'react-native-paper';
+import { StyleSheet, ScrollView, View } from 'react-native';
+import { Title, Avatar, Paragraph, Button } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import { useSelector } from 'react-redux';
 
 const RecipeInfoScreen = ({ route, navigation }) => {
 
-    const recipe = useSelector((state) => state.recipes.ingredients.find((item) => (item.id == route.params.id)));
+    const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
 
     const handleExit = () => {
-        navigation.navigate('PantryScreen');
+        navigation.navigate('RecipeScreen');
     }
 
     const handleEdit = () => {
-        navigation.navigate('PantryEditScreen', { key: recipe.id }); // send current recipe to edit screen
+        navigation.navigate('RecipeEditScreen', { id: recipe.id });
     }
 
     return (
@@ -20,7 +20,7 @@ const RecipeInfoScreen = ({ route, navigation }) => {
             <Avatar.Image
                 size={128}
                 style={styles.image}
-                source={{ uri: recipe.imageURL }} />
+                source={recipe.imageURL} />
             <Title>Recipe Name:</Title>
             <Paragraph>{recipe.title}</Paragraph>
             <Title>Ingredients:</Title>
@@ -30,9 +30,18 @@ const RecipeInfoScreen = ({ route, navigation }) => {
             <Title>Category:</Title>
             <Paragraph>{recipe.category}</Paragraph>
 
-{/*Temp Buttons for navigation to be styled later*/}
-            <Button onPress={handleExit}> Done </Button>
-            <Button onPress={handleEdit}> Edit </Button>
+            <View style={styles.flexRow}>
+                <View style={styles.buttonContainer}>
+                    <Button icon="check" mode="contained" onPress={handleExit}>
+                        Done
+                    </Button>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button icon="pencil" mode="contained" onPress={handleEdit}>
+                        Edit
+                    </Button>
+                </View>
+            </View>
         </ScrollView>
     );
 }
@@ -46,6 +55,15 @@ const styles = StyleSheet.create({
     image: {
         alignSelf: 'center',
         marginTop: 30,
+    },
+    buttonContainer: {
+        flex: 1,
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+    },
+    flexRow: {
+        flexDirection: 'row',
     },
 });
 
