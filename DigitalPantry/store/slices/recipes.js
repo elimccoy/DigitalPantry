@@ -12,6 +12,7 @@ export const createRecipe = ({
   ingredients,
   steps,
   category,
+  imageURL,
 }) => ({
   type: CREATE_RECIPE,
   id: uuid(), // generate a random uuidv4 random id
@@ -19,6 +20,7 @@ export const createRecipe = ({
   title,
   ingredients,
   steps,
+  imageURL,
 });
 
 export const deleteRecipe = (id) => ({
@@ -31,9 +33,10 @@ export const saveRecipe = (id) => ({
   id,
 });
 
-export const editRecipe = (id) => ({
+export const editRecipe = (recipeData) => ({
   type: EDIT_RECIPE,
-  id,
+  id: recipeData.id, // Make sure this is defined
+  ...recipeData,
 });
 
 const INITIAL_STATE = {
@@ -157,11 +160,11 @@ const reducers = {
     ...state,
     saved: state.saved.map((recipe) => recipe.id === action.id ? ({
       ...recipe,
-      category: action.category,
-      title: action.title,
-      ingredients: action.ingredients,
-      steps: action.steps,
-      imageURL: action.imageURL
+      title: action.title || recipe.title,
+      category: action.category || recipe.category,
+      ingredients: action.ingredients || recipe.ingredients,
+      steps: action.steps || recipe.steps,
+      imageURL: action.imageURL || recipe.imageURL,
     }) : recipe),
   }),
 };
