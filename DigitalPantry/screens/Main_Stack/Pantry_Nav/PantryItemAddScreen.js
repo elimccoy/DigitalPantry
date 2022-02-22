@@ -38,6 +38,18 @@ const PantryItemAddScreen = ({ route, navigation }) => {
       value: "Bag",
     },
     {
+      label: "Jar",
+      value: "Jar",
+    },
+    {
+      label: "Box",
+      value: "Box",
+    },
+    {
+      label: "Can",
+      value: "Can",
+    },
+    {
       label: "Tablespoon",
       value: "Tablespoon",
     },
@@ -128,6 +140,7 @@ const PantryItemAddScreen = ({ route, navigation }) => {
   //Handels date selected.
   const handleDateSelect = (event, date) => {
     setShow(false);
+    if(date === undefined) date = new Date();
     setDate(date);
   }
 

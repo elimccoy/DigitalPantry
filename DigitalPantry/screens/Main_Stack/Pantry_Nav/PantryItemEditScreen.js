@@ -35,6 +35,18 @@ const PantryItemEditScreen = ({ route, navigation }) => {
       value: "Bag",
     },
     {
+      label: "Jar",
+      value: "Jar",
+    },
+    {
+      label: "Box",
+      value: "Box",
+    },
+    {
+      label: "Can",
+      value: "Can",
+    },
+    {
       label: "Tablespoon",
       value: "Tablespoon",
     },
