@@ -1,5 +1,6 @@
-import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions } from 'react-native';
+import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions, Pressable } from 'react-native';
 import { useRef } from "react"
+import { useNavigation } from '@react-navigation/native';
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
 function RecipeRow({ recipes }) {
@@ -7,6 +8,8 @@ function RecipeRow({ recipes }) {
   const OFFSET = 40
   const ITEM_WIDTH = Dimensions.get("window").width - (OFFSET * 2)
   const ITEM_HEIGHT = 200
+  const navigation = useNavigation();
+  const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
   return (
     <ScrollView
@@ -40,26 +43,40 @@ function RecipeRow({ recipes }) {
           outputRange: [0.5, 1, 0.5],
         })
 
+        const editPressHandler = () => {
+          navigation.navigate('RecipeEditScreen', { id: item.id });
+        }
+
+        const infoPressHandler = () => {
+          navigation.navigate('RecipeInfoScreen', { id: item.id });
+        }
+
         return (
-          <Animated.View
-            style={{
-              width: ITEM_WIDTH,
-              height: ITEM_HEIGHT,
-              marginLeft: idx === 0 ? OFFSET : undefined,
-              opacity: opacity,
-              transform: [{ scale: translate }],
-            }}
+          <AnimatedPressable
+            onPress={infoPressHandler}
+            onLongPress={editPressHandler}
             key={item.id}
           >
-            <ImageBackground
-              source={item.imageURL}
-              style={styles.backgroundImageContainer}
-              imageStyle={styles.backgroundImage}
-            />
-            <Text>
-              {item.title}
-            </Text>
-          </Animated.View>
+            <Animated.View
+              style={{
+                width: ITEM_WIDTH,
+                height: ITEM_HEIGHT,
+                marginLeft: idx === 0 ? OFFSET : undefined,
+                opacity: opacity,
+                transform: [{ scale: translate }],
+              }}
+            >
+              <ImageBackground
+                source={item.imageURL}
+                style={styles.backgroundImageContainer}
+                imageStyle={styles.backgroundImage}
+              />
+              <Text>
+                {item.title}
+              </Text>
+
+            </Animated.View>
+          </AnimatedPressable>
         )
       })}
     </ScrollView>

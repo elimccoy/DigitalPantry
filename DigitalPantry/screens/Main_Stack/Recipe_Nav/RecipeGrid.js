@@ -3,7 +3,6 @@ import React from 'react';
 import RecipeRow from "./RecipeRow";
 
 const RecipeGrid = ({ rowList }) => {
-  console.log(6, rowList);
   return (
     <ScrollView
       vertical={true}

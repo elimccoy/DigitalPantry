@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Button, TextInput } from 'react-native';
-import { editRecipe } from '../../../store/slices/recipes';
+import { StyleSheet, View } from 'react-native';
+import { editRecipe, deleteRecipe } from '../../../store/slices/recipes';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import IOSAccessory from './IOSAccessory';
 import UploadImage from './UploadImage';
+import { Button, TextInput } from 'react-native-paper';
 
 const RecipeEditScreen = ({ route, navigation }) => {
 
@@ -16,9 +17,9 @@ const RecipeEditScreen = ({ route, navigation }) => {
     ios: IOSAccessory,
   });
 
-  const { recipeName, onChangeName } = useState(state.recipes.title);
-  const { ingList, onChangeIng } = useState(state.recipes.ingredients);
-  const { recipeInfo, onChangeRecipe } = useState(state.recipes.steps);
+  const { recipeName, onChangeName } = useState(recipe.title);
+  const { ingList, onChangeIng } = useState(recipe.ingredients || []);
+  const { recipeInfo, onChangeRecipe } = useState(recipe.steps || '');
   const categories = useSelector((state) => state.recipes.categories);
 
   const saveRecipe = () => {
@@ -27,13 +28,13 @@ const RecipeEditScreen = ({ route, navigation }) => {
       title: recipeName,
       ingredients: ingList,
       steps: recipeInfo,
-      category: categories[0].name, // placeholder to categorize the first recipe with some value
+      category: categories[0].name,
     }));
 
     navigation.navigate('RecipeScreen');
   }
 
-  const deleteRecipe = () => {
+  const delRecipeHandler = () => {
     dispatch(deleteRecipe(recipe.id))
     navigation.navigate('RecipeScreen');
   }
@@ -41,55 +42,73 @@ const RecipeEditScreen = ({ route, navigation }) => {
   return (
     <KeyboardAwareScrollView>
       <UploadImage />
-      <TextInput
-        style={styles.recipeName}
-        onEndEditing={onChangeName}
-        value={recipeName}
-        placeholder="Recipe Name"
-        inputAccessoryViewID="Done"
-      />
-      <TextInput
-        style={styles.multilineInput}
-        onChangeText={onChangeIng}
-        value={ingList}
-        multiline={true}
-        scrollEnabled={false}
-        placeholder="Ingredients"
-        inputAccessoryViewID="Done"
-      />
-      <TextInput
-        style={styles.multilineInput}
-        onChangeText={onChangeRecipe}
-        value={recipeInfo}
-        multiline={true}
-        scrollEnabled={false}
-        placeholder="Lorem ipsum dolor sit amet"
-        inputAccessoryViewID="Done"
-      />
-      <Button title="Save" onPress={saveRecipe} />
+      < View style={styles.inputContainer}>
+        <TextInput
+          label="Recipe Name"
+          mode={"outlined"}
+          onChangeText={onChangeName}
+          defaultValue={recipe.title}
+          inputAccessoryViewID="Done"
+        />
+        <TextInput
+          label="Ingredients"
+          mode={"outlined"}
+          onChangeText={onChangeIng}
+          defaultValue={recipe.ingredients}
+          multiline={true}
+          scrollEnabled={false}
+          inputAccessoryViewID="Done"
+          returnKeyLabel='Done'
+        />
+        <TextInput
+          label="Steps"
+          mode={"outlined"}
+          onChangeText={onChangeRecipe}
+          defaultValue={recipe.steps}
+          multiline={true}
+          scrollEnabled={false}
+          inputAccessoryViewID="Done"
+        />
+        <TextInput
+          label="Category"
+          mode={"outlined"}
+          defaultValue={recipe.category}
+          scrollEnabled={false}
+          inputAccessoryViewID="Done"
+        />
+        <View style={styles.flexRow}>
+          <View style={styles.buttonContainer}>
+            <Button icon="check" mode="contained" onPress={saveRecipe}>
+              Save
+            </Button>
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button icon="delete" mode="contained" onPress={delRecipeHandler}>
+              Delete
+            </Button>
+          </View>
+        </View>
 
-      <Button title="Delete" onPress={deleteRecipe} />
+        <StatusBar style="dark" translucent={false} backgroundColor='white' />
 
-      <StatusBar style="dark" translucent={false} backgroundColor='white' />
-
-      {Accessory && <Accessory />}
+        {Accessory && <Accessory />}
+      </View>
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  recipeName: {
-    height: 40,
-    //margin: 12,
-    //borderWidth: 1,
-    padding: 2,
-    fontSize: 36,
+  inputContainer: {
+    justifyContent: 'space-evenly',
   },
-  multilineInput: {
-    //margin: 12,
-    //borderWidth: 1,
-    padding: 2,
-    fontSize: 18,
+  buttonContainer: {
+    flex: 1,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 10,
+  },
+  flexRow: {
+    flexDirection: 'row',
   },
 });
 

@@ -1,11 +1,10 @@
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Badge } from 'react-native-paper';
-
-const RecipeItem = ({ item }) => {
+// inclusion of favorite recipes perhaps?
+const RecipeItem = ({ recipe }) => {
 
   return (
     <View style={styles.container}>
-      
     </View>
   );
 }

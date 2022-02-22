@@ -36,7 +36,6 @@ export const editRecipe = (id) => ({
   id,
 });
 
-
 const INITIAL_STATE = {
   categories: [{
     name: 'Breakfasts',
@@ -156,21 +155,14 @@ const reducers = {
   }),
   [EDIT_RECIPE]: (state, action) => ({
     ...state,
-    // edit the recipe
-    saved: [{
-      id: action.id,
+    saved: state.saved.map((recipe) => recipe.id === action.id ? ({
+      ...recipe,
       category: action.category,
-      title: action.name,
+      title: action.title,
       ingredients: action.ingredients,
       steps: action.steps,
-      imageURL: action.imageURL || placeholderImage,
-    }, ...state.saved],
-    // automatically create the category if it doesn't exist
-    categories: state.categories.find((c) => c.name === action.category)
-      ? state.categories
-      : [...state.categories, {
-        name: action.category,
-      }],
+      imageURL: action.imageURL
+    }) : recipe),
   }),
 };
 
