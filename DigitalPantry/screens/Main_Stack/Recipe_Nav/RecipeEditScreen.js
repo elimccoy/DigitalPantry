@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { editRecipe, deleteRecipe } from '../../../store/slices/recipes';
@@ -17,10 +17,10 @@ const RecipeEditScreen = ({ route, navigation }) => {
     ios: IOSAccessory,
   });
 
-  const { recipeName, onChangeName } = useState(recipe.title);
-  const { ingList, onChangeIng } = useState(recipe.ingredients || []);
-  const { recipeInfo, onChangeRecipe } = useState(recipe.steps || '');
-  const categories = useSelector((state) => state.recipes.categories);
+  const [ recipeName, onChangeName ] = useState(recipe.title);
+  const [ ingList, onChangeIng ] = useState(recipe.ingredients || []);
+  const [ recipeInfo, onChangeRecipe ] = useState(recipe.steps || '');
+  const [ category, onChangeCategory ] = useState(recipe.category || '');
 
   const saveRecipe = () => {
     dispatch(editRecipe({
@@ -28,7 +28,7 @@ const RecipeEditScreen = ({ route, navigation }) => {
       title: recipeName,
       ingredients: ingList,
       steps: recipeInfo,
-      category: categories[0].name,
+      category,
     }));
 
     navigation.navigate('RecipeScreen');
@@ -72,7 +72,8 @@ const RecipeEditScreen = ({ route, navigation }) => {
         <TextInput
           label="Category"
           mode={"outlined"}
-          defaultValue={recipe.category}
+          defaultValue={category}
+          onChangeText={onChangeCategory}
           scrollEnabled={false}
           inputAccessoryViewID="Done"
         />
