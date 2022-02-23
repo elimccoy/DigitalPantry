@@ -4,22 +4,49 @@ import { useState } from 'react';
 import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
 import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
-import IngredientInfo from './IngredientInfo';
-import { ingData } from './IngredientInfo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
 });
 
+let ingData = {
+  ingName: "Temp",
+  ingCount: "",
+  ingUnit: "",
+};
+
 const RecipeAddScreen = ({ route, navigation }) => {
   const [recipeName, onChangeName] = useState("Recipe Name");
   const [recipeInfo, onChangeRecipe] = useState("Lorem ipsum dolor sit amet");
 
-  const [ingredients, addIngredient] = useState([]);
+  var [ingredients, addIngredient] = useState([
+    {ingName: "",ingCount: "", ingUnit: ""},
+  ]);
 
-  function addIngredients() {
-    addIngredient([...ingredients, ingData]);
+  const updateIngDataName = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingName = event;
+    addIngredient(values);
+  }
+  const updateIngDataCount = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingCount = event;
+    addIngredient(values);  }
+  const updateIngDataUnit = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingUnit = event;
+    addIngredient(values);  }
+
+  const addIngredients = () => {
+    addIngredient([...ingredients,  {ingName: "",ingCount: "", ingUnit: ""} ]);
+  }
+
+  var readNum = 0;
+  const readOut = () => {
+    //console.log(ingData);
+    console.log("\nReadNum " + readNum + "\n", ingredients);
+    readNum++;
   }
 
   return (
@@ -37,9 +64,56 @@ const RecipeAddScreen = ({ route, navigation }) => {
             inputAccessoryViewID="Done"
           />
 
-          { ingredients.map((item, i) => ( <IngredientInfo ingData={item}/> )) }
+          {/* Ingredients section, mapped expanding text inputs */}
+          {ingredients.map((ingredient, i) => (
+            <View style={styles.ingContainer} key={i}>
+              <View style={styles.nameInput}>
+                <TextInput
+                  style={styles.singlelineInput}
+
+                  onChangeText={event => updateIngDataName(i, event)}
+
+                  value={ ingredient.ingName }
+                  mode={'outlined'}
+                  label={'Ingredients'}
+                  placeholder="Ingredients"
+                //inputAccessoryViewID="Done"
+                />
+              </View>
+              <View style={styles.countInput}>
+                <TextInput
+                  style={styles.singlelineInput}
+
+                  onChangeText={event => updateIngDataCount(i, event)}
+
+                  value={ingredient.ingCount}
+                  mode={'outlined'}
+                  label={'#'}
+                  placeholder="1/2"
+                //inputAccessoryViewID="Done"
+                />
+              </View>
+              <View style={styles.unitInput}>
+                <TextInput
+                  style={styles.singlelineInput}
+
+                  onChangeText={event => updateIngDataUnit(i, event)}
+
+                  value={ingredient.ingUnit}
+                  mode={'outlined'}
+                  label={'Unit'}
+                  placeholder="Cups"
+                //inputAccessoryViewID="Done"
+                />
+              </View>
+            </View>
+          ))}
+
           <Button onPress={addIngredients}>
             Add Ingredient
+          </Button>
+          <Button onPress={readOut}>
+            Read
           </Button>
 
           <TextInput
@@ -109,6 +183,20 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 20,
     paddingRight: 20,
+  },
+  ingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameInput: {
+    width: '57%',
+  },
+  countInput: {
+    width: '20%',
+  },
+  unitInput: {
+    width: '20%',
   },
 });
 
