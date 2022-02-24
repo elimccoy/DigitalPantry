@@ -164,7 +164,7 @@ const reducers = {
    [ADD_ITEM]: (state, action) => ({
      ...state,
      list: [...state.list, {
-      key: uuid(),
+      key: action.key,
       name: action.name,
       info: action.info,
       amount: action.amount,
