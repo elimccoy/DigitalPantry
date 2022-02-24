@@ -10,6 +10,8 @@ export const DELETE_SUGGESTED_ITEM = 'list/delete_suggested_item';
 export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
 export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
+export const ADD_ALL_SUGGESTED_TO_LIST = 'list/add_all_suggested_to_list';
+export const UPDATE_SUGGESTED_ITEM = '/list/update_suggested_item';
 
 export const addItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_ITEM,
@@ -40,14 +42,21 @@ export const deleteItem = (key) => ({
   key,
 });
 
-export const addSuggestedItem = (props) => ({
+export const addSuggestedItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_SUGGESTED_ITEM,
-  ...props,
+  key,
+  amount,
+  name,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
 export const deleteSuggestedItem = (key) => ({
   type: DELETE_SUGGESTED_ITEM,
-  key,
+  key
 });
 
 /**
@@ -76,11 +85,30 @@ export const clearSuggestedItems = () => ({
   type: CLEAR_SUGGESTED_ITEMS,
 });
 
+export const moveAllSuggested = () => ({
+  type: ADD_ALL_SUGGESTED_TO_LIST,
+});
+
+export const updateSuggestedItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
+  type: UPDATE_SUGGESTED_ITEM,
+  key,
+  amount,
+  name,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
+});
+
+
+
 
 const INITIAL_STATE = {
-
+  list:[],
+  suggested:[],
  
-
+/*
   list: [{
     key: uuid(),
     name: 'Shopping Item1',
@@ -128,7 +156,7 @@ const INITIAL_STATE = {
     remaining:'Low',
     amount: '2',
   }, 
-  ], 
+  ], */
 };
 
 
@@ -141,6 +169,7 @@ const reducers = {
       info: action.info,
       amount: action.amount,
       units: action.units,
+      image:action.image
      }],
    }),
    [EDIT_ITEM]: (state, action) => ({
@@ -150,7 +179,8 @@ const reducers = {
       name: action.name,
       info: action.info,
       amount: action.amount,
-      units: action.units,
+      unit: action.unit,
+      image: action.image,
     }) : item),
   }),
   [DELETE_ITEM]: (state, action) => ({
@@ -169,6 +199,7 @@ const reducers = {
       info: action.info,
       amount: action.amount,
       units: action.units,
+      image: action.image,
      }],
   }),
   [DELETE_SUGGESTED_ITEM]: (state, action) => ({
@@ -188,8 +219,24 @@ const reducers = {
     ...state,
     suggested: [],
   }),
+  [ADD_ALL_SUGGESTED_TO_LIST]: (state) => ({
+    ...state,
+    list: [...state.list, ...state.suggested],
+    suggested: [],
+  }),
+  [UPDATE_SUGGESTED_ITEM]: (state, action) => ({
+    ...state,
+    suggested: state.suggested.map(( ingredient ) => (ingredient.key === action.key) ? {
+      key: action.key,
+      name: action.name,
+      info: action.info,
+      amount: action.amount,
+      units: action.units,
+      remaining: action.remaining,
+      image: action.image,
+     } : ingredient ),
+  }),
 
- 
 };
 
 // boilerplate
