@@ -1,13 +1,14 @@
 import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { List, FAB } from 'react-native-paper';
+import { List, FAB, Subheading } from 'react-native-paper';
 import ShoppingListItem from '../../../components/ShoppingListItem.js';
 import SuggestedItem from '../../../components/SuggestedItem.js';
-import { deleteItems, moveSuggestedToList, addSuggestedItem } from '../../../store/slices/shoppingList';
+import { deleteItems, moveSuggestedToList, addSuggestedItem, setSuggestedItems } from '../../../store/slices/shoppingList';
 import { useNavigation } from '@react-navigation/native';
 import CustomNavigationBar from './CustomNavigationBar.js';
 import ContextualActionBar from './ContextualActionBar';
+import moment from 'moment';
 
 
 const ShoppingScreen = ({ route, navigation }) => {
@@ -24,7 +25,6 @@ const ShoppingScreen = ({ route, navigation }) => {
   const { open } = state;
   const handlePress = () => setExpanded(!expanded);
 
-
   useEffect(() => {
     if (cabIsOpen === true) {
       //render cab
@@ -36,6 +36,7 @@ const ShoppingScreen = ({ route, navigation }) => {
       navigation.setOptions({ header: (props) => <CustomNavigationBar {...props} /> });
     }
   }, [cabIsOpen]);
+
 
   const openHeader = () => {
     setCabIsOpen(true);
@@ -83,20 +84,15 @@ const ShoppingScreen = ({ route, navigation }) => {
           renderItem={renderItem}
           scrollEnabled={true}
         />
-        <List.Accordion
-          title="Suggested Ingredients"
-          expanded={expanded}
-          onPress={handlePress}
-          titleStyle={styles.listTitle}
-        >
-          <FlatList
-            data={suggItems}
-            //style={styles.scollContainer}
-            numColumns={2}
-            renderItem={renderSuggestedItem}
-            scrollEnabled={false}
-          />
-        </List.Accordion>
+        <Subheading>Suggested:</Subheading>
+        <FlatList
+          data={suggItems}
+          //style={styles.scollContainer}
+          numColumns={2}
+          renderItem={renderSuggestedItem}
+          scrollEnabled={false}
+        />
+
       </ScrollView>
 
       <FAB.Group
