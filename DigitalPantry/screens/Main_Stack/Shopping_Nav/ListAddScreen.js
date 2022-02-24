@@ -12,7 +12,7 @@ const ListAddScreen = ({ navigation }) => {
   const [itmName, setItmName] = useState('');
   const [amt, setAmt] = useState('');
   const [units, setUnits] = useState('');
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState('https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg');
   const [itemBrand, setBrand] = useState('');
   const [desc, setDescription] = useState('');
   const [amtRemaining, setRemaining] = useState('');
@@ -81,7 +81,7 @@ const ListAddScreen = ({ navigation }) => {
       amount: amt,
       name: itmName,
       unit: units,
-      image: img,
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
       brand: itemBrand,
       description: desc,
       remaining: amtRemaining,
@@ -97,7 +97,7 @@ const ListAddScreen = ({ navigation }) => {
 
       <View style={styles.container}>
         <View style={{ justifyContent: 'space-evenly' }}>
-          <Avatar.Image size={128} style={styles.avatarStyles} source={ 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg'} />
+          <Avatar.Image size={128} style={styles.avatarStyles} source={ {uri:img}} />
           <TextInput
             label='Name:'
             mode={'outlined'}
