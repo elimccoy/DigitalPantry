@@ -9,7 +9,7 @@ const ShoppingListItem = ({item}) => {
   return (
     <View style={styles.container}>
     <ImageBackground
-      source={{ uri: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg' }}
+      source={{ uri: item.image}}
       resizeMode="cover"
       style={styles.backgroundImgStyle}
       imageStyle={styles.backgroundImgStyleImageStyles}>
