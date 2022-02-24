@@ -59,11 +59,11 @@ const INITIAL_STATE = {
     name: 'FLATOUT Flatbread - Thin Pizza Crust RUSTIC WHITE',
     key: '601133100843',
     unit: 'Pack',
-    amount: '2',
+    amount: '1',
     image: 'https://images-na.ssl-images-amazon.com/images/I/51hSnX3rQ4L._SL150_.jpg',
     brand:'Flatout',
     description:'Unknown',
-    remaining:'Full',
+    remaining:'Low',
     expirationDate: new Date('2022-03-26'),
     category: 'Test Category 1',
   }, {

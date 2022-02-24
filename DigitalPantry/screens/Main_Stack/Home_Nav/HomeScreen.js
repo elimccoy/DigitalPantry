@@ -14,26 +14,48 @@ const HomeScreen = () => {
 
   const auth = getAuth();
 
+  const lowItemNotifications = ingredients
+    .filter(({ key, amount, remaining }) =>
+      (amount === 1 && remaining === 'Low') &&
+      !(shoppingList.find((listItem) => listItem.key === key)),
+    )
+    .map((ingredient) => ({
+      id: `shopping_list_suggestion_${ingredient.key}`,
+      type: 'shopping_list_suggestion',
+      title: false,
+      contents: `Your're running low on ${ingredient.name}. Would you like to add it to your shopping list?`,
+      actions: [{
+        name: 'Add',
+        handler: () => {
+          dispatch(addItem({
+            ...ingredient,
+            amount: 1,
+          }));
+        },
+      }],
+    }));
+
   const expiredItemNotificiations = ingredients
     .filter(({ key, expirationDate }) =>
       (moment(expirationDate).diff(Date.now(), 'days') < 7) &&
-      !(shoppingList.find((listItem) => listItem.key === key))
+      !(shoppingList.find((listItem) => listItem.key === key)) &&
+      !(lowItemNotifications.find(({ id }) => `shopping_list_suggestion_${key}`)),
     )
     .map((ingredient) => ({
-    id: `shopping_list_suggestion_${ingredient.key}`,
-    type: 'shopping_list_suggestion',
-    title: false,
-    contents: `Your ${ingredient.name} is expiring within a week. Would you like to add it to your shopping list?`,
-    actions: [{
-      name: 'Add',
-      handler: () => {
-        dispatch(addItem({
-          ...ingredient,
-          amount: 1,
-        }));
-      },
-    }],
-  }));
+      id: `shopping_list_suggestion_${ingredient.key}`,
+      type: 'shopping_list_suggestion',
+      title: false,
+      contents: `Your ${ingredient.name} is expiring within a week. Would you like to add it to your shopping list?`,
+      actions: [{
+        name: 'Add',
+        handler: () => {
+          dispatch(addItem({
+            ...ingredient,
+            amount: 1,
+          }));
+        },
+      }],
+    }));
 
   const signOut = () => {
     auth.signOut().then(function() {
@@ -43,7 +65,7 @@ const HomeScreen = () => {
     });
   }
 
-  const allNotifications = [...expiredItemNotificiations, ...notifications];
+  const allNotifications = [...expiredItemNotificiations, ...lowItemNotifications, ...notifications];
 
   return(
     <ScrollView style={styles.container}>
