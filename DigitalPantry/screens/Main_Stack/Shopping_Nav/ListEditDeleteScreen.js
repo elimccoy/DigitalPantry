@@ -82,6 +82,7 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
       name: itmName,
       data: units,
       info: initialItem.info,
+      image:initialItem.image,
     }));
 
     navigation.navigate('ShoppingScreen');
