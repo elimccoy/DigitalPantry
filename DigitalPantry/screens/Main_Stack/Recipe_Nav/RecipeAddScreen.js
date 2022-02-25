@@ -5,6 +5,9 @@ import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-
 import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSelector, useDispatch } from 'react-redux';
+import { createRecipe } from '../../../store/slices/recipes';
+import DropDown from "react-native-paper-dropdown";
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
@@ -17,12 +20,126 @@ let ingData = {
 };
 
 const RecipeAddScreen = ({ route, navigation }) => {
-  const [recipeName, onChangeName] = useState("Recipe Name");
-  const [recipeInfo, onChangeRecipe] = useState("Lorem ipsum dolor sit amet");
 
+  const { recipeName, onChangeName } = useState("Recipe Name");
   var [ingredients, addIngredient] = useState([
-    {ingName: "",ingCount: "", ingUnit: ""},
+    { ingName: "", ingCount: "", ingUnit: "", unitDisp: false },
   ]);
+  const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
+
+  const dispatch = useDispatch();
+  const categories = useSelector((state) => state.recipes.categories);
+
+  const[showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+
+  const save = () => {
+    dispatch(createRecipe({
+      title: recipeName,
+      ingredients: ingredients,
+      steps: recipeInfo,
+      category: categories[0].name, // placeholder to categorize the first recipe with some value
+    }));
+
+    navigation.navigate('RecipeScreen');
+  }
+
+  const measurementList = [
+    // volume
+    {
+      label: "tsp",
+      value: "tsp",
+    },
+    {
+      label: "tbsp",
+      value: "tbsp",
+    },
+    {
+      label: "fl oz",
+      value: "fl oz",
+    },
+    {
+      label: "cup",
+      value: "cup",
+    },
+    {
+      label: "pint",
+      value: "pint",
+    },
+    {
+      label: "quart",
+      value: "quart",
+    },
+    {
+      label: "gallon",
+      value: "gallon",
+    },
+    {
+      label: "ml",
+      value: "ml",
+    },
+    {
+      label: "liter",
+      value: "liter",
+    },
+
+    // Mass / Weight
+    {
+      label: "pound",
+      value: "pound",
+    },
+    {
+      label: "ounce",
+      value: "oz",
+    },
+    {
+      label: "mg",
+      value: "mg",
+    },
+    {
+      label: "kg",
+      value: "kg",
+    },
+
+    // Length
+    {
+      label: "mm",
+      value: "mm",
+    },
+    {
+      label: "cm",
+      value: "cm",
+    },
+    {
+      label: "meter",
+      value: "meter",
+    },
+    {
+      label: "in",
+      value: "in",
+    },
+
+    // Misc
+    {
+      label: "pack",
+      value: "pack",
+    },
+    {
+      label: "bag",
+      value: "bag",
+    },
+    {
+      label: "jar",
+      value: "jar",
+    },
+    {
+      label: "box",
+      value: "box",
+    },
+    {
+      label: "can",
+      value: "can",
+    },
+  ]
 
   const updateIngDataName = (i, event) => {
     const values = [...ingredients];
@@ -32,14 +149,22 @@ const RecipeAddScreen = ({ route, navigation }) => {
   const updateIngDataCount = (i, event) => {
     const values = [...ingredients];
     values[i].ingCount = event;
-    addIngredient(values);  }
+    addIngredient(values);
+  }
   const updateIngDataUnit = (i, event) => {
     const values = [...ingredients];
     values[i].ingUnit = event;
-    addIngredient(values);  }
+    addIngredient(values);
+  }
+
+  const updateIngUnitDisp = (i, event) => {
+    const values = [...ingredients];
+    values[i].unitDisp = event;
+    addIngredient(values);
+  }
 
   const addIngredients = () => {
-    addIngredient([...ingredients,  {ingName: "",ingCount: "", ingUnit: ""} ]);
+    addIngredient([...ingredients, { ingName: "", ingCount: "", ingUnit: "", unitDisp: false }]);
   }
 
   var readNum = 0;
@@ -73,7 +198,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
                   onChangeText={event => updateIngDataName(i, event)}
 
-                  value={ ingredient.ingName }
+                  value={ingredient.ingName}
                   mode={'outlined'}
                   label={'Ingredients'}
                   placeholder="Ingredients"
@@ -94,16 +219,15 @@ const RecipeAddScreen = ({ route, navigation }) => {
                 />
               </View>
               <View style={styles.unitInput}>
-                <TextInput
-                  style={styles.singlelineInput}
-
-                  onChangeText={event => updateIngDataUnit(i, event)}
-
+                <DropDown
+                  label={"Unit"}
+                  mode={"outlined"}
+                  visible={ingredient.unitDisp}
+                  showDropDown={() => updateIngUnitDisp(i, true)}
+                  onDismiss={() => updateIngUnitDisp(i, false)}
                   value={ingredient.ingUnit}
-                  mode={'outlined'}
-                  label={'Unit'}
-                  placeholder="Cups"
-                //inputAccessoryViewID="Done"
+                  setValue={event => { updateIngDataUnit(i, event) }}
+                  list={measurementList}
                 />
               </View>
             </View>
@@ -134,7 +258,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
             <Button
               style={styles.saveButton}
-              onPress={() => navigation.navigate('RecipeScreen')}
+              onPress={save}
               mode={'contained'}
               icon={'check'}
             >
@@ -190,13 +314,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   nameInput: {
-    width: '57%',
+    width: '50%',
   },
   countInput: {
-    width: '20%',
+    width: '15%',
   },
   unitInput: {
-    width: '20%',
+    width: '33%',
   },
 });
 
