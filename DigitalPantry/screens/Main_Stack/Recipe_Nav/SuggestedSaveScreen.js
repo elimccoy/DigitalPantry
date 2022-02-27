@@ -48,7 +48,7 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
       //Deal with ingredients.
       let OwnedString = "";
       for(let i = 0; i < route.params.item.ownedIngredients.length; i++) {
-        OwnedString += route.params.item.ownedIngredients[i].ingName + " - " + 
+        OwnedString += route.params.item.ownedIngredients[i].ingName + " - " +
         route.params.item.ownedIngredients[i].ingCount + " " +
         route.params.item.ownedIngredients[i].ingUnit + "\n";
       }
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   avatarStyle: {
     alignSelf: 'center',
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   ingredientList: {
     textAlign: 'center',

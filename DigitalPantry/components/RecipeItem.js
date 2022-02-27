@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 5,
     height: Dimensions.get('window').height / 3, // approximate a square
-    width: "97.5%"
+    width: "97.5%",
   },
   backgroundImgStyle: {
     flex: 1,

@@ -158,7 +158,7 @@ const MySuggested = ({navigation}) => {
           sourceURL: res[i].sourceURL,
           id: res[i].id,
         }
-        
+
         console.log(newRecipe);
         resRecipes.push(newRecipe);
       }
