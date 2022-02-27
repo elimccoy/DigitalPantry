@@ -12,5 +12,5 @@ console.log(DEV_CONFIG)
 // NODE_ENV is already set to 'development' while running the dev server (npm run start)
 export default {
   ...DEFAULT_CONFIG,
-  ...((process.env.NODE_ENV === 'development') ? DEV_CONFIG : {}),
+  ...((true) ? DEV_CONFIG : {}),
 };
