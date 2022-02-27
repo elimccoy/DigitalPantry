@@ -40,11 +40,11 @@ export default function App() {
         <NavigationContainer>
           <StatusBar translucent={false} backgroundColor='white' />
           <Stack.Navigator screenOptions={{headerShown: false}}>
-            {isSignedIn ? (
+            {/*{isSignedIn ? (*/}
               <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-            ):(
+           {/* ):(*/}
               <Stack.Screen name="SignIn" component={SignInScreen}/>
-            )}
+            {/* )}*/}
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

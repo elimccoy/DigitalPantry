@@ -2,7 +2,9 @@ import { StyleSheet, View} from 'react-native';
 import React from "react"
 import RecipeGrid from './RecipeGrid';
 import { useSelector } from 'react-redux';
-import { FAB } from 'react-native-paper';
+import { FAB, Searchbar } from 'react-native-paper';
+import { useState, useEffect, useCallback } from 'react';
+import { useFocusEffect } from "@react-navigation/core";
 
 const MyRecipes = ({ navigation }) => {
   const savedRecipesByCategory = useSelector((state) => state.recipes.categories.map((category) => ({
@@ -10,12 +12,60 @@ const MyRecipes = ({ navigation }) => {
     recipes: state.recipes.saved.filter((recipe) => recipe.category === category.name),
   })));
 
+//   // begin search code
+//   const [curRenderData, setCurRenderData] = useState(savedRecipesByCategory);
+//   const [query, onChangeQuery] = useState(""); //Search Query state
+
+//    useFocusEffect(
+//     useCallback(() => {
+//       setCurRenderData(savedRecipesByCategory);
+//     }, [savedRecipesByCategory]),
+//   );
+
+// //Handle Query complete search.
+// const handleQueryComplete = useCallback(() => {
+//   if(query === "")
+//   {
+//     setCurRenderData(savedRecipesByCategory);
+//     return;
+//   }
+
+//   //Find items that match query.
+//   let toSetData = [];
+//   console.log(savedRecipesByCategory)
+//   for(let i = 0; i < savedRecipesByCategory.length; i++)
+//   {
+//     if(savedRecipesByCategory[i].title.includes(query))
+//     {
+//       toSetData.push(savedRecipesByCategory[i]);
+//     }
+//   }
+//   console.log(toSetData)
+//   setCurRenderData(toSetData);
+// }, [query, savedRecipesByCategory]);
+
+// //Effect for query
+// useEffect(() => {
+//   handleQueryComplete();
+// }, [handleQueryComplete]);
+
+// // end search code
+
+
+
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');
   };
 
   return (
     <View style={styles.container}>
+      {/*}
+      <Searchbar
+          placeholder="Search"
+          onChangeText={(res) => { onChangeQuery(res) }}
+          value={query}
+          style={styles.searchBar} />
+  */}
       <RecipeGrid rowList={savedRecipesByCategory} />
       {/* This has to stay as the last component to remain on top. */}
       <FAB
@@ -46,6 +96,9 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
   },
+  // searchBar: {
+  //   margin: 10,
+  // },
 });
 
 export default MyRecipes;

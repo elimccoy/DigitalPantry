@@ -7,20 +7,32 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import IOSAccessory from './IOSAccessory';
 import UploadImage from './UploadImage';
 import { Button, TextInput } from 'react-native-paper';
+import DropDown from "react-native-paper-dropdown";
 
 const RecipeEditScreen = ({ route, navigation }) => {
 
   const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
+  const categories = useSelector((state) => state.recipes.categories);
   const dispatch = useDispatch();
 
   const Accessory = Platform.select({
     ios: IOSAccessory,
   });
 
-  const [ recipeName, onChangeName ] = useState(recipe.title);
-  const [ ingList, onChangeIng ] = useState(recipe.ingredients || []);
-  const [ recipeInfo, onChangeRecipe ] = useState(recipe.steps || '');
-  const [ category, onChangeCategory ] = useState(recipe.category || '');
+  const [recipeName, onChangeName] = useState(recipe.title);
+  const [ingList, onChangeIng] = useState(recipe.ingredients || []);
+  const [recipeInfo, onChangeRecipe] = useState(recipe.steps || '');
+  const [category, onChangeCategory] = useState(recipe.category || '');
+  const [showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = useState(false);
+
+  const categoryList = [];
+  for (let i = 0; i < categories.length; i++) {
+    let newObj = {
+      label: categories[i].name,
+      value: categories[i].name,
+    }
+    categoryList.push(newObj);
+  }
 
   const saveRecipe = () => {
     dispatch(editRecipe({
@@ -30,7 +42,6 @@ const RecipeEditScreen = ({ route, navigation }) => {
       steps: recipeInfo,
       category,
     }));
-
     navigation.navigate('RecipeScreen');
   }
 
@@ -69,12 +80,15 @@ const RecipeEditScreen = ({ route, navigation }) => {
           scrollEnabled={false}
           inputAccessoryViewID="Done"
         />
-        <TextInput
+        <DropDown
           label="Category"
           mode={"outlined"}
-          defaultValue={category}
-          onChangeText={onChangeCategory}
-          scrollEnabled={false}
+          visible={showMultiSelectDropDownCategory}
+          showDropDown={() => setShowMultiSelectDropDownCategory(true)}
+          onDismiss={() => setShowMultiSelectDropDownCategory(false)}
+          value={category}
+          setValue={(res) => { onChangeCategory(res) }}
+          list={categoryList}
           inputAccessoryViewID="Done"
         />
         <View style={styles.flexRow}>
