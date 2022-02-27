@@ -46,20 +46,30 @@ const MySuggested = ({navigation}) => {
 
       //Create objs for each recipe.
       let resRecipes = [];
-      for(let i = 0; i < res.length; i++){
-        let missingIngredients = "";
-        let ownedIngredients = "";
+      for(let i = 0; i < res.length; i++) {
+        let missingIngredients = [];
+        let ownedIngredients = [];
 
-        console.log(res[i].missedIngredients)
+        console.log(res[i])
 
         //Make map of measurements and amounts.
 
         for(let j = 0; j < res[i].missedIngredients.length; j++) {
-          missingIngredients += (res[i].missedIngredients[j].name + "\n");
+          missingIngredients.push({
+            ingName: res[i].missedIngredients[j].name,
+            ingCount: res[i].missedIngredients[j].amount,
+            ingUnit: res[i].missedIngredients[j].unit,
+            unitDisp: false,
+          });
         }
 
         for(let k = 0; k < res[i].usedIngredients.length; k++) {
-          ownedIngredients += (res[i].usedIngredients[k].name + "\n");
+          ownedIngredients.push({
+            ingName: res[i].unusedIngredients[k].name,
+            ingCount: res[i].unusedIngredients[k].amount,
+            ingUnit: res[i].unusedIngredients[k].unit,
+            unitDisp: false,
+          });
         }
 
         let newRecipe = {
@@ -73,6 +83,7 @@ const MySuggested = ({navigation}) => {
           sourceURL: res[i].sourceURL,
           id: res[i].id,
         }
+
         console.log(newRecipe);
         resRecipes.push(newRecipe);
       }
@@ -111,19 +122,29 @@ const MySuggested = ({navigation}) => {
       //Create objs for each recipe.
       let resRecipes = [];
       for(let i = 0; i < res.length; i++) {
-        let missingIngredients = "";
-        let ownedIngredients = "";
+        let missingIngredients = [];
+        let ownedIngredients = [];
 
         console.log(res[i].missedIngredients)
 
         //Make map of measurements and amounts.
 
         for(let j = 0; j < res[i].missedIngredients.length; j++) {
-          missingIngredients += (res[i].missedIngredients[j].name + "\n");
+          missingIngredients.push({
+            ingName: res[i].missedIngredients[j].name,
+            ingCount: res[i].missedIngredients[j].amount,
+            ingUnit: res[i].missedIngredients[j].unit,
+            unitDisp: false,
+          });
         }
 
-        for(let k = 0; k < res[i].usedIngredients.length; k++) {
-          ownedIngredients += (res[i].usedIngredients[k].name + "\n");
+        for(let k = 0; k < res[i].unusedIngredients.length; k++) {
+          ownedIngredients.push({
+            ingName: res[i].unusedIngredients[k].name,
+            ingCount: res[i].unusedIngredients[k].amount,
+            ingUnit: res[i].unusedIngredients[k].unit,
+            unitDisp: false,
+          });
         }
 
         let newRecipe = {
@@ -137,6 +158,7 @@ const MySuggested = ({navigation}) => {
           sourceURL: res[i].sourceURL,
           id: res[i].id,
         }
+        
         console.log(newRecipe);
         resRecipes.push(newRecipe);
       }
