@@ -1,8 +1,8 @@
-import { InputAccessoryView, Keyboard, ScrollView, StyleSheet, Text, Touchable, TouchableOpacity, TouchableOpacityBase, View, Platform } from 'react-native';
+import { InputAccessoryView, StyleSheet, View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Avatar, Button, Card, Title, Paragraph, TextInput } from 'react-native-paper';
-import UploadImage from './UploadImage';
+import { Button, TextInput } from 'react-native-paper';
+//import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,12 +15,6 @@ const Accessory = Platform.select({
   ios: IOSAccessory,
 });
 
-let ingData = {
-  ingName: "Temp",
-  ingCount: "",
-  ingUnit: "",
-};
-
 const RecipeAddScreen = ({ route, navigation }) => {
   const user = getUser();
   const [ recipeName, onChangeName ] = useState("Recipe Name");
@@ -31,8 +25,6 @@ const RecipeAddScreen = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.recipes.categories);
-
-  const [ showMultiSelectDropDown, setShowMultiSelectDropDown ] = useState(false);
 
   const save = async () => {
     const newRecipe = {
@@ -125,10 +117,10 @@ const RecipeAddScreen = ({ route, navigation }) => {
     },
     {
       label: "meter",
-      value: "meter",
+      value: "m",
     },
     {
-      label: "in",
+      label: "inch",
       value: "in",
     },
 
@@ -181,16 +173,24 @@ const RecipeAddScreen = ({ route, navigation }) => {
     addIngredient([...ingredients, { ingName: "", ingCount: "", ingUnit: "", unitDisp: false }]);
   }
 
-  var readNum = 0;
-  const readOut = () => {
-    //console.log(ingData);
-    console.log("\nReadNum " + readNum + "\n", ingredients);
-    readNum++;
-  }
+    /*
+    // Testing only, function for reading ingredient data. Used with Read button.
+    var readNum = 0;
+    const readOut = () => {
+      //console.log(ingData);
+      console.log("\nReadNum " + readNum + "\n", ingredients);
+      readNum++;
+    } 
+    */
 
   return (
     <KeyboardAwareScrollView>
-      <UploadImage />
+
+      {/* 
+      Currently not supported on recipe screen, removed for now.
+      <UploadImage /> 
+      */}
+
       <View style={styles.container}>
 
         <View style={styles.inputContainer}>
@@ -206,6 +206,7 @@ const RecipeAddScreen = ({ route, navigation }) => {
           {/* Ingredients section, mapped expanding text inputs */}
           {ingredients.map((ingredient, i) => (
             <View style={styles.ingContainer} key={i}>
+
               <View style={styles.nameInput}>
                 <TextInput
                   style={styles.singlelineInput}
@@ -216,9 +217,10 @@ const RecipeAddScreen = ({ route, navigation }) => {
                   mode={'outlined'}
                   label={'Ingredients'}
                   placeholder="Ingredients"
-                //inputAccessoryViewID="Done"
+                  inputAccessoryViewID="Done"
                 />
               </View>
+
               <View style={styles.countInput}>
                 <TextInput
                   style={styles.singlelineInput}
@@ -229,9 +231,10 @@ const RecipeAddScreen = ({ route, navigation }) => {
                   mode={'outlined'}
                   label={'#'}
                   placeholder="1/2"
-                //inputAccessoryViewID="Done"
+                  inputAccessoryViewID="Done"
                 />
               </View>
+
               <View style={styles.unitInput}>
                 <DropDown
                   label={"Unit"}
@@ -250,9 +253,13 @@ const RecipeAddScreen = ({ route, navigation }) => {
           <Button onPress={addIngredients}>
             Add Ingredient
           </Button>
+
+          {/* 
+          Button to print ingredient object list to console, testing only.
           <Button onPress={readOut}>
             Read
-          </Button>
+          </Button> 
+          */}
 
           <TextInput
             style={styles.multilineInput}
@@ -262,9 +269,10 @@ const RecipeAddScreen = ({ route, navigation }) => {
             scrollEnabled={false}
             mode={'outlined'}
             label={'Instructions'}
-            placeholder="Lorem ipsum dolor sit amet"
+            placeholder="Instructions"
             inputAccessoryViewID="Done"
           />
+
         </View>
 
         <View style={styles.buttonViewStyle}>
