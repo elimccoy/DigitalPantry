@@ -8,6 +8,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { useSelector, useDispatch } from 'react-redux';
 import { createRecipe } from '../../../store/slices/recipes';
 import DropDown from "react-native-paper-dropdown";
+import { saveRecipe } from '../../../API/firebaseMethods';
+import { getUser } from '../../../UserProvider';
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
@@ -20,28 +22,40 @@ let ingData = {
 };
 
 const RecipeAddScreen = ({ route, navigation }) => {
-
-  const { recipeName, onChangeName } = useState("Recipe Name");
-  var [ingredients, addIngredient] = useState([
+  const user = getUser();
+  const [ recipeName, onChangeName ] = useState("Recipe Name");
+  const [ recipeInfo, onChangeRecipe ] = useState("Lorem ipsum dolor sit amet");
+  const [ingredients, addIngredient] = useState([
     { ingName: "", ingCount: "", ingUnit: "", unitDisp: false },
   ]);
-  const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
 
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.recipes.categories);
 
-  const[showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
+  const [ showMultiSelectDropDown, setShowMultiSelectDropDown ] = useState(false);
 
-  const save = () => {
-    dispatch(createRecipe({
+  const save = async () => {
+    const newRecipe = {
       title: recipeName,
-      ingredients: ingredients,
+      ingredients,
       steps: recipeInfo,
       category: categories[0].name, // placeholder to categorize the first recipe with some value
-    }));
+    };
 
-    navigation.navigate('RecipeScreen');
-  }
+    try {
+      const recipe = await saveRecipe(user.id, newRecipe);
+
+      // Create the recipe with the id from firebase
+      dispatch(createRecipe({
+        id: recipe.id,
+        ...newRecipe,
+      }));
+
+      navigation.navigate('RecipeScreen');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const measurementList = [
     // volume
