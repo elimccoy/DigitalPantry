@@ -1,19 +1,19 @@
 import 'react-native-get-random-values';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { LogBox } from 'react-native';
 import { Provider as ReduxProvider, useDispatch } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
 import MainTabNav from './screens/Main_Stack/MainTabNav';
-import './firebase'; // Initializes firebase
-import store from './store';
 import UserProvider, { getUser } from './UserProvider';
 import { fetchSavedRecipes } from './API/firebaseMethods';
 import { setSavedRecipes } from './store/slices/recipes';
+import { store, persistor } from './store';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -53,9 +53,11 @@ export default function App() {
   return (
     <UserProvider>
       <ReduxProvider store={store}>
-        <PaperProvider>
-          <Navigation />
-        </PaperProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider>
+            <Navigation />
+          </PaperProvider>
+        </PersistGate>
       </ReduxProvider>
     </UserProvider>
   );

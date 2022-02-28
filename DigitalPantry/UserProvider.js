@@ -1,11 +1,6 @@
 import { useEffect, useState, createContext, useContext } from 'react';
-import {
-  getAuth,
-  onAuthStateChanged,
-} from 'firebase/auth';
 import { generateUserDocument } from './API/firebaseMethods.js';
-
-const auth = getAuth();
+import { firebaseAuth } from './firebase';
 
 export const UserContext = createContext(null);
 
@@ -19,7 +14,7 @@ const UserProvider = ({ children }) => {
 
   // Listens for changes in the authenticated user and updates internal state accordingly.
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async (userAuth) => {
+    const unsub = firebaseAuth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const user = await generateUserDocument(userAuth);
         setUser(user);
