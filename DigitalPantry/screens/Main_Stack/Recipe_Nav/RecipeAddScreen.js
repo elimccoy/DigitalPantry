@@ -7,35 +7,50 @@ import UploadImage from './UploadImage';
 import IOSAccessory from './IOSAccessory';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { createRecipe } from '../../../store/slices/recipes';
+import { saveRecipe } from '../../../API/firebaseMethods';
+import { getUser } from '../../../UserProvider';
 
 const Accessory = Platform.select({
   ios: IOSAccessory,
 });
 
 const RecipeAddScreen = ({ route, navigation }) => {
-  const { recipeName, onChangeName } = useState("Recipe Name");
-  const { ingList, onChangeIng } = useState("Ingredients");
-  const { recipeInfo, onChangeRecipe } = useState("Lorem ipsum dolor sit amet");
+  const user = getUser();
+  const [ recipeName, onChangeName ] = useState("Recipe Name");
+  const [ ingList, onChangeIng ] = useState("1 cup flour");
+  const [ recipeInfo, onChangeRecipe ] = useState("Lorem ipsum dolor sit amet");
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.recipes.categories);
 
-  const save = () => {
-    dispatch(createRecipe({
+  const save = async () => {
+    const newRecipe = {
       title: recipeName,
-      ingredients: ingList,
-      steps: recipeInfo,
+      ingredients: [],
+      steps: [],
       category: categories[0].name, // placeholder to categorize the first recipe with some value
-    }));
+    };
 
-    navigation.navigate('RecipeScreen');
-  }
+    try {
+      const recipe = await saveRecipe(user.id, newRecipe);
+
+      // Create the recipe with the id from firebase
+      dispatch(createRecipe({
+        id: recipe.id,
+        ...newRecipe,
+      }));
+
+      navigation.navigate('RecipeScreen');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <KeyboardAwareScrollView>
       <UploadImage />
       <TextInput
         style={styles.recipeName}
-        onEndEditing={onChangeName}
+        onChangeText={onChangeName}
         value={recipeName}
         placeholder="Recipe Name"
         inputAccessoryViewID="Done"
