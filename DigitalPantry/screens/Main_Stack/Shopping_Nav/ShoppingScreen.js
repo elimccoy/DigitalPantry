@@ -6,7 +6,7 @@ import ShoppingListItem from '../../../components/ShoppingListItem.js';
 import SuggestedItem from '../../../components/SuggestedItem.js';
 import { deleteItems, moveSuggestedToList, addSuggestedItem, setSuggestedItems } from '../../../store/slices/shoppingList';
 import { useNavigation } from '@react-navigation/native';
-import CustomNavigationBar from './CustomNavigationBar.js';
+import Header from '../../Header';
 import ContextualActionBar from './ContextualActionBar';
 import moment from 'moment';
 
@@ -33,7 +33,7 @@ const ShoppingScreen = ({ route, navigation }) => {
         header: (props) => (<ContextualActionBar {...props} />)
       });
     } else {
-      navigation.setOptions({ header: (props) => <CustomNavigationBar {...props} /> });
+      navigation.setOptions({ header: (props) => <Header {...props} /> });
     }
   }, [cabIsOpen]);
 

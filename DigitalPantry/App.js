@@ -37,7 +37,6 @@ const Navigation = () => {
 
   return (
     <NavigationContainer>
-      <StatusBar translucent={false} backgroundColor='white' />
       <Stack.Navigator screenOptions={{headerShown: false}}>
         { user ? (
           <Stack.Screen name="MainTabNav" component={MainTabNav}/>

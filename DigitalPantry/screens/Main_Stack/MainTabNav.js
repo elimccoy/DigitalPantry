@@ -1,4 +1,6 @@
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Appbar } from 'react-native-paper';
 import HomeScreen from './Home_Nav/HomeScreen';
 import PantryStackNav from './Pantry_Nav/PantryStackNav'
 import ListStackNav from './Shopping_Nav/ListStackNav';
@@ -19,7 +21,7 @@ const MainTabNav = () => {
             iconName = 'home';
           } else if (route.name === 'Pantry') {
             iconName = 'form'
-          } else if (route.name === 'Recipe') {
+          } else if (route.name === 'Recipes') {
             iconName = 'book'
           } else if (route.name === 'Shopping') {
             iconName = 'shoppingcart'
@@ -34,7 +36,7 @@ const MainTabNav = () => {
     >
       <MainTab.Screen name="Home" component={HomeScreen} />
       <MainTab.Screen name="Pantry" component={PantryStackNav} />
-      <MainTab.Screen name="Recipe" component={RecipeStackNav} />
+      <MainTab.Screen name="Recipes" component={RecipeStackNav} />
       <MainTab.Screen name="Shopping" component={ListStackNav} />
     </MainTab.Navigator>
 
