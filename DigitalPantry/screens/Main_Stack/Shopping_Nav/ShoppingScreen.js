@@ -1,67 +1,110 @@
-import { StyleSheet, View, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, FlatList, Dimensions } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { List, FAB } from 'react-native-paper';
+import { List, FAB, Subheading } from 'react-native-paper';
 import ShoppingListItem from '../../../components/ShoppingListItem.js';
 import SuggestedItem from '../../../components/SuggestedItem.js';
-import { deleteItems, moveSuggestedToList } from '../../../store/slices/shoppingList';
+import { deleteItems, moveSuggestedToList, addSuggestedItem, setSuggestedItems } from '../../../store/slices/shoppingList';
+import { useNavigation } from '@react-navigation/native';
+import CustomNavigationBar from './CustomNavigationBar.js';
+import ContextualActionBar from './ContextualActionBar';
+import moment from 'moment';
 
-/*TO-DO:
--implement delete all checked items function from the FAB
--display units for each item
-*/
 
 const ShoppingScreen = ({ route, navigation }) => {
+
   const listItems = useSelector((state) => state.shoppingList.list);
   const suggItems = useSelector((state) => state.shoppingList.suggested);
   const dispatch = useDispatch();
 
   const [showFab] = useState(true);
   const [expanded, setExpanded] = useState(true);
+  const [cabIsOpen, setCabIsOpen] = useState(false);
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
   const { open } = state;
   const handlePress = () => setExpanded(!expanded);
 
-  return (
-    <View style={styles.container} >
-      <ScrollView style={styles.container}>
-        <List.Section title="Shopping List" titleStyle={styles.listTitle}>
-          {listItems.map((i) =>
-            <TouchableOpacity
-              onLongPress={() => {
-                navigation.navigate('ListEditDeleteScreen', { itemToEdit: i })
-              }}
-              key={i.key}
-            >
-              <ShoppingListItem item={i} key={i.key} />
-            </TouchableOpacity>)}
-        </List.Section>
+  useEffect(() => {
+    if (cabIsOpen === true) {
+      //render cab
+      //console.log("open cab effect: " + cabIsOpen);
+      navigation.setOptions({
+        header: (props) => (<ContextualActionBar {...props} />)
+      });
+    } else {
+      navigation.setOptions({ header: (props) => <CustomNavigationBar {...props} /> });
+    }
+  }, [cabIsOpen]);
 
-        <List.Section style={styles.listSection}>
-          <List.Accordion title="Suggested Items" titleStyle={styles.listTitle} expanded={expanded} onPress={handlePress}>
-            {suggItems.map((i) => (
-              <SuggestedItem
-                item={i}
-                key={i.key}
-                addItem={() => dispatch(moveSuggestedToList(i.key))}
-              />
-            ))}
-            <List.Item />
-          </List.Accordion>
-        </List.Section>
+
+  const openHeader = () => {
+    setCabIsOpen(true);
+  }
+
+  const closeHeader = () => {
+    setCabIsOpen(false);
+    //unselect items if any selected
+  }
+
+  const deleteSelected = () => {
+  }
+
+  const renderItem = ({ item, index }) => {
+    return (
+      <TouchableOpacity
+        style={styles.item}
+        onLongPress={() => { navigation.navigate('ListEditDeleteScreen', { itemToEdit: item }) }}
+        onPress={() => { handlePress() }}
+        key={item.key}
+      >
+        <ShoppingListItem item={item} key={item.key} />
+      </TouchableOpacity>
+    );
+  };
+
+  const renderSuggestedItem = ({ item, index }) => {
+    return (
+      <TouchableOpacity
+        style={styles.item}
+        key={item.key}
+      >
+        <SuggestedItem item={item} key={item.key} addItem={() => dispatch(moveSuggestedToList(item.key))} />
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <ScrollView>
+        <FlatList
+          data={listItems}
+          //style={styles.scollContainer}
+          numColumns={2}
+          renderItem={renderItem}
+          scrollEnabled={true}
+        />
+        <Subheading>Suggested:</Subheading>
+        <FlatList
+          data={suggItems}
+          //style={styles.scollContainer}
+          numColumns={2}
+          renderItem={renderSuggestedItem}
+          scrollEnabled={false}
+        />
 
       </ScrollView>
+
       <FAB.Group
         visible={showFab}
         open={open}
         icon={'pencil'}
         style={styles.fab}
         actions={[{
-          icon: 'minus',
-          label: 'Delete all checked items',
+          icon: 'checkbox-marked-circle',
+          label: 'Select items',
           onPress: () => {
-            dispatch(deleteItems(/*...keys*/))
+            openHeader()
           },
         }, {
           icon: 'plus',
@@ -72,13 +115,59 @@ const ShoppingScreen = ({ route, navigation }) => {
         }]}
         onStateChange={onStateChange}
       />
+
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 3,
+    elevation: 3,
+    shadowColor: '#52006A',
+  },
+  scollContainer: {
+    flex: 1,
+  },
+  item: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 5,
+    height: Dimensions.get('window').width / 2, // approximate a square
+    width: Dimensions.get('window').width / 2 - 10,
+  },
+  backgroundImgStyle: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  backgroundImgStyleImageStyles: {
+    borderRadius: 3,
+  },
+  statusBadge: {
+    position: 'absolute',
+    bottom: 7,
+    left: 7,
+    maxWidth: "70%",
+  },
+  nameBadge: {
+    position: 'absolute',
+    top: 7,
+    right: 7,
+    maxWidth: "70%",
+  },
+  check: {
+    position: 'absolute',
+    top: 7,
+    left: 7,
+    maxWidth: "20%",
+    color: "purple",
   },
   fab: {
     margin: 0,
@@ -90,6 +179,8 @@ const styles = StyleSheet.create({
     color: '#6200EE',
     fontWeight: "bold",
   },
+
+
 });
 
 export default ShoppingScreen;

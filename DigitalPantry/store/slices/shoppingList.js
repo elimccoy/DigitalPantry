@@ -10,22 +10,31 @@ export const DELETE_SUGGESTED_ITEM = 'list/delete_suggested_item';
 export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
 export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
+export const ADD_ALL_SUGGESTED_TO_LIST = 'list/add_all_suggested_to_list';
+export const UPDATE_SUGGESTED_ITEM = '/list/update_suggested_item';
 
-export const addItem = ({ amount, name, info, units }) => ({
+export const addItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_ITEM,
+  key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
-export const editItem = ({ key, amount, name, info, units }) => ({
+export const editItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: EDIT_ITEM,
   key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
 export const deleteItem = (key) => ({
@@ -33,17 +42,21 @@ export const deleteItem = (key) => ({
   key,
 });
 
-export const addSuggestedItem = ({ amount, name, info, units }) => ({
+export const addSuggestedItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_SUGGESTED_ITEM,
+  key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
 export const deleteSuggestedItem = (key) => ({
   type: DELETE_SUGGESTED_ITEM,
-  key,
+  key
 });
 
 /**
@@ -72,50 +85,91 @@ export const clearSuggestedItems = () => ({
   type: CLEAR_SUGGESTED_ITEMS,
 });
 
+export const moveAllSuggested = () => ({
+  type: ADD_ALL_SUGGESTED_TO_LIST,
+});
+
+export const updateSuggestedItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
+  type: UPDATE_SUGGESTED_ITEM,
+  key,
+  amount,
+  name,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
+});
+
+
+
+
 const INITIAL_STATE = {
+  list:[],
+  suggested:[],
+ 
+/*
   list: [{
     key: uuid(),
-    name: 'Oranges',
-    info: 'orange data',
+    name: 'Shopping Item1',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '6',
   }, {
     key: uuid(),
-    name: 'Apples',
-    info: 'apple data',
+    name: 'Shopping Item2',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '11',
   }, {
     key: uuid(),
-    name: 'Broccoli',
-    info: 'broccoli data',
+    name: 'Shopping Item3',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '1',
   }],
   suggested: [{
     key: uuid(),
-    name: 'Onions',
-    info: 'onion data',
+    name: 'Suggested Item1',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '3',
   }, {
     key: uuid(),
-    name: 'Cheese',
-    info: 'cheese data',
+    name: 'Suggested Item2',
+    unit: 'na',
+    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+    brand:'na',
+    description:'na',
+    remaining:'Low',
     amount: '2',
-  }, {
-    key: uuid(),
-    name: 'Milk',
-    info: 'milk data',
-    amount: '3',
-  }],
+  }, 
+  ], */
 };
+
 
 const reducers = {
    [ADD_ITEM]: (state, action) => ({
      ...state,
      list: [...state.list, {
-      key: uuid(),
+      key: action.key,
       name: action.name,
       info: action.info,
       amount: action.amount,
       units: action.units,
+      image:action.image
      }],
    }),
    [EDIT_ITEM]: (state, action) => ({
@@ -125,7 +179,8 @@ const reducers = {
       name: action.name,
       info: action.info,
       amount: action.amount,
-      units: action.units,
+      unit: action.unit,
+      image: action.image,
     }) : item),
   }),
   [DELETE_ITEM]: (state, action) => ({
@@ -139,11 +194,12 @@ const reducers = {
   [ADD_SUGGESTED_ITEM]: (state, action) => ({
     ...state,
     suggested: [...state.suggested, {
-      key: uuid(),
+      key: action.key,
       name: action.name,
       info: action.info,
       amount: action.amount,
       units: action.units,
+      image: action.image,
      }],
   }),
   [DELETE_SUGGESTED_ITEM]: (state, action) => ({
@@ -163,6 +219,24 @@ const reducers = {
     ...state,
     suggested: [],
   }),
+  [ADD_ALL_SUGGESTED_TO_LIST]: (state) => ({
+    ...state,
+    list: [...state.list, ...state.suggested],
+    suggested: [],
+  }),
+  [UPDATE_SUGGESTED_ITEM]: (state, action) => ({
+    ...state,
+    suggested: state.suggested.map(( ingredient ) => (ingredient.key === action.key) ? {
+      key: action.key,
+      name: action.name,
+      info: action.info,
+      amount: action.amount,
+      units: action.units,
+      remaining: action.remaining,
+      image: action.image,
+     } : ingredient ),
+  }),
+
 };
 
 // boilerplate

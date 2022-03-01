@@ -6,6 +6,8 @@ import { StatusBar } from 'expo-status-bar';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItem, updateItem } from '../../../store/slices/pantry';
 import DropDown from "react-native-paper-dropdown";
+import {deleteSuggestedItem, addSuggestedItem, updateSuggestedItem, editItem} from '../../../store/slices/shoppingList';
+import moment from 'moment';
 
 const PantryItemEditScreen = ({ route, navigation }) => {
 
@@ -142,6 +144,23 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
+
+    //Add item to suggested list if needed 
+    if(itemToReturn.remaining === 'Low' && item.remaining !== 'Low'){ //from fuller to low
+      dispatch(addSuggestedItem(itemToReturn));
+    }else if(itemToReturn.remaining !== 'Low' && item.remaining === 'Low'){//from low to fuller
+      dispatch(deleteSuggestedItem(itemToReturn.key));
+    }else if(itemToReturn.remaining === 'Low' && item.remaining === 'Low'){//item is edited but remaining amount stays the same
+      //update suggested item
+      dispatch(updateSuggestedItem(itemToReturn));
+    }
+
+    dispatch(editItem(itemToReturn));
+
+    //console.log((itemToReturn.expirationDate).toString().substring(4,16));
+
+    console.log(moment((itemToReturn.expirationDate).toString().substring(4,16), "MMM DD YYYY").fromNow());
+
     navigation.navigate('PantryScreen');
   }
 
