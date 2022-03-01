@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
 import { editRecipe, deleteRecipe } from '../../../store/slices/recipes';
@@ -11,20 +11,22 @@ import DropDown from "react-native-paper-dropdown";
 
 const RecipeEditScreen = ({ route, navigation }) => {
 
+  // Redux States
   const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
   const categories = useSelector((state) => state.recipes.categories);
   const dispatch = useDispatch();
-
-  const Accessory = Platform.select({
-    ios: IOSAccessory,
-  });
-
   const [recipeName, onChangeName] = useState(recipe.title);
   const [ingList, onChangeIng] = useState(recipe.ingredients || []);
   const [recipeInfo, onChangeRecipe] = useState(recipe.steps || '');
   const [category, onChangeCategory] = useState(recipe.category || '');
   const [showMultiSelectDropDownCategory, setShowMultiSelectDropDownCategory] = useState(false);
 
+ // Apple accessory
+ const Accessory = Platform.select({
+  ios: IOSAccessory,
+});
+
+// Category list for dropdown
   const categoryList = [];
   for (let i = 0; i < categories.length; i++) {
     let newObj = {
@@ -34,6 +36,7 @@ const RecipeEditScreen = ({ route, navigation }) => {
     categoryList.push(newObj);
   }
 
+  // Redux save recipe
   const saveRecipe = () => {
     dispatch(editRecipe({
       id: recipe.id,
@@ -45,6 +48,7 @@ const RecipeEditScreen = ({ route, navigation }) => {
     navigation.navigate('RecipeScreen');
   }
 
+  // Redux delete recipe
   const delRecipeHandler = () => {
     dispatch(deleteRecipe(recipe.id))
     navigation.navigate('RecipeScreen');

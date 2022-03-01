@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 
 const RecipeInfoScreen = ({ route, navigation }) => {
 
+    // Redux state
     const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
 
+    // Exit and edit buttons
     const handleExit = () => {
         navigation.navigate('RecipeScreen');
     }

@@ -4,6 +4,7 @@ import RecipeScreen from './RecipeScreen';
 import RecipeEditScreen from './RecipeEditScreen';
 import RecipeInfoScreen from './RecipeInfoScreen';
 
+// Navigation between non-top tab navigation screens
 const RecipeStack = createNativeStackNavigator();
 
 const MyRecipesNavigation = () => {

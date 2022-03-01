@@ -4,11 +4,17 @@ import { useNavigation } from '@react-navigation/native';
 
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
 function RecipeRow({ recipes }) {
+
+  // Declare dimensions of recipe cards
   const scrollX = useRef(new Animated.Value(0)).current;
   const OFFSET = 40
   const ITEM_WIDTH = Dimensions.get("window").width - (OFFSET * 2)
   const ITEM_HEIGHT = 200
+
+  // Declare navigation
   const navigation = useNavigation();
+
+  // Component for pressable recipe cards
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
   return (
