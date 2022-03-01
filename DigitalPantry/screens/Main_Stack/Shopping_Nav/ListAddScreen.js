@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { TextInput, Button, Avatar } from 'react-native-paper';
 import DropDown from "react-native-paper-dropdown";
 import { addItem } from '../../../store/slices/shoppingList';
+import { v4 as uuid } from 'uuid';
 
 const ListAddScreen = ({ navigation }) => {
 
@@ -78,6 +79,7 @@ const ListAddScreen = ({ navigation }) => {
 
   const confirm = () => {
     dispatch(addItem({
+      key: uuid(),
       amount: amt,
       name: itmName,
       unit: units,
@@ -97,12 +99,24 @@ const ListAddScreen = ({ navigation }) => {
 
       <View style={styles.container}>
         <View style={{ justifyContent: 'space-evenly' }}>
-          <Avatar.Image size={128} style={styles.avatarStyles} source={ {uri:img}} />
+          <Avatar.Image size={128} style={styles.avatarStyles} source={{ uri: img }} />
           <TextInput
             label='Name:'
             mode={'outlined'}
             value={itmName}
             onChangeText={itmName => setItmName(itmName)}
+          />
+          <TextInput
+            label='Brand:'
+            mode={'outlined'}
+            value={itemBrand}
+            onChangeText={itemBrand => setBrand(itemBrand)}
+          />
+          <TextInput
+            label='Description:'
+            mode={'outlined'}
+            value={desc}
+            onChangeText={desc => setDescription(desc)}
           />
 
           <TextInput
