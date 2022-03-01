@@ -5,7 +5,7 @@ import PantryStackNav from './Pantry_Nav/PantryStackNav'
 import ListStackNav from './Shopping_Nav/ListStackNav';
 import { AntDesign } from '@expo/vector-icons';
 import RecipeStackNav from './Recipe_Nav/RecipeStackNav';
-import { Header } from '../../components/Header';
+import Header from '../../components/Header';
 
 const MainTab = createBottomTabNavigator();
 
@@ -31,13 +31,13 @@ const MainTabNav = () => {
         },
         tabBarActiveTintColor: '#6200EE',
         tabBarInactiveTintColor: 'gray',
-        headerShown: Header,
+        header: Header,
       })}
     >
-      <MainTab.Screen name="Home" component={HomeScreen} />
+      <MainTab.Screen name="Home" component={HomeScreen}/>
       <MainTab.Screen name="Pantry" component={PantryStackNav} />
       <MainTab.Screen name="Recipes" component={RecipeStackNav} />
-      <MainTab.Screen name="Shopping" component={ListStackNav} />
+      <MainTab.Screen name="Shopping" component={ListStackNav} options={{ headerShown: false }} />
     </MainTab.Navigator>
 
   );
