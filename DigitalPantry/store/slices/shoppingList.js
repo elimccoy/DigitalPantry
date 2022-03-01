@@ -3,15 +3,16 @@ import { v4 as uuid } from 'uuid';
 export const ADD_ITEM = 'list/add_item';
 export const DELETE_ITEM = 'list/delete_item';
 export const EDIT_ITEM = 'list/edit_item';
-export const DELETE_ITEMS = 'list/delete_items';
 export const CLEAR_SHOPPING_LIST = 'list/clear_shopping_list';
 export const ADD_SUGGESTED_ITEM = 'list/add_suggested_item';
 export const DELETE_SUGGESTED_ITEM = 'list/delete_suggested_item';
-export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
 export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
 export const ADD_ALL_SUGGESTED_TO_LIST = 'list/add_all_suggested_to_list';
 export const UPDATE_SUGGESTED_ITEM = '/list/update_suggested_item';
+export const DELETE_SELECTED_ITEMS = '/list/delete_selected_items';
+export const SELECT_ALL_ITEMS = '/list/select_all_items';
+export const UNSELECT_ALL_ITEMS = '/list/unselect_all_items';
 
 export const addItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
   type: ADD_ITEM,
@@ -25,7 +26,7 @@ export const addItem = ({ key, amount, name, unit, image, brand, description, re
   remaining,
 });
 
-export const editItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({
+export const editItem = ({ key, amount, name, unit, image, brand, description, remaining, checked }) => ({
   type: EDIT_ITEM,
   key,
   amount,
@@ -35,6 +36,7 @@ export const editItem = ({ key, amount, name, unit, image, brand, description, r
   image,
   brand,
   remaining,
+  checked,
 });
 
 export const deleteItem = (key) => ({
@@ -65,9 +67,8 @@ export const deleteSuggestedItem = (key) => ({
  * @param {array<string>} keys
  * @returns action to dispatch
  */
-export const deleteItems = (keys) => ({
-  type: DELETE_ITEMS,
-  keys,
+ export const deleteSelectedItems = () => ({
+  type: DELETE_SELECTED_ITEMS,
 });
 
 export const clearShoppingList = () => ({
@@ -76,9 +77,17 @@ export const clearShoppingList = () => ({
 
 // Expects the item with the provided key to be in the suggested.
 // This both removes the item from the suggested list and adds it to the shopping list.
-export const moveSuggestedToList = (key) => ({
+export const moveSuggestedToList = ({ key, amount, name, unit, image, brand, description, remaining, expirationDate }) => ({
   type: ADD_FROM_SUGGESTED_TO_LIST,
   key,
+  amount,
+  name,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
+  expirationDate,
 });
 
 export const clearSuggestedItems = () => ({
@@ -101,86 +110,103 @@ export const updateSuggestedItem = ({ key, amount, name, unit, image, brand, des
   remaining,
 });
 
+export const selectAllItems = () => ({
+  type: SELECT_ALL_ITEMS,
 
+});
 
+export const unselectAllItems = () => ({
+  type: UNSELECT_ALL_ITEMS,
+
+});
 
 const INITIAL_STATE = {
-  list:[],
-  suggested:[],
- 
-/*
   list: [{
-    key: uuid(),
-    name: 'Shopping Item1',
-    unit: 'na',
-    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
-    brand:'na',
-    description:'na',
-    remaining:'Low',
-    amount: '6',
-  }, {
-    key: uuid(),
-    name: 'Shopping Item2',
-    unit: 'na',
-    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
-    brand:'na',
-    description:'na',
-    remaining:'Low',
-    amount: '11',
-  }, {
-    key: uuid(),
-    name: 'Shopping Item3',
-    unit: 'na',
-    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
-    brand:'na',
-    description:'na',
-    remaining:'Low',
-    amount: '1',
-  }],
-  suggested: [{
-    key: uuid(),
-    name: 'Suggested Item1',
-    unit: 'na',
-    image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
-    brand:'na',
-    description:'na',
-    remaining:'Low',
-    amount: '3',
-  }, {
     key: uuid(),
     name: 'Suggested Item2',
     unit: 'na',
     image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
-    brand:'na',
-    description:'na',
-    remaining:'Low',
+    brand: 'na',
+    description: 'na',
+    remaining: 'Low',
     amount: '2',
-  }, 
-  ], */
+    checked: false,
+  }],
+
+  /*
+    list: [{
+      key: uuid(),
+      name: 'Shopping Item1',
+      unit: 'na',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      brand:'na',
+      description:'na',
+      remaining:'Low',
+      amount: '6',
+    }, {
+      key: uuid(),
+      name: 'Shopping Item2',
+      unit: 'na',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      brand:'na',
+      description:'na',
+      remaining:'Low',
+      amount: '11',
+    }, {
+      key: uuid(),
+      name: 'Shopping Item3',
+      unit: 'na',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      brand:'na',
+      description:'na',
+      remaining:'Low',
+      amount: '1',
+    }],
+    suggested: [{
+      key: uuid(),
+      name: 'Suggested Item1',
+      unit: 'na',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      brand:'na',
+      description:'na',
+      remaining:'Low',
+      amount: '3',
+    }, {
+      key: uuid(),
+      name: 'Suggested Item2',
+      unit: 'na',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      brand:'na',
+      description:'na',
+      remaining:'Low',
+      amount: '2',
+    }, 
+    ], */
 };
 
 
 const reducers = {
-   [ADD_ITEM]: (state, action) => ({
-     ...state,
-     list: [...state.list, {
-      key: uuid(),
+  [ADD_ITEM]: (state, action) => ({
+    ...state,
+    list: [...state.list, {
+      key: action.key,
       name: action.name,
-      info: action.info,
       amount: action.amount,
-      units: action.units,
-      image:action.image
-     }],
-   }),
-   [EDIT_ITEM]: (state, action) => ({
+      description: action.description,
+      brand: action.brand,
+      unit: action.unit,
+      image: action.image,
+      checked: false,
+    }],
+  }),
+  [EDIT_ITEM]: (state, action) => ({
     ...state,
     list: state.list.map((item) => item.key === action.key ? ({
       ...item,
       name: action.name,
-      info: action.info,
       amount: action.amount,
       unit: action.unit,
-      image: action.image,
+      checked: action.checked,
     }) : item),
   }),
   [DELETE_ITEM]: (state, action) => ({
@@ -191,52 +217,42 @@ const reducers = {
     ...state,
     list: [],
   }),
-  [ADD_SUGGESTED_ITEM]: (state, action) => ({
-    ...state,
-    suggested: [...state.suggested, {
-      key: action.key,
-      name: action.name,
-      info: action.info,
-      amount: action.amount,
-      units: action.units,
-      image: action.image,
-     }],
-  }),
-  [DELETE_SUGGESTED_ITEM]: (state, action) => ({
-    ...state,
-    suggested: state.suggested.filter(({ key }) => key !== action.key),
-  }),
-  DELETE_ITEMS: (state, action) => ({
-    ...state,
-    list: list.filter(({ key }) => action.keys.indexOf(key) === -1),
-  }),
   [ADD_FROM_SUGGESTED_TO_LIST]: (state, action) => ({
     ...state,
-    list: [...state.list, state.suggested.find(({ key }) => key === action.key)],
-    suggested: state.suggested.filter(({ key }) => key !== action.key),
-  }),
-  [CLEAR_SUGGESTED_ITEMS]: (state) => ({
-    ...state,
-    suggested: [],
-  }),
-  [ADD_ALL_SUGGESTED_TO_LIST]: (state) => ({
-    ...state,
-    list: [...state.list, ...state.suggested],
-    suggested: [],
-  }),
-  [UPDATE_SUGGESTED_ITEM]: (state, action) => ({
-    ...state,
-    suggested: state.suggested.map(( ingredient ) => (ingredient.key === action.key) ? {
+    list: [...state.list, {
       key: action.key,
       name: action.name,
-      info: action.info,
+      description: action.description,
       amount: action.amount,
-      units: action.units,
-      remaining: action.remaining,
+      unit: action.unit,
       image: action.image,
-     } : ingredient ),
+      checked: false,
+      brand: action.brand,
+      remaining: action.remaining,
+      expirationDate: action.expirationDate,
+    }],
+
   }),
 
+  [DELETE_SELECTED_ITEMS]: (state) => ({
+    ...state,
+    list: state.list.filter((item) => (item.checked !== true)),
+  }),
+  [SELECT_ALL_ITEMS]: (state) => ({
+    ...state,
+    list: state.list.map((item) => ({
+      ...item,
+      checked: true,
+    })),
+  }),
+  [UNSELECT_ALL_ITEMS]: (state) => ({
+    ...state,
+    list: state.list.map((item) => ({
+      ...item,
+      checked: false,
+    })),
+  }),
+ 
 };
 
 // boilerplate
