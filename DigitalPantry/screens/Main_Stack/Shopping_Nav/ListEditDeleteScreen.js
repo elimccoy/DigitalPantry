@@ -5,9 +5,10 @@ import { TextInput, Button, Avatar } from 'react-native-paper';
 import { editItem, deleteItem } from '../../../store/slices/shoppingList';
 import DropDown from "react-native-paper-dropdown";
 
-const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functions
+const ListEditDeleteScreen = ({ route, navigation }) => {
 
   const initialItem = route.params.itemToEdit;
+  console.log(initialItem.expirationDate);
 
   const dispatch = useDispatch();
   const [itmName, setItmName] = useState(initialItem.name);
@@ -80,9 +81,7 @@ const ListEditDeleteScreen = ({ route, navigation }) => { //will take in functio
       key: initialItem.key,
       amount: amt,
       name: itmName,
-      data: units,
-      info: initialItem.info,
-      image:initialItem.image,
+      unit: units,
     }));
 
     navigation.navigate('ShoppingScreen');
