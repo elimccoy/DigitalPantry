@@ -1,22 +1,36 @@
-import { StyleSheet, Text, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, View, ImageBackground } from 'react-native';
 import * as React from 'react';
-import { List, Checkbox, Badge} from 'react-native-paper';
+import { Badge } from 'react-native-paper';
 
-
-const ShoppingListItem = ({item}) => {
-  const [checked, setChecked] = React.useState(false);
-
+const ShoppingListItem = ({ item }) => {
   return (
-    <View style={styles.container}>
-    <ImageBackground
-      source={{ uri: item.image}}
-      resizeMode="cover"
-      style={styles.backgroundImgStyle}
-      imageStyle={styles.backgroundImgStyleImageStyles}>
-      <Badge style={styles.nameBadge}>{item.name}</Badge>
-      <Badge style={styles.statusBadge}>{item.amount + ((item.unit === undefined) ? "" : (" " + item.unit))}</Badge>
-    </ImageBackground>
-  </View>
+    (item.checked) ? //if item is selected
+      <View style={styles.container}>
+        <ImageBackground
+          source={{ uri: item.image }}
+          resizeMode="cover"
+          style={styles.backgroundImgStyle}
+          imageStyle={styles.backgroundImgStyleImageStyles}>
+          <Badge style={styles.nameBadge}>{item.name}</Badge>
+          <Badge style={styles.statusBadge}>{item.amount + ((item.unit === undefined) ? "" : (" " + item.unit))}</Badge>
+          <View style={styles.layer} />
+          <Badge style={styles.selectBadge}> </Badge>
+        </ImageBackground>
+
+      </View>
+      :
+      <View style={styles.container}>
+        <ImageBackground
+          source={{ uri: item.image }}
+          resizeMode="cover"
+          style={styles.backgroundImgStyle}
+          imageStyle={styles.backgroundImgStyleImageStyles}>
+          <Badge style={styles.nameBadge}>{item.name}</Badge>
+          <Badge style={styles.statusBadge}>{item.amount + ((item.unit === undefined) ? "" : (" " + item.unit))}</Badge>
+        </ImageBackground>
+
+      </View>
+
   );
 };
 
@@ -51,12 +65,17 @@ const styles = StyleSheet.create({
     right: 7,
     maxWidth: "70%",
   },
-  checkBadge: {
+  selectBadge: {
     position: 'absolute',
     top: 7,
     left: 7,
-    color: "purple",
+    maxWidth: "70%",
   },
+  layer: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  }
+
 });
 
 export default ShoppingListItem;
