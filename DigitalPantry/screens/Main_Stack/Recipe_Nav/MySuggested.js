@@ -191,7 +191,7 @@ const MySuggested = ({navigation}) => {
     if(query === "") {
       setRecipesFromIngredients();
       return;
-    } else {
+    } else if(query[query.length - 1] === " ") {
       setRecipesFromQuery();
     }
 
