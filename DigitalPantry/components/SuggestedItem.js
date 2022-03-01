@@ -1,5 +1,5 @@
-import { Text, StyleSheet, View, TouchableOpacity, ImageBackground } from 'react-native';
-import {List, IconButton, Badge} from 'react-native-paper';
+import { StyleSheet, View, ImageBackground } from 'react-native';
+import { IconButton, Badge } from 'react-native-paper';
 import * as React from 'react';
 
 const SuggestedItem = ({ item, addItem }) => { //takes in function addItem and also item
