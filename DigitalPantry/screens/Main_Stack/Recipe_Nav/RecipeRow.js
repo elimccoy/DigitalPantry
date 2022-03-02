@@ -14,10 +14,11 @@ function RecipeRow({ recipes }) {
   // Declare navigation
   const navigation = useNavigation();
 
-  // Component for pressable recipe cards
+  // Outer component for pressable recipe cards
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
   return (
+    // Scrollview animated row
     <ScrollView
       horizontal={true}
       decelerationRate={"normal"}

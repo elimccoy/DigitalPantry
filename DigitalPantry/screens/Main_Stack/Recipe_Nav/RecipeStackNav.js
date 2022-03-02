@@ -2,7 +2,7 @@ import MySuggested from './MySuggested';
 import MyRecipesNavigation from './MyRecipesNavigation';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
-// Navigation between top tabs
+// Navigation between top tabs in Recipe Screen
 const TopTab = createMaterialTopTabNavigator();
 
 const TopNavigator = () => {
