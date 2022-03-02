@@ -53,18 +53,18 @@ const INITIAL_STATE = {
     brand:'365 Everyday Value',
     description:'Unknown',
     remaining:'Full' ,
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-02-26'),
     category: 'Test Category 1',
   }, {
     name: 'FLATOUT Flatbread - Thin Pizza Crust RUSTIC WHITE',
     key: '601133100843',
     unit: 'Pack',
-    amount: '2',
+    amount: '1',
     image: 'https://images-na.ssl-images-amazon.com/images/I/51hSnX3rQ4L._SL150_.jpg',
     brand:'Flatout',
     description:'Unknown',
-    remaining:'Full',
-    expirationDate: new Date(),
+    remaining:'Low',
+    expirationDate: new Date('2022-03-26'),
     category: 'Test Category 1',
   }, {
     name: 'Kelloggs Pop-Tarts SMores, 8 ct',
@@ -75,7 +75,7 @@ const INITIAL_STATE = {
     brand:'Kelloggs',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 1',
   }, {
     name: 'Froot Loops Kelloggs Loops Cereal with Reclosable Bag',
@@ -86,7 +86,7 @@ const INITIAL_STATE = {
     brand:'Kelloggs',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 1',
   }, {
     name: 'Katz Gluten Free Poppy Seed Bagels',
@@ -97,7 +97,7 @@ const INITIAL_STATE = {
     brand:'Katz Gluten Free',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 1',
   }, {
     name: 'Randys Pickles Sideburns Grilled Pickles',
@@ -108,7 +108,7 @@ const INITIAL_STATE = {
     brand:'Randys Pickles',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 2',
   }, {
     name: 'Lays Doritos Salsa Verde',
@@ -119,7 +119,7 @@ const INITIAL_STATE = {
     brand:'Lays',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 2',
   }, {
     name: 'Nutty Novelties Chocolate Peanut Butter - High Protein',
@@ -130,7 +130,7 @@ const INITIAL_STATE = {
     brand:'Nutty Novelties',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 2',
   }, {
     name: 'GREENBOW Manuka Honey with Organic Fresh Royal Jelly',
@@ -141,7 +141,7 @@ const INITIAL_STATE = {
     brand:'Greenbow',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 2',
   }, {
     name: 'Garden Greens Celery Power Organic Celery Juice Powder',
@@ -152,7 +152,7 @@ const INITIAL_STATE = {
     brand:'Garden Greens',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 2',
   }, {
     name: 'STOPLIGHT BELL PEPPERS GREEN, RED & YELLOW',
@@ -163,7 +163,7 @@ const INITIAL_STATE = {
     brand:'Neighborhood Corner Store',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 3',
   }, {
     name: 'Tony Romas Chicken Jerky Bites, Gluten Free',
@@ -174,7 +174,7 @@ const INITIAL_STATE = {
     brand:'Tony Romas',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 3',
   }, {
     name: 'Rosarita New Rf Beans 30 Oz (12-Pack) ',
@@ -185,7 +185,7 @@ const INITIAL_STATE = {
     brand:'Rosarita',
     description:'Unknown',
     remaining:'Full',
-    expirationDate: new Date(),
+    expirationDate: new Date('2022-03-30'),
     category: 'Test Category 3',
   }],
 };

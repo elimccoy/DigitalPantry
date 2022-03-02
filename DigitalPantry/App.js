@@ -1,70 +1,63 @@
 import 'react-native-get-random-values';
 
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { LogBox } from 'react-native';
-import { Provider as ReduxProvider } from 'react-redux';
+import { Provider as ReduxProvider, useDispatch } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider } from 'react-native-paper';
 import SignInScreen from './screens/Auth_Stack/SignInScreen';
 import MainTabNav from './screens/Main_Stack/MainTabNav';
-import firebaseConfig from './firebase'
-import { getApps, getApp, initializeApp } from 'firebase/app';
-import { getReactNativePersistence } from 'firebase/auth/react-native';
-import {
-  getAuth,
-  initializeAuth,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import UserProvider, { getUser } from './UserProvider';
+import { fetchSavedRecipes } from './API/firebaseMethods';
+import { setSavedRecipes } from './store/slices/recipes';
 import { store, persistor } from './store';
 
-// Initializes app on first reload and prevents crashing on reloads
-let app;
-let auth;
-if (getApps().length < 1) {
-  app = initializeApp(firebaseConfig);
-  auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
-} else {
-  app = getApp();
-  auth = getAuth();
-}
+LogBox.ignoreLogs(['Setting a timer']);
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
-  const [isSignedIn, setIsSignedIn] = useState(false); //SET TO FALSE FOR AUTH.
+const Navigation = () => {
+  const user = getUser();
+  const dispatch = useDispatch();
 
-  // Listen for authentication state to change.
-  onAuthStateChanged(auth, user => {
-    if (user != null) {
-      setIsSignedIn(true);
+  // Initally fetch recipes from fiebase
+  useEffect(() => {
+    if (!user) {
+      return;
     }
-    else {
-      setIsSignedIn(false);
-    }
-  });
+
+    fetchSavedRecipes(user.id)
+      .then((recipes) => {
+        dispatch(setSavedRecipes(recipes));
+      });
+  }, [dispatch, user]);
 
   return (
-    <ReduxProvider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <PaperProvider>
-          <NavigationContainer>
-            <StatusBar translucent={false} backgroundColor='white' />
-            <Stack.Navigator screenOptions={{headerShown: false}}>
-              {isSignedIn ? (
-                <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-              ):(
-                <Stack.Screen name="SignIn" component={SignInScreen}/>
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </PaperProvider>
-      </PersistGate>
-    </ReduxProvider>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        { user ? (
+          <Stack.Screen name="MainTabNav" component={MainTabNav}/>
+        ):(
+          <Stack.Screen name="SignIn" component={SignInScreen}/>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default function App() {
+  return (
+    <UserProvider>
+      <ReduxProvider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider>
+            <Navigation />
+          </PaperProvider>
+        </PersistGate>
+      </ReduxProvider>
+    </UserProvider>
   );
 }

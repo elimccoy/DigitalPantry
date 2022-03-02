@@ -37,15 +37,16 @@ const INITIAL_STATE = {
     timestamp: number
     contents: String - the text to show the user
   }*/
-  {
-    id: 1,
-    type: 'recipe_suggestion',
-    content: 'You should make eggs for breakfast. You have 18 eggs expiring tomorrow',
-  }, {
-    id: 2,
-    type: 'shopping_list_suggestion',
-    content: 'You have spaghetti scheduled for today and are missing Ingredients. Would you like to add them to your shoping list?',
-  }],
+  // {
+  //   id: 1,
+  //   type: 'recipe_suggestion',
+  //   contents: 'You should make eggs for breakfast. You have 18 eggs expiring tomorrow',
+  // }, {
+  //   id: 2,
+  //   type: 'shopping_list_suggestion',
+  //   contents: 'You have spaghetti scheduled for today and are missing Ingredients. Would you like to add them to your shoping list?',
+  // }
+],
 };
 
 const reducers = {

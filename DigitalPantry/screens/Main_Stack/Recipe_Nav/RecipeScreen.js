@@ -1,28 +1,15 @@
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import { useEffect } from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import RecipeGrid from './RecipeGrid';
-import { useSelector, useDispatch, useStore } from 'react-redux';
-import { fetchSavedRecipes } from '../../../API/firebaseMethods';
-import { setSavedRecipes } from '../../../store/slices/recipes';
+import { useSelector } from 'react-redux';
 
 const MyRecipes = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const store = useStore();
-  console.log(store.getState().recipes)
+  // Queries for recipes based on userId and categorizes them returning an array of categories.
+  // Each category is an object with the following properties: title, recipes where recipes is an array of recipes
   const savedRecipesByCategory = useSelector((state) => state.recipes.categories.map((category) => ({
     title: category.name,
     recipes: state.recipes.saved.filter((recipe) => recipe.category === category.name),
   })));
-
-  // Initally fetch recipes from fiebase
-  useEffect(() => {
-    fetchSavedRecipes('kleb')
-      .then((recipes) => {
-        console.log(20, recipes);
-        dispatch(setSavedRecipes(recipes));
-      });
-  }, [dispatch]);
 
   const addPressHandler = () => {
     navigation.navigate('RecipeAddScreen');

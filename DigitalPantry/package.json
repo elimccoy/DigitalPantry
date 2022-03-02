@@ -11,6 +11,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/datetimepicker": "4.0.0",
+    "@expo/ngrok": "^2.5.0",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/material-top-tabs": "^6.1.1",
     "@react-navigation/native": "^6.0.6",
@@ -24,8 +25,10 @@
     "expo-random": "~12.1.1",
     "expo-status-bar": "~1.2.0",
     "expo-updates": "~0.11.6",
+    "install": "^0.13.0",
     "firebase": "^9.6.7",
     "metro-config": "^0.67.0",
+    "moment": "^2.29.1",
     "qs": "^6.10.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
