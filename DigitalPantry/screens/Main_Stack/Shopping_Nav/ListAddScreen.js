@@ -6,10 +6,15 @@ import DropDown from "react-native-paper-dropdown";
 import { addItem } from '../../../store/slices/shoppingList';
 import { v4 as uuid } from 'uuid';
 
+/**
+ * Screen for users to manually add their own customized item to the shopping list. Prompts users to enter and submit data for their item.
+ */
+
 const ListAddScreen = ({ navigation }) => {
 
   const dispatch = useDispatch();
 
+  // states for the data that will make up the user's ingredient.
   const [itmName, setItmName] = useState('');
   const [amt, setAmt] = useState('');
   const [units, setUnits] = useState('');
@@ -18,10 +23,12 @@ const ListAddScreen = ({ navigation }) => {
   const [desc, setDescription] = useState('');
   const [amtRemaining, setRemaining] = useState('');
   const [expDate, setExpirationDate] = useState('');
-  const [itemCategory, setCategory] = useState('');
+  const [itemCategory, setCategory] = useState(''); 
+
+  // state that will be used to determine whether to show dropdown menu used to select units/measurements
   const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
 
-  useState(false);
+  // list of units of measurement for ingredients
   const measurementList = [
     {
       label: "Pack",
@@ -77,13 +84,16 @@ const ListAddScreen = ({ navigation }) => {
     },
   ];
 
+  /** function triggered when the user taps on 'Done'. Passes data to the 'addItem' reducer in shopingList.js. The data passed 
+   * is an array containing data (states above) for an ingredient.
+   */
   const confirm = () => {
     dispatch(addItem({
-      key: uuid(),
+      key: uuid(), // since this is a new item created by the user (not a suggested item from the pantry), it doesn't have a key so we generate it
       amount: amt,
       name: itmName,
       unit: units,
-      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg',
+      image: 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg', // items created by the user will have the same image, no implementation for users to upload their own images
       brand: itemBrand,
       description: desc,
       remaining: amtRemaining,
@@ -91,13 +101,17 @@ const ListAddScreen = ({ navigation }) => {
       category: itemCategory,
     }));
 
-    navigation.navigate('ShoppingScreen'); // return to shopping screen
+    navigation.navigate('ShoppingScreen'); // return to shopping screen after adding item
   };
 
+  /**
+   * Screen is wrapped in a ScrollView component with 'keyboardShouldPersistTaps' attribute to dismiss the keyboard when the user taps outside of
+   * input fields or buttons. Image is displayeed along with the input fields and 'Done' button. When TextInputs change, so do the states.
+   */
   return (
-    <ScrollView keyboardShouldPersistTaps='handled'>
+    <ScrollView keyboardShouldPersistTaps='handled'> 
 
-      <View style={styles.container}>
+      <View style={styles.container}> 
         <View style={{ justifyContent: 'space-evenly' }}>
           <Avatar.Image size={128} style={styles.avatarStyles} source={{ uri: img }} />
           <TextInput
@@ -156,13 +170,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     justifyContent: 'center',
-    // marginTop: StatusBar.currentHeight,
   },
   buttonContainer: {
     flex: 1,
     padding: 10,
   },
-  avatarStyles: {
+  avatarStyles: { // styling for image
     alignSelf: 'center',
     marginBottom: 7,
   },

@@ -2,9 +2,15 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 import * as React from 'react';
 import { Badge } from 'react-native-paper';
 
+/**
+ * Component for a shopping list item. It takes an item as a parameter. Conditionally renders the item depending on whether or not the 
+ * item is selected (its 'checked' attribute is true). The item looks the same as a pantry ingredient except that when the item is 
+ * 'checked' the ImageBackground is darker and a pink dot is displayed on the top left corner of it.
+ */
+
 const ShoppingListItem = ({ item }) => {
   return (
-    (item.checked) ? //if item is selected
+    (item.checked) ? // if item is selected
       <View style={styles.container}>
         <ImageBackground
           source={{ uri: item.image }}
@@ -18,7 +24,7 @@ const ShoppingListItem = ({ item }) => {
         </ImageBackground>
 
       </View>
-      :
+      : // if item is not selected
       <View style={styles.container}>
         <ImageBackground
           source={{ uri: item.image }}

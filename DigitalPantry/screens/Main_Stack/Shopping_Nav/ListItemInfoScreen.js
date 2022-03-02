@@ -4,10 +4,15 @@ import { Title, Avatar, Paragraph } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
 import { useSelector } from 'react-redux';
 
+/**
+ * Screen that displays a shopping list item's data. Takes in an item's key.
+ */
+
 const ListItemInfoScreen = ({ route }) => {
 
-    const item = useSelector((state) => state.shoppingList.list.find((item) => (item.key == route.params.key)));
+    const item = useSelector((state) => state.shoppingList.list.find((item) => (item.key == route.params.key))); // finds item in shopping list using key
 
+    // displays item's data relevant for shopping
     return (
         <ScrollView style={styles.container}>
             <Avatar.Image

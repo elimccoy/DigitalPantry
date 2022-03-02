@@ -5,17 +5,23 @@ import { TextInput, Button, Avatar } from 'react-native-paper';
 import { editItem, deleteItem } from '../../../store/slices/shoppingList';
 import DropDown from "react-native-paper-dropdown";
 
+/**
+ * Screen to edit or delete an item. Item to be edited or deleted is passed in as a parameter.
+ */
 const ListEditDeleteScreen = ({ route, navigation }) => {
 
   const initialItem = route.params.itemToEdit;
-  console.log(initialItem.expirationDate);
 
   const dispatch = useDispatch();
+  /**
+   * States for data that users will be able to edit. Users won't be able to edit everything as editing some things might not make much sense for this screen.
+   */
   const [itmName, setItmName] = useState(initialItem.name);
   const [amt, setAmt] = useState(initialItem.amount);
   const [units, setUnits] = useState(initialItem.units);
   const [showMultiSelectDropDown, setShowMultiSelectDropDown] = useState(false);
 
+  // units for ingredients
   const measurementList = [
     {
       label: "Pack",
@@ -71,11 +77,16 @@ const ListEditDeleteScreen = ({ route, navigation }) => {
     },
   ];
 
+  // triggered when user taps 'Delete'. Calls deleteItem reducer from shoppingList.js and passes in the item's key.
   const _deleteItem = () => {
     dispatch(deleteItem(initialItem.key));
-    navigation.navigate('ShoppingScreen');
+    navigation.navigate('ShoppingScreen'); // return to Shopping Screen when an item is deleted
   };
 
+  /** 
+   * triggered when user taps 'Done'. Calls editItemn reducer from shoppingList.js and passes an array with the data that could've changed as well
+   * as the item's key for it to be identified
+   */
   const _editItem = () => {
     dispatch(editItem({
       key: initialItem.key,
@@ -84,9 +95,13 @@ const ListEditDeleteScreen = ({ route, navigation }) => {
       unit: units,
     }));
 
-    navigation.navigate('ShoppingScreen');
+    navigation.navigate('ShoppingScreen'); // return to Shopping Screen when  item is edited.
   };
 
+  /**
+   * Screen is wrapped in a ScrollView component with 'keyboardShouldPersistTaps' attribute to dismiss the keyboard when the user taps outside of
+   * input fields or buttons. Image is displayeed along with the input fields and 'Done' button. When TextInputs change, so do the states.
+   */
   return (
     <ScrollView keyboardShouldPersistTaps='handled'>
       <View style={styles.container}>

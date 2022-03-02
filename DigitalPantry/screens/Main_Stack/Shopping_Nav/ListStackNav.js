@@ -5,9 +5,14 @@ import ListEditDeleteScreen from './ListEditDeleteScreen';
 import CustomNavigationBar from './CustomNavigationBar';
 import ListItemInfoScreen from './ListItemInfoScreen';
 
-const ListStack = createNativeStackNavigator();
+/**
+ * Stack Navigator for shopping navigation
+ */
 
-const ListStackNav = () => { //navigator for list related screens
+const ListStack = createNativeStackNavigator(); 
+
+const ListStackNav = () => { 
+  // initial header is the CustomNavigationBar
   return (
     <ListStack.Navigator initialRouteName="ShoppingScreen" screenOptions={{ header: (props) => <CustomNavigationBar {...props} /> }}>
       <ListStack.Screen name="ShoppingScreen" component={ShoppingScreen} />

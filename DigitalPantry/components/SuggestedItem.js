@@ -2,7 +2,11 @@ import { StyleSheet, View, ImageBackground } from 'react-native';
 import { IconButton, Badge } from 'react-native-paper';
 import * as React from 'react';
 
-const SuggestedItem = ({ item, addItem }) => { //takes in function addItem and also item
+/**
+ * SuggestedaItem component that renders the data of a suggested item. Takes in an item and a function that is called when 
+ * the user taps on the '+' icon. 
+ */
+const SuggestedItem = ({ item, addItem }) => { 
   return (
     <View style={styles.container}>
       <ImageBackground
