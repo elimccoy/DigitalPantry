@@ -196,7 +196,7 @@ const ShoppingScreen = ({ navigation }) => {
           },
           {
             icon: 'minus-circle-outline',
-            label: 'Delete Shopping items',
+            label: 'Select Items',
             onPress: () => {
               openHeader()
             },
