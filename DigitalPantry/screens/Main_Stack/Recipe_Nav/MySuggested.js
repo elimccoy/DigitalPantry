@@ -109,6 +109,7 @@ const MySuggested = ({navigation}) => {
         temp += query[i];
       }
     }
+    concatList += temp;
 
     let searchParams = {
       ingredients: concatList,
@@ -184,15 +185,32 @@ const MySuggested = ({navigation}) => {
     );
   }
 
+  function debounce(func, timeout = 300){
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
+
+  function saveInput(){
+    console.log('Saving data');
+  }
+
+  const debounceFromIngredient = debounce(()=> setRecipesFromIngredients());
+  const debounceFromQuery = debounce(() => setRecipesFromQuery());
+
   useEffect(() => {
     console.log(query);
 
+    debounce(() => saveInput());
+
     //Check if query is clear and replace with ingreditents suggested.
     if(query === "") {
-      setRecipesFromIngredients();
+      debounceFromIngredient();
       return;
-    } else if(query[query.length - 1] === " ") {
-      setRecipesFromQuery();
+    } else {
+      debounceFromQuery();
     }
 
   }, [query]);
