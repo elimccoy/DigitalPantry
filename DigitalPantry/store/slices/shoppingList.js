@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 
 export const ADD_ITEM = 'list/add_item';
 export const DELETE_ITEM = 'list/delete_item';

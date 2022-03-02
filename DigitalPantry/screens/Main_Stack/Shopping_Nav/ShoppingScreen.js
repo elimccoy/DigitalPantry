@@ -5,7 +5,7 @@ import { FAB, Subheading } from 'react-native-paper';
 import ShoppingListItem from '../../../components/ShoppingListItem.js';
 import SuggestedItem from '../../../components/SuggestedItem.js';
 import { moveSuggestedToList, editItem, unselectAllItems } from '../../../store/slices/shoppingList';
-import CustomNavigationBar from './CustomNavigationBar.js';
+import Header from '../../../components/Header';
 import ContextualActionBar from './ContextualActionBar';
 import moment from 'moment';
 
@@ -62,7 +62,7 @@ const ShoppingScreen = ({ navigation }) => {
         header: (props) => (<ContextualActionBar {...props} close={closeHeader} />),
       });
     } else { // if cabIsOpen is set to false then we want to show the regular header
-      navigation.setOptions({ header: (props) => <CustomNavigationBar {...props} /> });
+      navigation.setOptions({ header: (props) => <Header {...props} /> });
     }
   }, [cabIsOpen]); // when cabIsOpen changes
 
