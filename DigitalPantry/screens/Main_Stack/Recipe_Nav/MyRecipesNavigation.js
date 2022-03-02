@@ -2,7 +2,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import RecipeAddScreen from './RecipeAddScreen';
 import RecipeScreen from './RecipeScreen';
 
-
 const RecipeStack = createNativeStackNavigator();
 
 const MyRecipesNavigation = () => {

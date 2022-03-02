@@ -44,8 +44,23 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     if(route.params !== undefined) {
       setImgURI(route.params.item.posterUrl.uri);
       setTitle(route.params.item.title);
-      setOwnedIngredients(route.params.item.ownedIngredients);
-      setMissingIngredients(route.params.item.missingIngredients);
+
+      //Deal with ingredients.
+      let OwnedString = "";
+      for(let i = 0; i < route.params.item.ownedIngredients.length; i++) {
+        OwnedString += route.params.item.ownedIngredients[i].ingName + " - " +
+        route.params.item.ownedIngredients[i].ingCount + " " +
+        route.params.item.ownedIngredients[i].ingUnit + "\n";
+      }
+      setOwnedIngredients(OwnedString);
+
+      let MissingString = "";
+      for(let i = 0; i < route.params.item.missingIngredients.length; i++) {
+        MissingString += route.params.item.missingIngredients[i].ingName + " - " +
+        route.params.item.missingIngredients[i].ingCount + " " +
+        route.params.item.missingIngredients[i].ingUnit + "\n";
+      }
+      setMissingIngredients(MissingString);
       setInstructions(route.params.item.steps);
     }
 
@@ -64,7 +79,7 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     const recipeToSave = {
       title: title,
       ingredients: "NA",
-      steps: "NA",
+      steps: instructions,
       category: category,
       posterUrl: imgURI,
     }
@@ -139,19 +154,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 10,
   },
-  expirationDateButton: {
-    paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  expirationDateText: {
-    paddingTop: 10,
-    textAlign: 'center',
-  },
   avatarStyle: {
     alignSelf: 'center',
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
   },
   ingredientList: {
     textAlign: 'center',
