@@ -142,6 +142,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
+    
     navigation.navigate('PantryScreen');
   }
 

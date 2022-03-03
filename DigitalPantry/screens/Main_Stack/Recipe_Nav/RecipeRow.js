@@ -2,6 +2,8 @@ import { StyleSheet, Text, ScrollView, Animated, ImageBackground, Dimensions, Pr
 import { useRef } from "react"
 import { useNavigation } from '@react-navigation/native';
 
+import placeholderImage from '../../../assets/recipePlaceholder.png';
+
 // Taken from : https://chanonroy.medium.com/building-a-netflix-style-card-carousel-in-react-native-649afcd8d78e
 function RecipeRow({ recipes }) {
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -67,14 +69,13 @@ function RecipeRow({ recipes }) {
               }}
             >
               <ImageBackground
-                source={item.imageURL}
+                source={item.imageURL ? { uri: item.imageURL } : placeholderImage }
                 style={styles.backgroundImageContainer}
                 imageStyle={styles.backgroundImage}
               />
               <Text>
                 {item.title}
               </Text>
-
             </Animated.View>
           </AnimatedPressable>
         )

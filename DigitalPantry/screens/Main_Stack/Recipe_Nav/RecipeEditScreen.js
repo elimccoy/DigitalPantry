@@ -1,38 +1,79 @@
-import { useEffect, useState } from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { editRecipe, deleteRecipe } from '../../../store/slices/recipes';
+import { useState, useCallback } from 'react';
+import { StyleSheet, View, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import IOSAccessory from './IOSAccessory';
-import UploadImage from './UploadImage';
 import { Button, TextInput } from 'react-native-paper';
+import DropDown from 'react-native-paper-dropdown';
+import IOSAccessory from './IOSAccessory';
+import { editRecipe as firebaseEditRecipe } from '../../../API/firebaseMethods';
+import { editRecipe, deleteRecipe } from '../../../store/slices/recipes';
+import { getUser } from '../../../UserProvider';
+import { MeasurementList } from './util';
+
+const Accessory = Platform.select({
+  ios: IOSAccessory,
+});
 
 const RecipeEditScreen = ({ route, navigation }) => {
-
-  const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
+  const user = getUser();
   const dispatch = useDispatch();
+  const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
 
-  const Accessory = Platform.select({
-    ios: IOSAccessory,
-  });
+  console.log(recipe.ingredients);
 
   const [ recipeName, onChangeName ] = useState(recipe.title);
-  const [ ingList, onChangeIng ] = useState(recipe.ingredients || []);
   const [ recipeInfo, onChangeRecipe ] = useState(recipe.steps || '');
-  const [ category, onChangeCategory ] = useState(recipe.category || '');
+  const [ category, onChangeCategory ] = useState(recipe.category || 'Default');
+  const [ingredients, addIngredient] = useState(recipe.ingredients || [
+    { ingName: '', ingCount: '', ingUnit: '', unitDisp: false },
+  ]);
 
-  const saveRecipe = () => {
-    dispatch(editRecipe({
-      id: recipe.id,
+  const updateIngDataName = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingName = event;
+    addIngredient(values);
+  }
+  const updateIngDataCount = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingCount = event;
+    addIngredient(values);
+  }
+  const updateIngDataUnit = (i, event) => {
+    const values = [...ingredients];
+    values[i].ingUnit = event;
+    addIngredient(values);
+  }
+
+  const updateIngUnitDisp = (i, event) => {
+    const values = [...ingredients];
+    values[i].unitDisp = event;
+    addIngredient(values);
+  }
+
+  const addIngredients = () => {
+    addIngredient([...ingredients, { ingName: '', ingCount: '', ingUnit: '', unitDisp: false }]);
+  }
+
+  const save = useCallback(async () => {
+    const changedRecipe = {
+      ...recipe,
       title: recipeName,
-      ingredients: ingList,
+      ingredients,
       steps: recipeInfo,
       category,
-    }));
+    };
 
+    try {
+      const recipeRes = await firebaseEditRecipe(user.id, changedRecipe);
+
+      // Create the recipe with the id from firebase
+      dispatch(editRecipe(changedRecipe));
+
+    } catch (e) {
+      console.error(e);
+    }
     navigation.navigate('RecipeScreen');
-  }
+  }, [dispatch, recipe, category, recipeName, ingredients, navigation, recipeInfo, user.id]);
 
   const delRecipeHandler = () => {
     dispatch(deleteRecipe(recipe.id))
@@ -41,75 +82,138 @@ const RecipeEditScreen = ({ route, navigation }) => {
 
   return (
     <KeyboardAwareScrollView>
-      <UploadImage />
-      < View style={styles.inputContainer}>
-        <TextInput
-          label="Recipe Name"
-          mode={"outlined"}
-          onChangeText={onChangeName}
-          defaultValue={recipe.title}
-          inputAccessoryViewID="Done"
-        />
-        <TextInput
-          label="Ingredients"
-          mode={"outlined"}
-          onChangeText={onChangeIng}
-          defaultValue={recipe.ingredients}
-          multiline={true}
-          scrollEnabled={false}
-          inputAccessoryViewID="Done"
-          returnKeyLabel='Done'
-        />
-        <TextInput
-          label="Steps"
-          mode={"outlined"}
-          onChangeText={onChangeRecipe}
-          defaultValue={recipe.steps}
-          multiline={true}
-          scrollEnabled={false}
-          inputAccessoryViewID="Done"
-        />
-        <TextInput
-          label="Category"
-          mode={"outlined"}
-          defaultValue={category}
-          onChangeText={onChangeCategory}
-          scrollEnabled={false}
-          inputAccessoryViewID="Done"
-        />
-        <View style={styles.flexRow}>
-          <View style={styles.buttonContainer}>
-            <Button icon="check" mode="contained" onPress={saveRecipe}>
+      <View style={styles.container}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.recipeName}
+            onChangeText={onChangeName}
+            value={recipeName}
+            mode={'outlined'}
+            label={'Recipe Name'}
+            inputAccessoryViewID="Done"
+          />
+
+          {/* Ingredients section, mapped expanding text inputs */}
+          {ingredients.map((ingredient, i) => (
+            <View style={styles.ingContainer} key={i}>
+
+              <View style={styles.nameInput}>
+                <TextInput
+                  style={styles.singlelineInput}
+                  onChangeText={event => updateIngDataName(i, event)}
+                  value={ingredient.ingName}
+                  mode={'outlined'}
+                  label={'Ingredients'}
+                  placeholder="Ingredients"
+                  inputAccessoryViewID="Done"
+                />
+              </View>
+
+              <View style={styles.countInput}>
+                <TextInput
+                  style={styles.singlelineInput}
+                  onChangeText={event => updateIngDataCount(i, event)}
+                  value={ingredient.ingCount}
+                  mode={'outlined'}
+                  label={'#'}
+                  placeholder="1/2"
+                  inputAccessoryViewID="Done"
+                />
+              </View>
+
+              <View style={styles.unitInput}>
+                <DropDown
+                  label={"Unit"}
+                  mode={"outlined"}
+                  visible={ingredient.unitDisp}
+                  showDropDown={() => updateIngUnitDisp(i, true)}
+                  onDismiss={() => updateIngUnitDisp(i, false)}
+                  value={ingredient.ingUnit}
+                  setValue={(event) => updateIngDataUnit(i, event)}
+                  list={MeasurementList}
+                />
+              </View>
+            </View>
+          ))}
+
+          <Button onPress={addIngredients}>
+            Add Ingredient
+          </Button>
+
+          <TextInput
+            style={styles.multilineInput}
+            onChangeText={onChangeRecipe}
+            value={recipeInfo}
+            multiline={true}
+            scrollEnabled={false}
+            mode={'outlined'}
+            label={'Instructions'}
+            placeholder="Instructions"
+            inputAccessoryViewID="Done"
+          />
+        </View>
+
+        <View style={styles.buttonViewStyle}>
+          <View style={styles.buttonPaddingStyle}>
+            <Button
+              style={styles.saveButton}
+              onPress={save}
+              mode={'contained'}
+              icon={'check'}
+            >
               Save
             </Button>
           </View>
-          <View style={styles.buttonContainer}>
-            <Button icon="delete" mode="contained" onPress={delRecipeHandler}>
-              Delete
-            </Button>
-          </View>
         </View>
-
-        <StatusBar style="dark" translucent={false} backgroundColor='white' />
-
-        {Accessory && <Accessory />}
       </View>
+
+      {Accessory && <Accessory />}
     </KeyboardAwareScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    justifyContent: 'space-evenly',
-  },
-  buttonContainer: {
+  container: {
     flex: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingTop: 10,
+    justifyContent: 'center',
+    padding: 10,
   },
-  flexRow: {
+  recipeName: {
+    fontSize: 36,
+  },
+  singlelineInput: {
+    fontSize: 18,
+  },
+  multilineInput: {
+    fontSize: 18,
+  },
+  buttonPaddingStyle: {
+    flex: 1,
+    padding: 10,
+  },
+  buttonViewStyle: {
     flexDirection: 'row',
+    padding: 10,
+  },
+  saveButton: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  ingContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  nameInput: {
+    width: '50%',
+  },
+  countInput: {
+    width: '15%',
+  },
+  unitInput: {
+    width: '33%',
   },
 });
 

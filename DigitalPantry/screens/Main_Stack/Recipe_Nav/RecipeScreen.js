@@ -1,10 +1,12 @@
+import React from 'react'
 import { StyleSheet, View} from 'react-native';
-import React from "react"
-import RecipeGrid from './RecipeGrid';
 import { useSelector } from 'react-redux';
 import { FAB } from 'react-native-paper';
+import RecipeGrid from './RecipeGrid';
 
 const MyRecipes = ({ navigation }) => {
+  // Queries for recipes based on userId and categorizes them returning an array of categories.
+  // Each category is an object with the following properties: title, recipes where recipes is an array of recipes
   const savedRecipesByCategory = useSelector((state) => state.recipes.categories.map((category) => ({
     title: category.name,
     recipes: state.recipes.saved.filter((recipe) => recipe.category === category.name),
@@ -19,10 +21,10 @@ const MyRecipes = ({ navigation }) => {
       <RecipeGrid rowList={savedRecipesByCategory} />
       {/* This has to stay as the last component to remain on top. */}
       <FAB
-          icon="plus"
-          style={styles.button}
-          onPress={() => addPressHandler()}/>
-
+        icon="plus"
+        style={styles.button}
+        onPress={() => addPressHandler()}
+      />
     </View>
   );
 }

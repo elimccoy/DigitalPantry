@@ -1,48 +1,42 @@
-import { v4 as uuid } from 'uuid';
 
 export const ADD_ITEM = 'list/add_item';
 export const DELETE_ITEM = 'list/delete_item';
 export const EDIT_ITEM = 'list/edit_item';
 export const DELETE_ITEMS = 'list/delete_items';
 export const CLEAR_SHOPPING_LIST = 'list/clear_shopping_list';
-export const ADD_SUGGESTED_ITEM = 'list/add_suggested_item';
-export const DELETE_SUGGESTED_ITEM = 'list/delete_suggested_item';
-export const SET_SUGGESTED_ITEMS = 'list/set_suggested_items';
 export const ADD_FROM_SUGGESTED_TO_LIST = 'list/add_from_suggested_to_list';
-export const CLEAR_SUGGESTED_ITEMS = 'list/clear_suggested_items';
+export const ADD_ALL_SUGGESTED_TO_LIST = 'list/add_all_suggested_to_list';
+export const DELETE_SELECTED_ITEMS = '/list/delete_selected_items';
+export const SELECT_ALL_ITEMS = '/list/select_all_items';
+export const UNSELECT_ALL_ITEMS = '/list/unselect_all_items';
 
-export const addItem = ({ amount, name, info, units }) => ({
+export const addItem = ({ key, amount, name, unit, image, brand, description, remaining }) => ({ // adds custom item created by user to list
   type: ADD_ITEM,
+  key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
 });
 
-export const editItem = ({ key, amount, name, info, units }) => ({
+export const editItem = ({ key, amount, name, unit, image, brand, description, remaining, checked }) => ({ // edits/updates item in list
   type: EDIT_ITEM,
   key,
   amount,
   name,
-  info,
-  units,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
+  checked,
 });
 
-export const deleteItem = (key) => ({
+export const deleteItem = (key) => ({ // deletes item from list
   type: DELETE_ITEM,
-  key,
-});
-
-export const addSuggestedItem = ({ amount, name, info, units }) => ({
-  type: ADD_SUGGESTED_ITEM,
-  amount,
-  name,
-  info,
-  units,
-});
-
-export const deleteSuggestedItem = (key) => ({
-  type: DELETE_SUGGESTED_ITEM,
   key,
 });
 
@@ -57,75 +51,73 @@ export const deleteItems = (keys) => ({
   keys,
 });
 
-export const clearShoppingList = () => ({
+export const deleteSelectedItems = () => ({ // deletes all items that are selected
+  type: DELETE_SELECTED_ITEMS,
+});
+
+export const clearShoppingList = () => ({ // deletes all items from shopping list
   type: CLEAR_SHOPPING_LIST,
 });
 
-// Expects the item with the provided key to be in the suggested.
-// This both removes the item from the suggested list and adds it to the shopping list.
-export const moveSuggestedToList = (key) => ({
+export const moveSuggestedToList = ({ key, amount, name, unit, image, brand, description, remaining, expirationDate }) => ({ // adds a suggested item to list
   type: ADD_FROM_SUGGESTED_TO_LIST,
   key,
+  amount,
+  name,
+  description,
+  unit,
+  image,
+  brand,
+  remaining,
+  expirationDate,
 });
 
-export const clearSuggestedItems = () => ({
-  type: CLEAR_SUGGESTED_ITEMS,
+export const moveAllSuggested = () => ({ // adds all suggested items to list
+  type: ADD_ALL_SUGGESTED_TO_LIST,
 });
 
+
+export const selectAllItems = () => ({ // selects all list items
+  type: SELECT_ALL_ITEMS,
+
+});
+
+export const unselectAllItems = () => ({ // deselects all list items
+  type: UNSELECT_ALL_ITEMS, 
+
+});
+
+/**
+ * *****Note: Suggested items will not be stored with redux, so the suggested state has been deleted.
+ */
 const INITIAL_STATE = {
-  list: [{
-    key: uuid(),
-    name: 'Oranges',
-    info: 'orange data',
-    amount: '6',
-  }, {
-    key: uuid(),
-    name: 'Apples',
-    info: 'apple data',
-    amount: '11',
-  }, {
-    key: uuid(),
-    name: 'Broccoli',
-    info: 'broccoli data',
-    amount: '1',
-  }],
-  suggested: [{
-    key: uuid(),
-    name: 'Onions',
-    info: 'onion data',
-    amount: '3',
-  }, {
-    key: uuid(),
-    name: 'Cheese',
-    info: 'cheese data',
-    amount: '2',
-  }, {
-    key: uuid(),
-    name: 'Milk',
-    info: 'milk data',
-    amount: '3',
-  }],
+  list: [],
+
 };
 
+
 const reducers = {
-   [ADD_ITEM]: (state, action) => ({
-     ...state,
-     list: [...state.list, {
-      key: uuid(),
+  [ADD_ITEM]: (state, action) => ({ 
+    ...state,
+    list: [...state.list, {
+      key: action.key,
       name: action.name,
-      info: action.info,
       amount: action.amount,
-      units: action.units,
-     }],
-   }),
-   [EDIT_ITEM]: (state, action) => ({
+      description: action.description,
+      brand: action.brand,
+      unit: action.unit,
+      image: action.image,
+      checked: false,
+    }],
+  }),
+  [EDIT_ITEM]: (state, action) => ({
     ...state,
     list: state.list.map((item) => item.key === action.key ? ({
       ...item,
       name: action.name,
-      info: action.info,
       amount: action.amount,
-      units: action.units,
+      unit: action.unit,
+      checked: action.checked,
     }) : item),
   }),
   [DELETE_ITEM]: (state, action) => ({
@@ -136,33 +128,44 @@ const reducers = {
     ...state,
     list: [],
   }),
-  [ADD_SUGGESTED_ITEM]: (state, action) => ({
-    ...state,
-    suggested: [...state.suggested, {
-      key: uuid(),
-      name: action.name,
-      info: action.info,
-      amount: action.amount,
-      units: action.units,
-     }],
-  }),
-  [DELETE_SUGGESTED_ITEM]: (state, action) => ({
-    ...state,
-    suggested: state.suggested.filter(({ key }) => key !== action.key),
-  }),
   DELETE_ITEMS: (state, action) => ({
     ...state,
     list: list.filter(({ key }) => action.keys.indexOf(key) === -1),
   }),
   [ADD_FROM_SUGGESTED_TO_LIST]: (state, action) => ({
     ...state,
-    list: [...state.list, state.suggested.find(({ key }) => key === action.key)],
-    suggested: state.suggested.filter(({ key }) => key !== action.key),
+    list: [...state.list, {
+      key: action.key,
+      name: action.name,
+      description: action.description,
+      amount: action.amount,
+      unit: action.unit,
+      image: action.image,
+      checked: false,
+      brand: action.brand,
+      remaining: action.remaining,
+      expirationDate: action.expirationDate,
+    }],
   }),
-  [CLEAR_SUGGESTED_ITEMS]: (state) => ({
+  [DELETE_SELECTED_ITEMS]: (state) => ({
     ...state,
-    suggested: [],
+    list: state.list.filter((item) => (item.checked !== true)),
   }),
+  [SELECT_ALL_ITEMS]: (state) => ({
+    ...state,
+    list: state.list.map((item) => ({
+      ...item,
+      checked: true,
+    })),
+  }),
+  [UNSELECT_ALL_ITEMS]: (state) => ({
+    ...state,
+    list: state.list.map((item) => ({
+      ...item,
+      checked: false,
+    })),
+  }),
+ 
 };
 
 // boilerplate

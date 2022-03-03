@@ -1,16 +1,18 @@
 import { StyleSheet } from 'react-native';
 import { Button, Card, Paragraph } from 'react-native-paper';
 
-const NotificationCard = ({ type, content, cancel }) => {
+const NotificationCard = ({ type, title, contents, cancel, actions = [] }) => {
   return (
     <Card style={styles.card}>
-      <Card.Title title={type} />
+      {title && <Card.Title title={title} />}
       <Card.Content>
-        <Paragraph>{content}</Paragraph>
+        <Paragraph>{contents}</Paragraph>
       </Card.Content>
       <Card.Actions>
         <Button onPress={() => cancel()}>Cancel</Button>
-        <Button>Ok</Button>
+        {actions.map(({name, handler}) => (
+          <Button key={name} onPress={handler}>{name}</Button>
+        ))}
       </Card.Actions>
     </Card>
   );

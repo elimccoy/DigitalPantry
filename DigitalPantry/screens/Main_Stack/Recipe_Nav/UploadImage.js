@@ -37,22 +37,23 @@ export default function UploadImage() {
 
 const styles = StyleSheet.create({
   container:{
-    marginTop: StatusBar.height,
+    marginTop: StatusBar.currentHeight,
     elevation: 2,
     height:200,
     width:'100%',
-    backgroundColor: 'grey',
-    position: 'relative',
+    backgroundColor: 'lightgrey',
     overflow:'hidden',
+    alignItems:'center'
   },
   uploadBtnContainer:{
-    opacity:0.7,
+    opacity:0.5,
     position:'absolute',
     right:0,
     bottom:0,
-    backgroundColor:'lightgrey',
+    backgroundColor:'white',
     width:'100%',
     height:'25%',
+    flex:1,
   },
   uploadBtn:{
     display:'flex',
