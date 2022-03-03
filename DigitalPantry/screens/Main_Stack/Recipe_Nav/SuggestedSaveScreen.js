@@ -1,3 +1,9 @@
+/**
+ * Name: SuggestedSaveScreen.js
+ * Desc: React native screen allowing user to read about api generated recipe and save to a category.
+ * File type: Screen.
+*/
+
 import { StyleSheet, View, ScrollView } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
@@ -14,6 +20,7 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
   //Redux data
   const dispatch = useDispatch();
 
+  //States:
   const[imgURI, setImgURI] =  React.useState(null);
   const[title, setTitle] = React.useState("");
   const[steps, setSteps] = React.useState("");
@@ -39,6 +46,7 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     },
   ];
 
+  //Initial use effect to populate the screen with api data.
   React.useEffect(() => {
     //Handle incoming data (either new data or edited data.)
     if(route.params !== undefined) {
@@ -71,11 +79,13 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     });
   }, [route.params, navigation]);
 
-  //Handlers for navigating:
+  /**
+   * Name: donePressHandler
+   * Desc: Function to create new recipe item out of user selected category and api data and add to redux.
+   */
   const donePressHandler = async () => {
 
     //Add recipe to redux.
-    //let combinedIngredients = missingIngredients + ownedIngredients;
     const recipeToSave = {
       title: title,
       ingredients: "NA",
@@ -99,6 +109,7 @@ const SuggestedSaveScreen = ({ route, navigation }) => {
     }
   }
 
+  //Conditionally render depending on loading status of recipe.
   if(isLoaded) {
     return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -166,6 +177,6 @@ const styles = StyleSheet.create({
 
     fontWeight: 'bold',
   },
-  });
+});
 
 export default SuggestedSaveScreen;

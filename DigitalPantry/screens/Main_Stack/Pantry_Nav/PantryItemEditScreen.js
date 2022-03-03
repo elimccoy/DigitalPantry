@@ -1,3 +1,9 @@
+/**
+ * Name: PantryItemEditScreen.js
+ * Desc: React native screen that allows the user to adjust an item in their pantry screen.
+ * File type: Screen
+*/
+
 import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Avatar, TextInput, Button, Subheading, Paragraph } from 'react-native-paper';
@@ -13,6 +19,7 @@ const PantryItemEditScreen = ({ route, navigation }) => {
   const item = useSelector((state) => state.pantry.ingredients.find((i) => (i.key == route.params.key)));
   const dispatch = useDispatch();
 
+  //States:
   const [name, onChangeName] = useState(item.name);
   const [unit, setUnit] = useState(item.unit);
   const [amount, onChangeAmount] = useState(item.amount);
@@ -105,6 +112,8 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     },
   ];
 
+  //Use effect on new item remaining to determine what level of remaining
+  //and button should be active.
   useEffect(() => {
     //Check to see what button should be active.
     if(item.remaining === "Full") {
@@ -116,6 +125,11 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     }
   }, [item.remaining]);
 
+  /**
+   * Name: handleConfirm
+   * Desc: Takes user input from user input components and creates new pantry item that is added to the
+   * redux store.
+   */
   const handleConfirm = () => {
 
     let itemToReturn = {
@@ -142,15 +156,24 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     itemToReturn.category = category;
 
     dispatch(updateItem(itemToReturn));
-    
     navigation.navigate('PantryScreen');
   }
 
+  /**
+   * Name: handleDelete
+   * Desc: Deletes selected pantry item in redux store.
+   */
   const handleDete = () => {
     dispatch(deleteItem(item.key));
     navigation.navigate('PantryScreen');
   }
 
+  /**
+   * Name: pressRemainingButton
+   * Desc: On press of remaining button, update the currently selected button and rerender.
+   * @param {int} buttonNum
+   * @param {button} rema
+   */
   const pressRemainingButton = (buttonNum, rema) => {
 
     //Mark button.
@@ -166,7 +189,6 @@ const PantryItemEditScreen = ({ route, navigation }) => {
     setShow(false);
     setDate(date);
   }
-
 
   return (
     <View style={styles.container}>

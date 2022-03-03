@@ -1,14 +1,20 @@
-import { StyleSheet, View, FlatList, Dimensions, TouchableOpacity } from 'react-native';
+/**
+ * Name: PantryScreen.js
+ * Desc: React native screen that allows the to view more details about the pantry item selected.
+ * File type: Screen
+*/
+
+import { StyleSheet, View, FlatList } from 'react-native';
 import { FAB, Searchbar } from 'react-native-paper';
 import { pantryItemCategories } from '../../../data/PantryItemData';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useState, useEffect, useCallback } from 'react';
 import PantryCategoryBlock from '../../../components/PantryCategoryBlock';
 import { useFocusEffect } from "@react-navigation/core";
 
 const PantryScreen = ({ navigation }) => {
 
-  //States.
+  //States:
   const [query, onChangeQuery] = useState(""); //Search Query state
   const data = useSelector((state) => state.pantry.ingredients);
   const [curRenderData, setCurRenderData] = useState(data);
@@ -22,6 +28,8 @@ const PantryScreen = ({ navigation }) => {
 
   //Handle Query complete search.
   const handleQueryComplete = useCallback(() => {
+
+    //If query is empty render normal data.
     if(query === "")
     {
       setCurRenderData(data);
@@ -38,11 +46,11 @@ const PantryScreen = ({ navigation }) => {
         toSetData.push(data[i]);
       }
     }
-    console.log(toSetData)
+
     setCurRenderData(toSetData);
   }, [query, data]);
 
-  //Effect for query
+  //Effect for query to update on query change.
   useEffect(() => {
     handleQueryComplete();
   }, [handleQueryComplete]);
@@ -52,6 +60,12 @@ const PantryScreen = ({ navigation }) => {
     navigation.navigate('BarcodeScreen');
   }
 
+  /**
+   * Name: renderItem
+   * Desc: Returns a new render pantry item for flat list.
+   * @param {item, index}
+   * @returns renderItem
+   */
   const renderItem = ({item, index}) => {
     return (
       <PantryCategoryBlock

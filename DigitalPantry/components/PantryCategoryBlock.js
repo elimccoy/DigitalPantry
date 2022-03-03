@@ -1,8 +1,15 @@
+/**
+ * Name: PantryCategoryBlock.js
+ * Desc: React native component that populates a category block with pantry items.
+ * File type: Component.
+*/
+
 import { StyleSheet, View, FlatList, TouchableOpacity, Dimensions } from 'react-native';
 import PantryItem from '../components/PantryItem';
 import { useState, useEffect } from 'react';
 import { Title } from 'react-native-paper';
 
+//Number of columns in each block.
 const numColumns = 2;
 
 const PantryCategoryBlock = ({category, navigation, data}) => {
@@ -11,7 +18,12 @@ const PantryCategoryBlock = ({category, navigation, data}) => {
   const [isOpen, setIsOpen] = useState(true);
   const [renderData, setRenderData] = useState(data);
 
-  //Handle long press of item.
+  /**
+   * Name: renderItem
+   * Desc: Returns a new render pantry item for flat list.
+   * @param {item, index}
+   * @returns renderItem
+   */
   const renderItem = ({ item, index }) => {
     return (
       <TouchableOpacity

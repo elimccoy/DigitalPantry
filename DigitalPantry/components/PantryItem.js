@@ -1,3 +1,9 @@
+/**
+ * Name: PantryItem.js
+ * Desc: React native component that displays a pantry image, name, and amount in a square card.
+ * File type: Component.
+*/
+
 import { StyleSheet, View, ImageBackground } from 'react-native';
 import { Badge } from 'react-native-paper';
 

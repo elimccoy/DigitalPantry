@@ -1,10 +1,15 @@
+/**
+ * Name: PantryStackNav.js
+ * Desc: React native navigation screen to allow navigation to all sections of the pantry screen.
+ * File type: Navigation.
+*/
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PantryScreen from './PantryScreen';
 import BarcodeScannerScreen from './BarcodeScannerScreen';
 import PantryItemEditScreen from './PantryItemEditScreen';
 import PantryItemAddScreen from './PantryItemAddScreen';
 import PantryItemInfoScreen from './PantryItemInfoScreen';
-
 
 const PantryStack = createNativeStackNavigator();
 

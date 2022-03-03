@@ -1,4 +1,9 @@
-import { StyleSheet } from 'react-native';
+/**
+ * Name: MainTabNav.js
+ * Desc: Root page for tab navigation to each main section in the app.
+ * File type: Navigation
+*/
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './Home_Nav/HomeScreen';
 import PantryStackNav from './Pantry_Nav/PantryStackNav'
@@ -13,6 +18,7 @@ const MainTab = createBottomTabNavigator();
 const MainTabNav = () => {
   return (
     <MainTab.Navigator
+      //Apply icons to each tab depending on the name.
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;

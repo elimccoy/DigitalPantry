@@ -1,3 +1,9 @@
+/**
+ * Name: RecipeItem.js
+ * Desc: React native component that displays a recipe image and name in a rectangle card.
+ * File type: Component.
+*/
+
 import { StyleSheet, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 
@@ -41,18 +47,6 @@ const styles = StyleSheet.create({
   },
   backgroundImgStyleImageStyles: {
     borderRadius: 3,
-  },
-  statusBadge: {
-    position: 'absolute',
-    bottom: 7,
-    left: 7,
-    maxWidth: "70%",
-  },
-  nameBadge: {
-    position: 'absolute',
-    top: 7,
-    right: 7,
-    maxWidth: "70%",
   },
 });
 

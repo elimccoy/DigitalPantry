@@ -1,14 +1,19 @@
+/**
+ * Name: PantryItemInfoScreen.js
+ * Desc: React native screen that allows the to view more details about the pantry item selected.
+ * File type: Screen
+*/
+
 import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Title, Avatar, Paragraph  } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const PantryItemInfoScreen = ({ route, navigation }) => {
 
+  //Redux data:
   const item = useSelector((state) => state.pantry.ingredients.find((i) => (i.key == route.params.key)));
-
-  console.log(item);
 
   return(
     <ScrollView style={styles.container}>
