@@ -18,12 +18,17 @@ const RecipeEditScreen = ({ route, navigation }) => {
   const user = getUser();
   const dispatch = useDispatch();
   const recipe = useSelector((state) => state.recipes.saved.find((item) => (item.id === route.params.id)));
+  const categories = useSelector((state) => state.recipes.categories.map(({ name }) => ({
+    label: name,
+    value: name,
+  })));
 
   console.log(recipe.ingredients);
 
   const [ recipeName, onChangeName ] = useState(recipe.title);
   const [ recipeInfo, onChangeRecipe ] = useState(recipe.steps || '');
   const [ category, onChangeCategory ] = useState(recipe.category || 'Default');
+  const [ categoryDropDownVisibile, setCategoryDropDownVisibile ] = useState(false);
   const [ingredients, addIngredient] = useState(recipe.ingredients || [
     { ingName: '', ingCount: '', ingUnit: '', unitDisp: false },
   ]);
@@ -153,6 +158,20 @@ const RecipeEditScreen = ({ route, navigation }) => {
           />
         </View>
 
+        <View style={styles.categoryView}>
+          <DropDown
+            label={"Category"}
+            mode={"outlined"}
+            value={category}
+            visible={categoryDropDownVisibile}
+            showDropDown={() => setCategoryDropDownVisibile(true)}
+            onDismiss={() => setCategoryDropDownVisibile(false)}
+            setValue={(event) => onChangeCategory(event)}
+            list={categories}
+          />
+        </View>
+
+
         <View style={styles.buttonViewStyle}>
           <View style={styles.buttonPaddingStyle}>
             <Button
@@ -215,6 +234,9 @@ const styles = StyleSheet.create({
   unitInput: {
     width: '33%',
   },
+  categoryView: {
+    width: '100%',
+  }
 });
 
 export default RecipeEditScreen;
