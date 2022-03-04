@@ -1,3 +1,9 @@
+/**
+ * Name: MySuggestedNav.js
+ * Desc: React native navigation screen allowing for navigation between all suggestion subscreens.
+ * File type: Navigation.
+*/
+
 import MySuggested from './MySuggested';
 import SuggestedSaveScreen from './SuggestedSaveScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

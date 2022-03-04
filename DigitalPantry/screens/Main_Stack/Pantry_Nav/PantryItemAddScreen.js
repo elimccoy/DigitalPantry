@@ -1,9 +1,16 @@
+/**
+ * Name: PantryItemAddScreen.js
+ * Desc: React native screen that allows the user to add an item to their pantry screen
+ * after a scan.
+ * File type: Screen
+*/
+
 import { StyleSheet, View } from 'react-native';
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { TextInput, Avatar, Button, Paragraph } from 'react-native-paper';
 import { fetch_upc } from '../../../API/barcodeSpider';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { createItem } from '../../../store/slices/pantry';
 import LoadingScreen from '../LoadingScreen';
@@ -11,10 +18,10 @@ import DropDown from "react-native-paper-dropdown";
 
 const PantryItemAddScreen = ({ route, navigation }) => {
 
-  //Redux data
-  //const data = useSelector((state) => state.pantry.ingredients);
+  //Redux dispatch for adding data to redux.
   const dispatch = useDispatch();
 
+  //States:
   const[name, setName] = React.useState("Unknown");
   const[key, setKey] =  React.useState("Unknown");
   const[unit, setUnit] =  React.useState("");
@@ -110,8 +117,9 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     },
   ];
 
-  //Did mount:
+  //Run on did mount:
   React.useEffect(() => {
+
     //Handle incoming data (either new data or edited data.)
     if(route.params !== undefined) {
       let { upc } = route.params; //Get data from route;
@@ -167,10 +175,12 @@ const PantryItemAddScreen = ({ route, navigation }) => {
     navigation.navigate('PantryScreen');
   }
 
+  //Navigate to barcode scanner on scan again.
   const morePressHandler = () => {
     navigation.navigate('BarcodeScreen');
   }
 
+  //Conditionally render loading and add item screens.
   if (isLoaded) {
     return (
       <View style={styles.container}>

@@ -1,3 +1,9 @@
+/**
+ * Name: RecipeItem.js
+ * Desc: React native component that displays a recipe image and name in a rectangle card.
+ * File type: Component.
+*/
+
 import { StyleSheet, View, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
 import { Paragraph } from 'react-native-paper';
 

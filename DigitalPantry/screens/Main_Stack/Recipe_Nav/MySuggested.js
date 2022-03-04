@@ -1,4 +1,10 @@
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, TextInputComponent } from 'react-native';
+/**
+ * Name: MySuggested.js
+ * Desc: React native screen showing suggested recipes from api by search or by current pantry ingredients.
+ * File type: Screeb.
+*/
+
+import { StyleSheet, View, FlatList, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import { Searchbar } from 'react-native-paper';
 import { useSelector } from 'react-redux';
@@ -7,6 +13,7 @@ import LoadingScreen from '../LoadingScreen';
 import { v4 as uuid } from 'uuid';
 import * as recAPI from '../../../API/recipes';
 
+//Number of items to suggest to the user from API.
 const NUMSUGGESTED = 3;
 
 const MySuggested = ({navigation}) => {
@@ -27,7 +34,10 @@ const MySuggested = ({navigation}) => {
   //Get ingredients from redux.
   const ingredients = useSelector((state) => state.pantry.ingredients);
 
-  //Set rendered recipes from ingredients.
+  /**
+   * Name: setRecipesFromIngredients
+   * Desc: renders recipes from the current ingredient list using api call.
+   */
   const setRecipesFromIngredients = () => {
     //Determine search params by using ingredients.
     let concatList = "";
@@ -91,7 +101,10 @@ const MySuggested = ({navigation}) => {
     });
   }
 
-  //Set rendered recipes from query.
+  /**
+   * Name: setRecipesFromQuery
+   * Desc: renders recipes from the current query screen using api call.
+   */
   const setRecipesFromQuery = () => {
     //Determine search params by using query.
     let concatList = "";
@@ -119,7 +132,6 @@ const MySuggested = ({navigation}) => {
         let ownedIngredients = [];
 
         //Make map of measurements and amounts.
-
         for(let j = 0; j < res[i].missedIngredients.length; j++) {
           missingIngredients.push({
             ingName: res[i].missedIngredients[j].name,
@@ -158,7 +170,7 @@ const MySuggested = ({navigation}) => {
     });
   }
 
-  //Force API call on update of ingredients.
+  //Use effect to force API call on update of ingredients.
   useEffect(() =>{
     setRecipesFromIngredients();
   }, [ingredients]);
@@ -172,6 +184,7 @@ const MySuggested = ({navigation}) => {
     );
   }
 
+  //Use effect to update suggested recipes depending on query status.
   useEffect(() => {
     //Check if query is clear and replace with ingreditents suggested.
     if(query === "") {
@@ -183,6 +196,7 @@ const MySuggested = ({navigation}) => {
 
   }, [query]);
 
+  //Conditionally render components depending on status of api.
   if(isLoaded) {
     return (
       <View style={styles.container}>

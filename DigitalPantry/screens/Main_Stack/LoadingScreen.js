@@ -1,5 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { ActivityIndicator, Colors } from 'react-native-paper';
+/**
+ * Name: LoadingScreen.js
+ * Desc: React native screen to show the loading progress of a specific page.
+ * File type: Screen
+*/
+
+import { StyleSheet, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 
 const LoadingScreen = () => {
   return(
