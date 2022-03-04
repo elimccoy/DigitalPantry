@@ -8,7 +8,7 @@ const RecipeGrid = ({ rowList }) => {
       vertical={true}
     >
       {rowList.map(row => (
-        <RecipeRow key={row.title} recipes={row.recipes} />
+        <RecipeRow key={row.title} title={row.title} recipes={row.recipes} />
       ))}
     </ScrollView>
   );
