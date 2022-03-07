@@ -14,6 +14,7 @@ import UserProvider, { getUser } from './UserProvider';
 import { fetchSavedRecipes } from './API/firebaseMethods';
 import { setSavedRecipes } from './store/slices/recipes';
 import { store, persistor } from './store';
+import LoadingScreen from './screens/Main_Stack/LoadingScreen';
 
 LogBox.ignoreLogs(['Setting a timer']);
 
@@ -32,18 +33,26 @@ const Navigation = () => {
     fetchSavedRecipes(user.id)
       .then((recipes) => {
         dispatch(setSavedRecipes(recipes));
+      })
+      .catch((error) => {
+        console.error(error);
       });
   }, [dispatch, user]);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
-        { user ? (
-          <Stack.Screen name="MainTabNav" component={MainTabNav}/>
-        ):(
-          <Stack.Screen name="SignIn" component={SignInScreen}/>
-        )}
-      </Stack.Navigator>
+      { user === undefined ? (
+        <LoadingScreen />
+      ) : (
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          { user ? (
+            <Stack.Screen name="MainTabNav" component={MainTabNav}/>
+          ) : (
+            <Stack.Screen name="SignIn" component={SignInScreen}/>
+          )
+        }
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }
@@ -52,7 +61,7 @@ export default function App() {
   return (
     <UserProvider>
       <ReduxProvider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+        <PersistGate loading={LoadingScreen} persistor={persistor}>
           <PaperProvider>
             <Navigation />
           </PaperProvider>

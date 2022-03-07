@@ -18,3 +18,5 @@ config/dev.js
 # adding because of windows vs. linux incompatibilities
 yarn.lock
 package-lock.json
+
+yarn-error.lock
