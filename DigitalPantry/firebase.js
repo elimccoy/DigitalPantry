@@ -1,3 +1,8 @@
+/**
+ * Name: firebase.js
+ * Desc: Contains the constants and initial code to initialize the firebase code.
+ */
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getApps, initializeApp, getApp } from 'firebase/app';
 import { initializeAuth, getAuth } from 'firebase/auth';
@@ -13,7 +18,8 @@ const firebaseConfig = {
   appId: '1:957242178167:web:1d29e23ae227628773e472',
 };
 
-// Initializes app on first reload and prevents crashing on reloads
+// Initializes app on first reload and prevents crashing on reloads by using getApp() if the app has already been initialized.
+// This is due to the fact that while hotreloading, the initialization code would normally run again after the app was already initialized.
 let app;
 let auth;
 if (getApps().length < 1) {

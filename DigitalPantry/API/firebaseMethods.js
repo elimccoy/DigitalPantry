@@ -49,20 +49,14 @@ export async function saveRecipe(userId, recipe) {
   }
 };
 
+/**
+ * Util helper function to take an object and filter out the keys that are undefined.
+ */
 const filterUndefined = (obj) => Object.keys(obj).reduce((acc, key) => {
   const _acc = acc;
   if (obj[key] !== undefined) _acc[key] = obj[key];
   return _acc;
-}, {})
-
-const removeEmpty = (obj) => {
-  let newObj = {};
-  Object.keys(obj).forEach((key) => {
-    if (obj[key] === Object(obj[key])) newObj[key] = removeEmpty(obj[key]);
-    else if (obj[key] !== undefined) newObj[key] = obj[key];
-  });
-  return newObj;
-};
+}, {});
 
 
 /**
@@ -75,11 +69,6 @@ export async function editRecipe(userId, recipe) {
   try {
     const recipeRef = doc(db, 'Recipes', recipe.id);
     const snapshot = await getDoc(recipeRef);
-
-    console.log(70, filterUndefined({
-      ...snapshot.data(),
-      ...recipe,
-    }))
 
     return await setDoc(recipeRef, filterUndefined({
       ...snapshot.data(),

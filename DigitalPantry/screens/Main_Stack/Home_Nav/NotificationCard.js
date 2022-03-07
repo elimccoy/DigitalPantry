@@ -1,3 +1,9 @@
+/**
+ * Name: NotificationCard.js
+ * Desc: React component to render a single notification card.
+ * File type: Component
+*/
+
 import { StyleSheet } from 'react-native';
 import { Button, Card, Paragraph } from 'react-native-paper';
 

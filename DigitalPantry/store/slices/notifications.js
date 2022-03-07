@@ -4,7 +4,7 @@ export const CREATE_NOTIFICATION = 'notifications/create';
 export const DELETE_NOTIFICATION = 'notifications/delete';
 
 /**
- * Creates a new notification to show the user
+ * Creates an action that creates a new notification to show the user
  * @param {{
     notifType: NotificationType
     contents: string
@@ -25,6 +25,10 @@ export const createNotification = ({ notifType, contents }) => ({
   contents,
 });
 
+/**
+ * Creates an action to delete a notification
+ * @param {number} id - id of notifcation to delete
+ */
 export const deleteNotification = (id) => ({
   type: DELETE_NOTIFICATION,
   id,
@@ -37,19 +41,14 @@ const INITIAL_STATE = {
     timestamp: number
     contents: String - the text to show the user
   }*/
-  // {
-  //   id: 1,
-  //   type: 'recipe_suggestion',
-  //   contents: 'You should make eggs for breakfast. You have 18 eggs expiring tomorrow',
-  // }, {
-  //   id: 2,
-  //   type: 'shopping_list_suggestion',
-  //   contents: 'You have spaghetti scheduled for today and are missing Ingredients. Would you like to add them to your shoping list?',
-  // }
 ],
 };
 
 const reducers = {
+  /**
+   * Reducer for creating notifications.
+   * Generates a new version of notifications with the new notification.
+   */
    [CREATE_NOTIFICATION]: (state, action) => ({
      ...state,
      notifications: [...state.notifications, {
@@ -59,6 +58,10 @@ const reducers = {
       contents: action.contents,
      }],
    }),
+   /**
+    * Reducer for deleting a notification.
+    * Generates a new version of notifications without the specified notification.
+    */
    [DELETE_NOTIFICATION]: (state, action) => ({
      ...state,
      notifications: state.notifications.filter(({ id }) => id !== action.id),

@@ -1,3 +1,9 @@
+/**
+ * Name: Homescreen.js
+ * Desc: React native screen displays list of notifications.
+ * File type: Screen
+*/
+
 import moment from 'moment';
 import { StyleSheet, Text, ScrollView, Button } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,6 +20,8 @@ const HomeScreen = () => {
 
   const auth = getAuth();
 
+  // Generate a list of notifications for items where the status is running low.
+  // This is a list derived from the current state and doesn't add notifications to redux.
   const lowItemNotifications = ingredients
     .filter(({ key, amount, remaining }) =>
       (amount === 1 && remaining === 'Low') &&
@@ -35,6 +43,8 @@ const HomeScreen = () => {
       }],
     }));
 
+  // Generate a list of notifications for items that are expiring soon.
+  // This is a list derived from the current state and doesn't add notifications to redux.
   const expiredItemNotificiations = ingredients
     .filter(({ key, expirationDate }) =>
       (moment(expirationDate).diff(Date.now(), 'days') < 7) &&
@@ -65,6 +75,7 @@ const HomeScreen = () => {
     });
   }
 
+  // Combine the 3 lists of notifications to display.
   const allNotifications = [...expiredItemNotificiations, ...lowItemNotifications, ...notifications];
 
   return(

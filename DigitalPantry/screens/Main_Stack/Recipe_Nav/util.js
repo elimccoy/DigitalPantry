@@ -1,3 +1,8 @@
+/**
+ * Name: util.js
+ * Desc: A collection of constants used in multiple recipe components
+*/
+
 export const MeasurementList = [
   // volume
   {
