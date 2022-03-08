@@ -65,7 +65,7 @@ const reducers = {
       title: action.title,
       ingredients: action.ingredients,
       steps: action.steps,
-      imageURL: action.imageURL || placeholderImage,
+      imageURL: action.imageURL,
     }, ...state.saved],
     // automatically create the category if it doesn't exist
     categories: state.categories.find((c) => c.name === action.category)
