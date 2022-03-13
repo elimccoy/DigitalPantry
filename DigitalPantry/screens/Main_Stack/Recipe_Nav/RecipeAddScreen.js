@@ -1,3 +1,10 @@
+
+/**
+ * Name: RecipeAddScreen.js
+ * Desc: React native screen that allows the user to add a custom recipe to the saved recipes page.
+ * File type: Screen
+*/
+
 import { StyleSheet, View, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
@@ -12,22 +19,45 @@ import { saveRecipe } from '../../../API/firebaseMethods';
 import { getUser } from '../../../UserProvider';
 import { MeasurementList } from './util';
 
+// Platform selection: checks for ios or android platform, used in Accessory component.
 const Accessory = Platform.select({
   ios: IOSAccessory,
 });
 
+// Main screen function
 const RecipeAddScreen = ({ navigation }) => {
+
+  // Gets user information and data, establishes dispatch for firebase data.
   const user = getUser();
   const dispatch = useDispatch();
 
+  // Recipe information:
+  /*
+  recipeName: string
+  recipeInfo: string
+  ingredients: object list
+    object info:
+      ingName: string
+      ingCount: string
+      ingUnit: string
+      unitDisp: bool
+
+      unitDisp is used to display or hide the unit dropdown
+
+  ingredients is mapped to the screen, it is referenced to display a new ingredient data component
+  for each present ingredient object in the list
+  */
   const [ recipeName, onChangeName ] = useState('');
   const [ recipeInfo, onChangeRecipe ] = useState('');
   const [ingredients, addIngredient] = useState([
     { ingName: '', ingCount: '', ingUnit: '', unitDisp: false },
   ]);
 
+  // Category selector: assigns category on saved recipe screen
   const categories = useSelector((state) => state.recipes.categories);
 
+  // Firebase save call: creates the new recipe and populates it with information provided by the user
+  // Data described above
   const save = async () => {
     const newRecipe = {
       title: recipeName,
@@ -53,6 +83,10 @@ const RecipeAddScreen = ({ navigation }) => {
     navigation.navigate('RecipeScreen');
   };
 
+  /*
+  Functions for updating individual ingredient info.
+  Information is mapped to a dynamic list of components, each must be updated independently.
+  */
   const updateIngDataName = (i, event) => {
     const values = [...ingredients];
     values[i].ingName = event;
@@ -75,6 +109,7 @@ const RecipeAddScreen = ({ navigation }) => {
     addIngredient(values);
   }
 
+  // Creates a new default ingredient object and appends it to the mapped list.
   const addIngredients = () => {
     addIngredient([...ingredients, { ingName: "", ingCount: "", ingUnit: "", unitDisp: false }]);
   }
@@ -83,6 +118,7 @@ const RecipeAddScreen = ({ navigation }) => {
     <KeyboardAwareScrollView>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
+          {/* Component updating recipeName */}
           <TextInput
             style={styles.recipeName}
             onChangeText={onChangeName}
@@ -96,6 +132,7 @@ const RecipeAddScreen = ({ navigation }) => {
           {ingredients.map((ingredient, i) => (
             <View style={styles.ingContainer} key={i}>
 
+              {/* Component updating ingName */}
               <View style={styles.nameInput}>
                 <TextInput
                   style={styles.singlelineInput}
@@ -108,6 +145,7 @@ const RecipeAddScreen = ({ navigation }) => {
                 />
               </View>
 
+              {/* Component updating ingCount */}
               <View style={styles.countInput}>
                 <TextInput
                   style={styles.singlelineInput}
@@ -120,6 +158,7 @@ const RecipeAddScreen = ({ navigation }) => {
                 />
               </View>
 
+              {/* Component updating ingUnit */}
               <View style={styles.unitInput}>
                 <DropDown
                   label={"Unit"}
@@ -135,10 +174,12 @@ const RecipeAddScreen = ({ navigation }) => {
             </View>
           ))}
 
+          {/* Componenet appending a new ingredient object and component to the list */}
           <Button onPress={addIngredients}>
             Add Ingredient
           </Button>
 
+          {/* Component updating recipeInfo (multiline textbox) */}
           <TextInput
             style={styles.multilineInput}
             onChangeText={onChangeRecipe}
@@ -152,6 +193,7 @@ const RecipeAddScreen = ({ navigation }) => {
           />
         </View>
 
+        {/* Component saving recipe, calls dispatch function to append to firebase */}
         <View style={styles.buttonViewStyle}>
           <View style={styles.buttonPaddingStyle}>
             <Button
@@ -166,6 +208,7 @@ const RecipeAddScreen = ({ navigation }) => {
         </View>
       </View>
 
+      {/* Component displaying the iOS accessory if on iOS else displays nothing */}
       {Accessory && <Accessory />}
     </KeyboardAwareScrollView>
   );
